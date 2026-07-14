@@ -1,0 +1,15 @@
+import {
+  "Luna-Flow/diff_bench/floating_vs_decmial_x" @decimal_bench,
+  "moonbitlang/x/fs",
+  "moonbitlang/async",
+}
+
+warnings = "-29"
+
+options(
+  "is-main": true,
+  targets: {
+    "main.mbt": [ "native" ],
+    "main_unimplemented.mbt": [ "js", "wasm", "wasm-gc", "llvm" ],
+  },
+)

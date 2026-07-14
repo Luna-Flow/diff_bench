@@ -1,0 +1,69 @@
+///|
+fn write_mare_performance_report(
+  results : Array[@decimal_bench.PerformanceResult],
+  validation_count : Int,
+  failed_count : Int,
+) -> Unit {
+  try @fs.create_dir("artifacts") catch {
+    _ => ()
+  } noraise {
+    _ => ()
+  }
+  let html = @decimal_bench.mare_performance_report_html(
+    results,
+    "native",
+    "floating-vs-decimal-x",
+    validation_count~,
+    failed_count~,
+  )
+  try
+    @fs.write_string_to_file("artifacts/mare_mark_performance.html", html)
+  catch {
+    _ => abort("could not write Mare Mark performance report")
+  } noraise {
+    _ => ()
+  }
+}
+
+///|
+async fn main {
+  let operations : Array[@decimal_bench.Operation] = [
+    @decimal_bench.Operation::Add,
+    @decimal_bench.Operation::Subtract,
+    @decimal_bench.Operation::Multiply,
+    @decimal_bench.Operation::Divide,
+    @decimal_bench.Operation::Compare,
+  ]
+  let report = @decimal_bench.run_mare_benchmark(
+    operations,
+    @decimal_bench.DecimalSemantics::ExactOverlap,
+    @decimal_bench.expand_digit_scales([1, 4, 16, 64, 256, 1024, 4096], 3),
+    @decimal_bench.default_benchmark_protocol(),
+    0xDEC1A1UL,
+  )
+  println(report.jsonl)
+  for result in report.results {
+    println(result.to_json())
+  }
+  let x_compatible_report = @decimal_bench.run_mare_benchmark(
+    [@decimal_bench.Operation::Multiply, @decimal_bench.Operation::Divide],
+    @decimal_bench.DecimalSemantics::XCompatible,
+    @decimal_bench.expand_digit_scales([1, 4, 16, 64, 256, 1024, 4096], 3),
+    @decimal_bench.default_benchmark_protocol(),
+    0xDEC1A1UL,
+  )
+  println(x_compatible_report.jsonl)
+  for result in x_compatible_report.results {
+    println(result.to_json())
+  }
+  let all_results = []
+  all_results.append(report.results)
+  all_results.append(x_compatible_report.results)
+  let validation_count = report.validation_count +
+    x_compatible_report.validation_count
+  let failed_count = report.failed_count + x_compatible_report.failed_count
+  write_mare_performance_report(all_results, validation_count, failed_count)
+  if report.failed_count > 0 || x_compatible_report.failed_count > 0 {
+    abort("decimal differential validation failed")
+  }
+}
