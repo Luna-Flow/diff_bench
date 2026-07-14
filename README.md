@@ -2,6 +2,49 @@
 
 Differential correctness and performance benchmarks for Luna-Flow MoonBit packages.
 
+## DzmingLi decimal versus floating GDA
+
+The `dzmingli_vs_floating` package compares `DzmingLi/decimal@0.2.2` with
+`Luna-Flow/floating/decimal_gda@0.6.1`. The benchmark deliberately pins the
+deprecated DzmingLi release for historical comparison; its maintained successor
+is `moonbit-community/decimal`.
+
+Mare Mark validates both implementations against an exact `BigInt` oracle and
+reports performance for two symmetric timing scopes: `arithmetic_only` measures
+the public operation with operands prepared outside timing, while `full_path`
+includes context-aware parsing and constructing both already-serialized operands
+before that operation. Division
+uses exact terminating inputs, and this comparison applies neither X-compatible
+semantics nor fixed 28-digit quantization.
+
+Run the native scaling benchmark, covering general 1–4,096-digit inputs, all
+operations through 10,000 digits, and non-multiplication stress inputs through
+20,000 coefficient digits. Every size uses three identical operand profiles and
+60 paired confirmatory samples:
+
+```sh
+moon run --release src/dzmingli_vs_floating/bench --target native
+```
+
+Run the 1, 4, 8, 16, 18, and 28-digit benchmark:
+
+```sh
+moon run --release src/dzmingli_vs_floating/bench_common --target native
+```
+
+The runners write
+`artifacts/mare_mark_dzmingli_vs_floating_performance.html` and
+`artifacts/mare_mark_dzmingli_vs_floating_common_digits.html`, with matching
+`extended.jsonl` and `common_digits.jsonl` raw records. See
+`src/dzmingli_vs_floating/README.md` for the corpus and measurement contract,
+and `src/dzmingli_vs_floating/BENCHMARK_RESULTS.md` for the recorded DzmingLi
+correctness failures and large-input abort boundary.
+
+The latest Apple M4 native run records 738/738 exact-finite validations passing
+for floating GDA and 630/738 for DzmingLi. The separate 23-file official GDA
+arithmetic audit finds 329 DzmingLi `toSci` failures; floating GDA passes all
+17,651 legal rows.
+
 ## Decimal X versus floating GDA
 
 The `floating_vs_decmial_x` package compares:

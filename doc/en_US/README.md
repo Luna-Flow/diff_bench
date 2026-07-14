@@ -15,3 +15,7 @@
 - `floating_vs_decmial_x/tutorial.md`: reproduction instructions
 - `floating_vs_decmial_x/design.md`: design and performance report
 - `floating_vs_decmial_x/performance.md`: multilingual performance analysis
+- `dzmingli_vs_floating/api.md`: benchmark API and entry points
+- `dzmingli_vs_floating/tutorial.md`: reproduction instructions
+- `dzmingli_vs_floating/design.md`: correctness and design report
+- `dzmingli_vs_floating/performance.md`: measured performance analysis

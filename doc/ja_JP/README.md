@@ -15,3 +15,7 @@
 - `floating_vs_decmial_x/tutorial.md`: 再現手順
 - `floating_vs_decmial_x/design.md`: 設計と性能レポート
 - `floating_vs_decmial_x/performance.md`: 多言語パフォーマンス分析レポート
+- `dzmingli_vs_floating/api.md`: ベンチマーク API と実行入口
+- `dzmingli_vs_floating/tutorial.md`: 再現手順
+- `dzmingli_vs_floating/design.md`: 正当性・設計レポート
+- `dzmingli_vs_floating/performance.md`: 測定性能分析

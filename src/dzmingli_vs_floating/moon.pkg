@@ -1,0 +1,19 @@
+import {
+  "DzmingLi/decimal" @dz_decimal,
+  "Luna-Flow/floating/decimal_gda" @floating_gda,
+  "Luna-Flow/mare_mark/event" @mare_event,
+  "Luna-Flow/mare_mark/experiment" @mare_experiment,
+  "Luna-Flow/mare_mark/fixture" @mare_fixture,
+  "Luna-Flow/mare_mark/generator" @mare_generator,
+  "Luna-Flow/mare_mark/model" @mare_model,
+  "Luna-Flow/mare_mark/ir_model" @mare_ir,
+  "Luna-Flow/mare_mark/report" @mare_report,
+  "Luna-Flow/mare_mark/runner" @mare_runner,
+  "Luna-Flow/mare_mark/stats" @mare_stats,
+  "moonbitlang/core/bigint",
+  "moonbitlang/core/env",
+}
+
+import {
+  "moonbitlang/async",
+} for "test"

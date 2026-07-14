@@ -15,3 +15,7 @@
 - `floating_vs_decmial_x/tutorial.md`：如何运行和复现实验
 - `floating_vs_decmial_x/design.md`：基准设计、结果分析与实现对比报告
 - `floating_vs_decmial_x/performance.md`：多语言性能分析报告
+- `dzmingli_vs_floating/api.md`：基准 API 与运行入口
+- `dzmingli_vs_floating/tutorial.md`：实验复现步骤
+- `dzmingli_vs_floating/design.md`：正确性、设计与边界报告
+- `dzmingli_vs_floating/performance.md`：本次性能分析
