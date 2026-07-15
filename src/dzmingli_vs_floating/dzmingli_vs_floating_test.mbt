@@ -223,6 +223,12 @@ async test "Mare Mark validates and measures arithmetic-only and full paths" {
   inspect(full_path_report.results.length(), content="4")
   inspect(arithmetic_report.results[0].samples, content="3")
   inspect(
+    arithmetic_report.results[0]
+    .to_json()
+    .contains("\"artifact_version\":\"mmka_1\""),
+    content="true",
+  )
+  inspect(
     timing_scope_name(arithmetic_report.results[0].timing_scope),
     content="arithmetic_only",
   )

@@ -115,6 +115,10 @@ async test "Mare Mark smoke run validates and measures both implementations" {
   inspect(report.results.length(), content="4")
   inspect(report.results[0].samples, content="3")
   inspect(report.results[0].timing_scope, content="arithmetic_only")
+  inspect(
+    report.results[0].to_json().contains("\"artifact_version\":\"mmka_1\""),
+    content="true",
+  )
   inspect(report.jsonl.contains("\"type\":\"observation\""), content="true")
   inspect(report.jsonl.contains("\"device\":\"cpu\""), content="true")
   inspect(

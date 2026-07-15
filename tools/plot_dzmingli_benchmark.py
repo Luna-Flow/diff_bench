@@ -4,15 +4,9 @@
 from __future__ import annotations
 
 import argparse
-import json
-import statistics
-from collections import defaultdict
 from pathlib import Path
 
-import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
-from matplotlib.patches import Patch
-from matplotlib.ticker import FuncFormatter, LogLocator
+from mare_plot_ir import PlotDocument, find_scaling_plot, load_plot_document
 
 
 IMPLEMENTATIONS = ("floating_decimal_gda", "dzmingli_decimal")
@@ -35,52 +29,16 @@ INVALID_FROM = 4096
 ABORT_FROM = 32768
 
 
-def parse_case(case: str) -> tuple[str, str]:
-    prefix = "decimal_"
-    if not case.startswith(prefix):
-        raise ValueError(f"unexpected benchmark case: {case}")
-    body = case[len(prefix) :]
-    for scope in SCOPES:
-        suffix = f"_{scope}"
-        if body.endswith(suffix):
-            return body[: -len(suffix)], scope
-    raise ValueError(f"case has no recognized scope: {case}")
-
-
-def load_results(path: Path):
-    current_validation: dict[tuple[str, int, str], tuple[int, bool]] = {}
-    observations: defaultdict[tuple[str, str, int, str], list[float]] = defaultdict(list)
-
-    with path.open(encoding="utf-8") as source:
-        for line in source:
-            record = json.loads(line)
-            record_type = record.get("type")
-            if record_type in {"validation", "validation_failure"}:
-                operation, scope = parse_case(record["case"])
-                key = (record["implementation"], record["dataset_id"], record["case"])
-                current_validation[key] = (
-                    int(record["scale"]),
-                    record_type == "validation" and record.get("status") == "valid",
-                )
-            elif record_type == "observation" and record.get("phase") == "confirmatory":
-                operation, scope = parse_case(record["case"])
-                validation_key = (record["implementation"], record["dataset_id"], record["case"])
-                if validation_key not in current_validation:
-                    raise ValueError(f"observation precedes validation: {validation_key}")
-                scale, valid = current_validation[validation_key]
-                if valid:
-                    observations[(operation, scope, scale, record["implementation"])].append(
-                        float(record["elapsed_us"])
-                    )
-
-    return {key: statistics.median(values) for key, values in observations.items()}
-
-
 def digit_label(value: float, _position: float) -> str:
     return f"{value:,.0f}"
 
 
-def render(results, output_stem: Path) -> None:
+def render(document: PlotDocument, output_stem: Path) -> None:
+    import matplotlib.pyplot as plt
+    from matplotlib.lines import Line2D
+    from matplotlib.patches import Patch
+    from matplotlib.ticker import FuncFormatter, LogLocator
+
     plt.rcParams.update(
         {
             "font.family": "sans-serif",
@@ -117,10 +75,11 @@ def render(results, output_stem: Path) -> None:
                     )
 
             for implementation in IMPLEMENTATIONS:
-                points = sorted(
-                    (scale, latency)
-                    for (op, timing_scope, scale, impl), latency in results.items()
-                    if op == operation and timing_scope == scope and impl == implementation
+                plot = find_scaling_plot(document, operation, scope)
+                points = [] if plot is None else sorted(
+                    (int(point.x), point.y)
+                    for point in plot.points
+                    if point.series == implementation
                 )
                 if not points:
                     continue
@@ -187,16 +146,21 @@ def main() -> None:
         "input",
         nargs="?",
         type=Path,
-        default=Path("artifacts/mare_mark_dzmingli_vs_floating_extended.jsonl"),
+        default=Path("artifacts/dzmingli_vs_floating/scaling.jsonl"),
     )
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path("artifacts/dzmingli_vs_floating_final_benchmark"),
+        default=Path("artifacts/dzmingli_vs_floating/main"),
         help="output path without an extension",
     )
+    parser.add_argument("--ir-output", type=Path,
+                        default=Path("artifacts/dzmingli_vs_floating/main.ir.json"),
+                        help="mare_mark mmks_1 Plot IR JSON output")
     arguments = parser.parse_args()
-    render(load_results(arguments.input), arguments.output)
+    document = load_plot_document(arguments.input)
+    document.write_json(arguments.ir_output)
+    render(document, arguments.output)
 
 
 if __name__ == "__main__":

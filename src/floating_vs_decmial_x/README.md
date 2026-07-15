@@ -10,7 +10,8 @@ This package is the isolated benchmark for `moonbitlang/x/decimal` versus
 - `oracle_multiply` and `oracle_divide` model a 28-digit, truncating decimal policy.
 - `generate_cases` is deterministic by construction; it does not use wall-clock time or process-global random state.
 
-Mare Mark 0.2.0 supplies stable input fingerprinting, continuous seeded balanced execution order,
+The package has migrated to the repository-wide `mare_mark@0.3.0` benchmark
+and Plot IR pipeline. Mare Mark supplies stable input fingerprinting, continuous seeded balanced execution order,
 median-based repeated-observation reporting, synchronization hooks, and complete environment
 metadata. Adapters consume the same neutral fixture and
 compare their output through `canonical_observation`. The native run uses three independently
@@ -40,18 +41,20 @@ toolchain.
 Run the native performance differential with:
 
 ```sh
-moon run --release src/floating_vs_decmial_x/bench --target native
+moon run --release src/floating_vs_decmial_x/bench --target native \
+  > artifacts/floating_vs_decmial_x/scaling.jsonl
 ```
 
 For the X-oriented common coefficient sizes of 1, 4, 8, 16, 18, and 28
 digits, run the independent common-digit line with:
 
 ```sh
-moon run --release src/floating_vs_decmial_x/bench_common --target native
+moon run --release src/floating_vs_decmial_x/bench_common --target native \
+  > artifacts/floating_vs_decmial_x/common_digits.jsonl
 ```
 
 It uses the same validation and measurement protocol and writes
-`artifacts/mare_mark_common_digits_performance.html`, leaving the wide scaling
+`artifacts/floating_vs_decmial_x/common_digits.html`, leaving the wide scaling
 report untouched.
 
 Set `MARE_CPU`, `MARE_OS`, `MARE_BUILD_MODE`, and related `MARE_*` variables
@@ -63,6 +66,12 @@ comparison records as JSONL. Timings are reported per operation and coefficient 
 different targets must be run and analyzed separately.
 
 After a native run, the Mare Plot IR backend also writes
-`artifacts/mare_mark_performance.html`. It contains one scaling plot per operation and timing
-scope, plus X-versus-GDA speedup plots. The existing `scripts/plot_benchmark.py` SVG path remains
-available for comparison and regression checks.
+`artifacts/floating_vs_decmial_x/scaling.html`. It contains one scaling plot per operation and timing
+scope, plus X-versus-GDA speedup plots.
+
+Save benchmark stdout as `artifacts/floating_vs_decmial_x/scaling.jsonl`, then
+run `python3 tools/layout_x_decimal.py` to generate `main.png`, `main.pdf`,
+`main.svg`, and `main.ir.json` in the same package directory. These outputs all
+come from the shared `mmks_1` IR: PNG supports quick previews, PDF supports
+distribution and archival, SVG supports web and publication editing, and the
+retained IR records exactly what the layout consumed.

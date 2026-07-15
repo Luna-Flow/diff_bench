@@ -9,6 +9,11 @@ fn write_mare_performance_report(
   } noraise {
     _ => ()
   }
+  try @fs.create_dir("artifacts/dzmingli_vs_floating") catch {
+    _ => ()
+  } noraise {
+    _ => ()
+  }
   let html = @decimal_bench.mare_performance_report_html(
     results,
     "native",
@@ -18,7 +23,7 @@ fn write_mare_performance_report(
   )
   try
     @fs.write_string_to_file(
-      "artifacts/mare_mark_dzmingli_vs_floating_performance.html", html,
+      "artifacts/dzmingli_vs_floating/scaling.html", html,
     )
   catch {
     _ => abort("could not write Mare Mark performance report")

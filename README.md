@@ -2,6 +2,20 @@
 
 Differential correctness and performance benchmarks for Luna-Flow MoonBit packages.
 
+## Benchmark framework and publication artifacts
+
+The repository has migrated both benchmark packages to the current pinned
+`Luna-Flow/mare_mark@0.3.0` framework. Every run emits versioned `mmka_1`
+JSONL, and the shared Python parser converts that data into `mmks_1` Plot IR.
+Package-specific Matplotlib layouts then render a consistent set of publication
+figures without recomputing benchmark statistics.
+
+Each package keeps its raw records, self-contained HTML reports, Plot IR, and
+figures in its own `artifacts/<package>/` directory. PNG is convenient for
+quick previews and documents, PDF is suitable for distribution and archival,
+and SVG remains editable for web or publication workflows. Keeping JSONL and
+Plot IR beside those figures preserves the provenance needed to reproduce them.
+
 ## DzmingLi decimal versus floating GDA
 
 The `dzmingli_vs_floating` package compares `DzmingLi/decimal@0.2.2` with
@@ -23,19 +37,21 @@ operations through 10,000 digits, and non-multiplication stress inputs through
 60 paired confirmatory samples:
 
 ```sh
-moon run --release src/dzmingli_vs_floating/bench --target native
+moon run --release src/dzmingli_vs_floating/bench --target native \
+  > artifacts/dzmingli_vs_floating/scaling.jsonl
 ```
 
 Run the 1, 4, 8, 16, 18, and 28-digit benchmark:
 
 ```sh
-moon run --release src/dzmingli_vs_floating/bench_common --target native
+moon run --release src/dzmingli_vs_floating/bench_common --target native \
+  > artifacts/dzmingli_vs_floating/common_digits.jsonl
 ```
 
-The runners write
-`artifacts/mare_mark_dzmingli_vs_floating_performance.html` and
-`artifacts/mare_mark_dzmingli_vs_floating_common_digits.html`, with matching
-`extended.jsonl` and `common_digits.jsonl` raw records. See
+The runners write `scaling.html`, `common_digits.html`, and matching JSONL
+records under `artifacts/dzmingli_vs_floating/`. The Python layouts add
+`main.{png,pdf,svg}`, `supplementary.{png,pdf,svg}`, and their Plot IR JSON.
+See
 `src/dzmingli_vs_floating/README.md` for the corpus and measurement contract,
 and `src/dzmingli_vs_floating/BENCHMARK_RESULTS.md` for the recorded DzmingLi
 correctness failures and large-input abort boundary.
@@ -52,26 +68,28 @@ The `floating_vs_decmial_x` package compares:
 - `moonbitlang/x/decimal@0.4.46`
 - `Luna-Flow/floating/decimal_gda@0.6.1`
 
-Both implementations consume the same neutral decimal fixtures. Mare Mark 0.2.0 performs validation
+Both implementations consume the same neutral decimal fixtures. Mare Mark 0.3.0 performs validation
 outside the timing path, calibrates each implementation, uses balanced execution order, retains
 raw observations, and calculates paired performance comparisons.
 
 Run the native scaling benchmark:
 
 ```sh
-moon run --release src/floating_vs_decmial_x/bench --target native
+moon run --release src/floating_vs_decmial_x/bench --target native \
+  > artifacts/floating_vs_decmial_x/scaling.jsonl
 ```
 
 Run the separate common-digit benchmark for 1, 4, 8, 16, 18, and 28-digit
 coefficients:
 
 ```sh
-moon run --release src/floating_vs_decmial_x/bench_common --target native
+moon run --release src/floating_vs_decmial_x/bench_common --target native \
+  > artifacts/floating_vs_decmial_x/common_digits.jsonl
 ```
 
-The common-digit runner writes
-`artifacts/mare_mark_common_digits_performance.html` and does not overwrite the
-scaling report.
+The runners write `scaling.html`, `common_digits.html`, and matching JSONL
+records under `artifacts/floating_vs_decmial_x/`; the Python layout adds
+`main.{png,pdf,svg}` and `main.ir.json`.
 
 For portable provenance, set the optional `MARE_*` environment overrides when
 the host facts are known (for example, `MARE_CPU`, `MARE_OS`, and
@@ -81,27 +99,26 @@ the host facts are known (for example, `MARE_CPU`, `MARE_OS`, and
 The command emits JSONL containing validation, calibration, observation, summary, and comparison
 records. Results from different MoonBit targets must not be combined.
 
-The native benchmark also writes `artifacts/mare_mark_performance.html` using Mare Mark's Plot IR
-and self-contained HTML renderer. The existing dependency-free SVG plotting helper remains
-available for side-by-side regression checks.
+The native benchmark also writes `artifacts/floating_vs_decmial_x/scaling.html`
+using Mare Mark's Plot IR and self-contained HTML renderer.
 
 This repository is a GitHub-only benchmark and reference project. The
 `floating_vs_decmial_x` package is not published to Mooncakes and is not intended
 to be used as a downstream runtime dependency.
 
-To save a run and render comparison plots:
+To render the unified Matplotlib figures from the recorded scaling runs:
 
 ```sh
 python3 -m venv .venv
 .venv/bin/pip install -r requirements-plot.txt
-moon run --release src/floating_vs_decmial_x/bench --target native > /tmp/diff_bench_native.jsonl
-.venv/bin/python scripts/plot_benchmark.py /tmp/diff_bench_native.jsonl artifacts/arithmetic_only.svg arithmetic_only
-.venv/bin/python scripts/plot_benchmark.py /tmp/diff_bench_native.jsonl artifacts/semantic_equivalent_pipeline.svg semantic_equivalent_pipeline
+.venv/bin/python tools/plot_dzmingli_benchmark.py
+.venv/bin/python tools/plot_dzmingli_supplementary_benchmark.py
+.venv/bin/python tools/layout_x_decimal.py
 ```
 
-The Matplotlib helper reads `comparison` JSONL records and writes SVG, PNG, or PDF. Each panel uses
-a base-2 logarithmic coefficient-size axis and reports median microseconds per operation (`µs/op`).
-The subtitle records the timing scope and paired sample count; lower values are faster.
+All layouts consume the shared Plot IR model and write PNG, PDF, and SVG from
+the same data. Each panel uses a base-2 logarithmic coefficient-size axis and
+reports median microseconds per operation (`µs/op`); lower values are faster.
 
 ## Development
 

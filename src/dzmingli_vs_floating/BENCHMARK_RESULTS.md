@@ -133,10 +133,19 @@ Remaining limits are relevant when interpreting the results:
 
 The generated artifacts are:
 
-- `artifacts/mare_mark_dzmingli_vs_floating_performance.html`
-- `artifacts/mare_mark_dzmingli_vs_floating_extended.jsonl`
-- `artifacts/mare_mark_dzmingli_vs_floating_common_digits.html`
-- `artifacts/mare_mark_dzmingli_vs_floating_common_digits.jsonl`
+- `artifacts/dzmingli_vs_floating/scaling.html`
+- `artifacts/dzmingli_vs_floating/scaling.jsonl`
+- `artifacts/dzmingli_vs_floating/common_digits.html`
+- `artifacts/dzmingli_vs_floating/common_digits.jsonl`
+- `artifacts/dzmingli_vs_floating/main.{png,pdf,svg}`
+- `artifacts/dzmingli_vs_floating/main.ir.json`
+- `artifacts/dzmingli_vs_floating/supplementary.{png,pdf,svg}`
+- `artifacts/dzmingli_vs_floating/supplementary.ir.json`
+
+These artifacts use the migrated `mare_mark@0.3.0` pipeline. The versioned
+JSONL is parsed into retained `mmks_1` Plot IR, then the unified Matplotlib
+layouts render PNG for previews, PDF for distribution and archival, and SVG
+for editable publication use without recalculating benchmark results.
 
 ## Performance highlights
 

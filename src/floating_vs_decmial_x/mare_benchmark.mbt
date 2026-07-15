@@ -33,7 +33,9 @@ pub(all) struct MareBenchmarkReport {
 
 ///|
 pub fn PerformanceResult::to_json(self : PerformanceResult) -> String {
-  "{\"type\":\"comparison\",\"operation\":\"" +
+  "{\"artifact_version\":\"" +
+  @mare_model.ArtifactVersion::V1.identifier() +
+  "\",\"type\":\"comparison\",\"operation\":\"" +
   operation_name(self.operation) +
   "\",\"semantics\":\"" +
   decimal_semantics_name(self.semantics) +
@@ -288,7 +290,7 @@ fn mare_case(
   operation : Operation,
   semantics : DecimalSemantics,
   digit_scales : Array[Int],
-) -> @mare_runner.DifferentialCase[
+) -> @mare_runner.BenchSpec[
   Int,
   MareDecimalInput,
   DecimalFixture,
@@ -314,7 +316,7 @@ fn mare_case(
       @mare_model.OperationResult::completed(run_gda(prepared), context)
     },
   )
-  @mare_runner.DifferentialCase::new(
+  @mare_runner.BenchSpec::advanced(
     "decimal_" +
     operation_name(operation) +
     "_" +
@@ -330,7 +332,7 @@ fn mare_case(
     @mare_experiment.OracleSpec::Reference(mare_oracle(operation)),
     digit_scales,
     digits => digits.to_string(),
-    _ => 1,
+    1,
     (input, _) => {
       @mare_model.CaseDescriptor::new(
         operation_name(input.operation),
@@ -411,10 +413,22 @@ fn benchmark_environment_value(key : String, fallback : String) -> String {
 }
 
 ///|
+fn benchmark_execution_target() -> @mare_model.ExecutionTarget {
+  match benchmark_environment_value("MARE_TARGET", "native") {
+    "js" => @mare_model.ExecutionTarget::Js
+    "wasm" => @mare_model.ExecutionTarget::Wasm
+    "wasm-gc" => @mare_model.ExecutionTarget::WasmGc
+    "llvm" => @mare_model.ExecutionTarget::Llvm
+    "native" => @mare_model.ExecutionTarget::Native
+    other => @mare_model.ExecutionTarget::Custom(other)
+  }
+}
+
+///|
 pub fn benchmark_environment() -> @mare_model.EnvironmentSnapshot {
   @mare_model.EnvironmentSnapshot::new(
     @mare_model.SemanticEnvironment::new(
-      benchmark_environment_value("MARE_TARGET", "native"),
+      benchmark_execution_target(),
       benchmark_environment_value("MARE_COMPILER", "moon-unknown"),
       benchmark_environment_value("MARE_BUILD_MODE", "unspecified"),
       "decimal-gda-v1",
@@ -514,14 +528,14 @@ fn paired_samples_for_digits(
   let gda_samples = []
   for baseline in observations {
     if baseline.implementation_id != "x_decimal" ||
-      baseline.phase != "confirmatory" ||
+      baseline.phase.text() != "confirmatory" ||
       !baseline.valid ||
       digit_scales[baseline.dataset_id] != digits {
       continue
     }
     for candidate in observations {
       if candidate.implementation_id == "floating_decimal_gda" &&
-        candidate.phase == baseline.phase &&
+        candidate.phase.text() == baseline.phase.text() &&
         candidate.valid &&
         candidate.dataset_id == baseline.dataset_id &&
         candidate.repetition_id == baseline.repetition_id &&
@@ -551,12 +565,16 @@ pub async fn run_mare_benchmark(
     let memory = @mare_event.InMemorySink::new()
     let jsonl = @mare_event.JsonlSink::new()
     let sink = @mare_event.tee(memory.as_sink(), jsonl.as_sink())
-    let summary = @mare_runner.run_case(
-      mare_case(operation, semantics, digit_scales),
-      protocol,
-      benchmark_environment(),
-      sink,
-      seed,
+    let plan = mare_case(operation, semantics, digit_scales).compile().unwrap()
+    let validated_protocol = @mare_runner.validate_protocol(protocol).unwrap()
+    let summary = @mare_runner.run(
+      plan,
+      @mare_runner.RunContext::new(
+        benchmark_environment(),
+        sink,
+        seed,
+        validated_protocol,
+      ),
     )
     validation_count = validation_count + summary.validation_count
     failed_count = failed_count + summary.failed_count

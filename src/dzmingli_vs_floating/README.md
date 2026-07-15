@@ -1,6 +1,7 @@
 # DzmingLi decimal versus floating GDA
 
-This package uses Mare Mark to compare:
+This package uses the repository-wide `mare_mark@0.3.0` benchmark and Plot IR
+pipeline to compare:
 
 - `DzmingLi/decimal@0.2.2`
 - `Luna-Flow/floating/decimal_gda@0.6.1`
@@ -71,25 +72,45 @@ run at 16,384 and 20,000 digits. The operation-specific ceiling avoids a known
 `DzmingLi/decimal@0.2.2` digit-count overflow beyond its comparable range:
 
 ```sh
-moon run --release src/dzmingli_vs_floating/bench --target native
+moon run --release src/dzmingli_vs_floating/bench --target native \
+  > artifacts/dzmingli_vs_floating/scaling.jsonl
 ```
 
 Run the common-digit benchmark for 1, 4, 8, 16, 18, and 28-digit coefficients:
 
 ```sh
-moon run --release src/dzmingli_vs_floating/bench_common --target native
+moon run --release src/dzmingli_vs_floating/bench_common --target native \
+  > artifacts/dzmingli_vs_floating/common_digits.jsonl
 ```
 
 The runners emit Mare Mark validation, calibration, observation, summary, and
 comparison JSONL. They also write self-contained Plot IR reports to:
 
-- `artifacts/mare_mark_dzmingli_vs_floating_performance.html`
-- `artifacts/mare_mark_dzmingli_vs_floating_common_digits.html`
-- `artifacts/mare_mark_dzmingli_vs_floating_extended.jsonl`
-- `artifacts/mare_mark_dzmingli_vs_floating_common_digits.jsonl`
+- `artifacts/dzmingli_vs_floating/scaling.html`
+- `artifacts/dzmingli_vs_floating/common_digits.html`
+- `artifacts/dzmingli_vs_floating/scaling.jsonl`
+- `artifacts/dzmingli_vs_floating/common_digits.jsonl`
 
 Each report plots median latency for both implementations and DzmingLi speedup
 versus floating GDA, separately for `arithmetic_only` and `full_path`.
+
+The unified Matplotlib publication figures consume `mare_mark@0.3.0` JSONL and
+build the same `mmks_1` Plot IR before rendering. They reject artifacts without
+the `mmka_1` version marker, so figures cannot silently mix old benchmark
+formats. Every layout writes PNG for previews, PDF for distribution and
+archival, and editable SVG from the same IR. Use `--ir-output` to retain that
+intermediate document:
+
+```sh
+python3 tools/plot_dzmingli_benchmark.py \
+  artifacts/dzmingli_vs_floating/scaling.jsonl \
+  --output artifacts/dzmingli_vs_floating/main \
+  --ir-output artifacts/dzmingli_vs_floating/main.ir.json
+python3 tools/plot_dzmingli_supplementary_benchmark.py \
+  artifacts/dzmingli_vs_floating/scaling.jsonl \
+  --output artifacts/dzmingli_vs_floating/supplementary \
+  --ir-output artifacts/dzmingli_vs_floating/supplementary.ir.json
+```
 
 ## Fairness controls
 

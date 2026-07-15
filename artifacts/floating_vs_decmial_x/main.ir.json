@@ -1,0 +1,826 @@
+{
+  "schema_version": "mmks_1",
+  "run_id": "floating-vs-decimal-x",
+  "target": "native",
+  "plots": [
+    {
+      "kind": "scaling",
+      "title": "arithmetic_only · add · median latency",
+      "unit": "µs/op",
+      "interval_kind": "median",
+      "points": [
+        {
+          "x": "1",
+          "y": 0.8890460247349824,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "4",
+          "y": 0.7308272688659211,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "16",
+          "y": 0.7353601564682872,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "64",
+          "y": 0.7742643074581431,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "256",
+          "y": 1.1272040236686391,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "1024",
+          "y": 2.645361663341646,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "4096",
+          "y": 7.8168403495806285,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "1",
+          "y": 0.9246133321107648,
+          "series": "x_decimal"
+        },
+        {
+          "x": "4",
+          "y": 1.0492519832985385,
+          "series": "x_decimal"
+        },
+        {
+          "x": "16",
+          "y": 1.1347492137457524,
+          "series": "x_decimal"
+        },
+        {
+          "x": "64",
+          "y": 1.178274611398964,
+          "series": "x_decimal"
+        },
+        {
+          "x": "256",
+          "y": 1.661839231030963,
+          "series": "x_decimal"
+        },
+        {
+          "x": "1024",
+          "y": 1.1533404184286669,
+          "series": "x_decimal"
+        },
+        {
+          "x": "4096",
+          "y": 4.446048068669528,
+          "series": "x_decimal"
+        }
+      ]
+    },
+    {
+      "kind": "scaling",
+      "title": "arithmetic_only · subtract · median latency",
+      "unit": "µs/op",
+      "interval_kind": "median",
+      "points": [
+        {
+          "x": "1",
+          "y": 1.0112660626029655,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "4",
+          "y": 0.8350809894109861,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "16",
+          "y": 0.6305729153308541,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "64",
+          "y": 0.7578271552083649,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "256",
+          "y": 1.140733038004197,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "1024",
+          "y": 2.6851723950634794,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "4096",
+          "y": 8.544600869565219,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "1",
+          "y": 0.9028805278174037,
+          "series": "x_decimal"
+        },
+        {
+          "x": "4",
+          "y": 1.042389569914814,
+          "series": "x_decimal"
+        },
+        {
+          "x": "16",
+          "y": 1.0474211252653927,
+          "series": "x_decimal"
+        },
+        {
+          "x": "64",
+          "y": 0.9147831468916192,
+          "series": "x_decimal"
+        },
+        {
+          "x": "256",
+          "y": 1.2571855402954133,
+          "series": "x_decimal"
+        },
+        {
+          "x": "1024",
+          "y": 1.1829966333875088,
+          "series": "x_decimal"
+        },
+        {
+          "x": "4096",
+          "y": 4.556651376146789,
+          "series": "x_decimal"
+        }
+      ]
+    },
+    {
+      "kind": "scaling",
+      "title": "arithmetic_only · multiply · median latency",
+      "unit": "µs/op",
+      "interval_kind": "median",
+      "points": [
+        {
+          "x": "1",
+          "y": 0.5653091263819641,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "4",
+          "y": 0.5725124647734663,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "16",
+          "y": 0.4409870874551344,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "64",
+          "y": 0.5846588445696935,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "256",
+          "y": 2.726488737465378,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "1024",
+          "y": 33.65958666666667,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "4096",
+          "y": 324.51040625,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "1",
+          "y": 0.1442081966285779,
+          "series": "x_decimal"
+        },
+        {
+          "x": "4",
+          "y": 0.1435487732906163,
+          "series": "x_decimal"
+        },
+        {
+          "x": "16",
+          "y": 0.1505723949048916,
+          "series": "x_decimal"
+        },
+        {
+          "x": "64",
+          "y": 0.2268788276527975,
+          "series": "x_decimal"
+        },
+        {
+          "x": "256",
+          "y": 0.9912134301983115,
+          "series": "x_decimal"
+        },
+        {
+          "x": "1024",
+          "y": 12.041968599033815,
+          "series": "x_decimal"
+        },
+        {
+          "x": "4096",
+          "y": 121.52339424141749,
+          "series": "x_decimal"
+        }
+      ]
+    },
+    {
+      "kind": "scaling",
+      "title": "arithmetic_only · divide · median latency",
+      "unit": "µs/op",
+      "interval_kind": "median",
+      "points": [
+        {
+          "x": "1",
+          "y": 1.5479311752427298,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "4",
+          "y": 1.9202986590038313,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "16",
+          "y": 1.7405558721114276,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "64",
+          "y": 1.9654766575127502,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "256",
+          "y": 3.5071317427385895,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "1024",
+          "y": 8.819202608695653,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "4096",
+          "y": 30.22215101084813,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "1",
+          "y": 1.4765860783088596,
+          "series": "x_decimal"
+        },
+        {
+          "x": "4",
+          "y": 1.4893014556040756,
+          "series": "x_decimal"
+        },
+        {
+          "x": "16",
+          "y": 1.5558928464977648,
+          "series": "x_decimal"
+        },
+        {
+          "x": "64",
+          "y": 1.5934166204934987,
+          "series": "x_decimal"
+        },
+        {
+          "x": "256",
+          "y": 1.8245298914789179,
+          "series": "x_decimal"
+        },
+        {
+          "x": "1024",
+          "y": 2.9563290046385857,
+          "series": "x_decimal"
+        },
+        {
+          "x": "4096",
+          "y": 7.453658885542168,
+          "series": "x_decimal"
+        }
+      ]
+    },
+    {
+      "kind": "scaling",
+      "title": "arithmetic_only · compare · median latency",
+      "unit": "µs/op",
+      "interval_kind": "median",
+      "points": [
+        {
+          "x": "1",
+          "y": 0.8256547461002324,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "4",
+          "y": 0.7667890672319807,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "16",
+          "y": 0.7668018983466014,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "64",
+          "y": 0.7675380475407385,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "256",
+          "y": 0.7732751502689023,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "1024",
+          "y": 0.7720833208339584,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "4096",
+          "y": 0.7687173780119929,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "1",
+          "y": 0.8702036623108665,
+          "series": "x_decimal"
+        },
+        {
+          "x": "4",
+          "y": 1.0102330459770115,
+          "series": "x_decimal"
+        },
+        {
+          "x": "16",
+          "y": 1.0049021409816201,
+          "series": "x_decimal"
+        },
+        {
+          "x": "64",
+          "y": 0.9014882833303746,
+          "series": "x_decimal"
+        },
+        {
+          "x": "256",
+          "y": 1.1983260318234854,
+          "series": "x_decimal"
+        },
+        {
+          "x": "1024",
+          "y": 0.979438385938386,
+          "series": "x_decimal"
+        },
+        {
+          "x": "4096",
+          "y": 3.8703917050691246,
+          "series": "x_decimal"
+        }
+      ]
+    },
+    {
+      "kind": "scaling",
+      "title": "arithmetic_only · speedup versus GDA",
+      "unit": "×",
+      "interval_kind": "median",
+      "points": [
+        {
+          "x": "1",
+          "y": 0.9615327768478233,
+          "series": "add"
+        },
+        {
+          "x": "4",
+          "y": 0.6965221705546992,
+          "series": "add"
+        },
+        {
+          "x": "16",
+          "y": 0.6480375994629675,
+          "series": "add"
+        },
+        {
+          "x": "64",
+          "y": 0.6571170251549935,
+          "series": "add"
+        },
+        {
+          "x": "256",
+          "y": 0.6782870464367063,
+          "series": "add"
+        },
+        {
+          "x": "1024",
+          "y": 2.2936520918479015,
+          "series": "add"
+        },
+        {
+          "x": "4096",
+          "y": 1.7581547092719139,
+          "series": "add"
+        },
+        {
+          "x": "1",
+          "y": 0.9488063333446191,
+          "series": "compare"
+        },
+        {
+          "x": "4",
+          "y": 0.759021960611482,
+          "series": "compare"
+        },
+        {
+          "x": "16",
+          "y": 0.763061264450651,
+          "series": "compare"
+        },
+        {
+          "x": "64",
+          "y": 0.851412116755658,
+          "series": "compare"
+        },
+        {
+          "x": "256",
+          "y": 0.6452961295451574,
+          "series": "compare"
+        },
+        {
+          "x": "1024",
+          "y": 0.7882918741174681,
+          "series": "compare"
+        },
+        {
+          "x": "4096",
+          "y": 0.19861487843858008,
+          "series": "compare"
+        },
+        {
+          "x": "1",
+          "y": 1.0483176009729023,
+          "series": "divide"
+        },
+        {
+          "x": "4",
+          "y": 1.2893955429761794,
+          "series": "divide"
+        },
+        {
+          "x": "16",
+          "y": 1.118686210319258,
+          "series": "divide"
+        },
+        {
+          "x": "64",
+          "y": 1.2334982779983934,
+          "series": "divide"
+        },
+        {
+          "x": "256",
+          "y": 1.9222111729261926,
+          "series": "divide"
+        },
+        {
+          "x": "1024",
+          "y": 2.9831600592687786,
+          "series": "divide"
+        },
+        {
+          "x": "4096",
+          "y": 4.054673211497499,
+          "series": "divide"
+        },
+        {
+          "x": "1",
+          "y": 3.9200901169159765,
+          "series": "multiply"
+        },
+        {
+          "x": "4",
+          "y": 3.9882783506230846,
+          "series": "multiply"
+        },
+        {
+          "x": "16",
+          "y": 2.9287379518249805,
+          "series": "multiply"
+        },
+        {
+          "x": "64",
+          "y": 2.5769652048115406,
+          "series": "multiply"
+        },
+        {
+          "x": "256",
+          "y": 2.750657582312914,
+          "series": "multiply"
+        },
+        {
+          "x": "1024",
+          "y": 2.795189705889728,
+          "series": "multiply"
+        },
+        {
+          "x": "4096",
+          "y": 2.6703533774355415,
+          "series": "multiply"
+        },
+        {
+          "x": "1",
+          "y": 1.1200441602695428,
+          "series": "subtract"
+        },
+        {
+          "x": "4",
+          "y": 0.8011217816379632,
+          "series": "subtract"
+        },
+        {
+          "x": "16",
+          "y": 0.6020242480512137,
+          "series": "subtract"
+        },
+        {
+          "x": "64",
+          "y": 0.8284227336100562,
+          "series": "subtract"
+        },
+        {
+          "x": "256",
+          "y": 0.9073704727276354,
+          "series": "subtract"
+        },
+        {
+          "x": "1024",
+          "y": 2.2698056099910384,
+          "series": "subtract"
+        },
+        {
+          "x": "4096",
+          "y": 1.8751930231692935,
+          "series": "subtract"
+        }
+      ]
+    },
+    {
+      "kind": "scaling",
+      "title": "semantic_equivalent_pipeline · multiply · median latency",
+      "unit": "µs/op",
+      "interval_kind": "median",
+      "points": [
+        {
+          "x": "1",
+          "y": 0.9271139291001838,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "4",
+          "y": 0.9259829775487671,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "16",
+          "y": 1.501207145001501,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "64",
+          "y": 2.176237847290576,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "256",
+          "y": 6.599519028871391,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "1024",
+          "y": 46.62422685185186,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "4096",
+          "y": 371.5,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "1",
+          "y": 1.1660929988331388,
+          "series": "x_decimal"
+        },
+        {
+          "x": "4",
+          "y": 1.1449981709512866,
+          "series": "x_decimal"
+        },
+        {
+          "x": "16",
+          "y": 1.3168657622739017,
+          "series": "x_decimal"
+        },
+        {
+          "x": "64",
+          "y": 1.5769177156892846,
+          "series": "x_decimal"
+        },
+        {
+          "x": "256",
+          "y": 3.134688202247191,
+          "series": "x_decimal"
+        },
+        {
+          "x": "1024",
+          "y": 17.16261262798635,
+          "series": "x_decimal"
+        },
+        {
+          "x": "4096",
+          "y": 138.43106531531532,
+          "series": "x_decimal"
+        }
+      ]
+    },
+    {
+      "kind": "scaling",
+      "title": "semantic_equivalent_pipeline · divide · median latency",
+      "unit": "µs/op",
+      "interval_kind": "median",
+      "points": [
+        {
+          "x": "1",
+          "y": 2.3342181521231917,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "4",
+          "y": 3.4307249322493223,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "16",
+          "y": 7.957152755905511,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "64",
+          "y": 9.415508348794063,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "256",
+          "y": 9.65519001919386,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "1024",
+          "y": 9.466382575757576,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "4096",
+          "y": 10.738139610389611,
+          "series": "floating_decimal_gda"
+        },
+        {
+          "x": "1",
+          "y": 1.6808709457152613,
+          "series": "x_decimal"
+        },
+        {
+          "x": "4",
+          "y": 1.1799870960241805,
+          "series": "x_decimal"
+        },
+        {
+          "x": "16",
+          "y": 1.8345664961636827,
+          "series": "x_decimal"
+        },
+        {
+          "x": "64",
+          "y": 1.8712566305565934,
+          "series": "x_decimal"
+        },
+        {
+          "x": "256",
+          "y": 1.5228804380894434,
+          "series": "x_decimal"
+        },
+        {
+          "x": "1024",
+          "y": 4.051305600649351,
+          "series": "x_decimal"
+        },
+        {
+          "x": "4096",
+          "y": 7.61085692541857,
+          "series": "x_decimal"
+        }
+      ]
+    },
+    {
+      "kind": "scaling",
+      "title": "semantic_equivalent_pipeline · speedup versus GDA",
+      "unit": "×",
+      "interval_kind": "median",
+      "points": [
+        {
+          "x": "1",
+          "y": 1.3886956390515224,
+          "series": "divide"
+        },
+        {
+          "x": "4",
+          "y": 2.9074258047471218,
+          "series": "divide"
+        },
+        {
+          "x": "16",
+          "y": 4.337347690882262,
+          "series": "divide"
+        },
+        {
+          "x": "64",
+          "y": 5.031649959200668,
+          "series": "divide"
+        },
+        {
+          "x": "256",
+          "y": 6.340084078633875,
+          "series": "divide"
+        },
+        {
+          "x": "1024",
+          "y": 2.336625154676134,
+          "series": "divide"
+        },
+        {
+          "x": "4096",
+          "y": 1.4108975790264315,
+          "series": "divide"
+        },
+        {
+          "x": "1",
+          "y": 0.7950600252534819,
+          "series": "multiply"
+        },
+        {
+          "x": "4",
+          "y": 0.8087200495520814,
+          "series": "multiply"
+        },
+        {
+          "x": "16",
+          "y": 1.139984946080827,
+          "series": "multiply"
+        },
+        {
+          "x": "64",
+          "y": 1.3800579609439692,
+          "series": "multiply"
+        },
+        {
+          "x": "256",
+          "y": 2.105319126840219,
+          "series": "multiply"
+        },
+        {
+          "x": "1024",
+          "y": 2.7166159291985474,
+          "series": "multiply"
+        },
+        {
+          "x": "4096",
+          "y": 2.683646182696097,
+          "series": "multiply"
+        }
+      ]
+    }
+  ],
+  "differential": {
+    "mismatches": [],
+    "capabilities": [],
+    "counterexamples": [],
+    "corpus": {
+      "total": 294,
+      "passed": 294,
+      "failed": 0,
+      "unsupported": 0,
+      "expected_difference": 0
+    }
+  }
+}

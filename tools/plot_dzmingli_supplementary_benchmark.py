@@ -6,11 +6,8 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-import matplotlib.pyplot as plt
-from matplotlib.lines import Line2D
-from matplotlib.ticker import FuncFormatter, LogLocator
-
-from plot_dzmingli_benchmark import COLORS, LABELS, MARKERS, load_results
+from mare_plot_ir import PlotDocument, find_scaling_plot, load_plot_document
+from plot_dzmingli_benchmark import COLORS, LABELS, MARKERS
 
 
 ARITHMETIC_OPERATIONS = (
@@ -55,7 +52,11 @@ def digit_label(value: float, _position: float) -> str:
     return f"{value:,.0f}"
 
 
-def render(results, output_stem: Path) -> None:
+def render(document: PlotDocument, output_stem: Path) -> None:
+    import matplotlib.pyplot as plt
+    from matplotlib.lines import Line2D
+    from matplotlib.ticker import FuncFormatter, LogLocator
+
     plt.rcParams.update(
         {
             "font.family": "sans-serif",
@@ -77,10 +78,11 @@ def render(results, output_stem: Path) -> None:
         axis = axes.flat[index]
         for implementation in COLORS:
             for scope in SCOPES:
-                points = sorted(
-                    (scale, latency)
-                    for (op, timing_scope, scale, impl), latency in results.items()
-                    if op == operation and timing_scope == scope and impl == implementation
+                plot = find_scaling_plot(document, operation, scope)
+                points = [] if plot is None else sorted(
+                    (int(point.x), point.y)
+                    for point in plot.points
+                    if point.series == implementation
                 )
                 if points:
                     axis.plot(
@@ -164,16 +166,21 @@ def main() -> None:
         "input",
         nargs="?",
         type=Path,
-        default=Path("artifacts/mare_mark_dzmingli_vs_floating_extended.jsonl"),
+        default=Path("artifacts/dzmingli_vs_floating/scaling.jsonl"),
     )
     parser.add_argument(
         "--output",
         type=Path,
-        default=Path("artifacts/dzmingli_vs_floating_supplementary_benchmark"),
+        default=Path("artifacts/dzmingli_vs_floating/supplementary"),
         help="output path without an extension",
     )
+    parser.add_argument("--ir-output", type=Path,
+                        default=Path("artifacts/dzmingli_vs_floating/supplementary.ir.json"),
+                        help="mare_mark mmks_1 Plot IR JSON output")
     arguments = parser.parse_args()
-    render(load_results(arguments.input), arguments.output)
+    document = load_plot_document(arguments.input)
+    document.write_json(arguments.ir_output)
+    render(document, arguments.output)
 
 
 if __name__ == "__main__":
