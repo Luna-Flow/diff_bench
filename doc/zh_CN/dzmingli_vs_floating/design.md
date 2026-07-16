@@ -1,5 +1,7 @@
 # DzmingLi decimal 与 floating GDA 设计及性能报告
 
+本报告描述当前 `Luna-Flow/floating/decimal_gda@0.7.1` 基准运行。
+
 ## 实验契约
 
 两种实现接收完全相同的 coefficient-and-scale fixture。`arithmetic_only`
@@ -27,10 +29,7 @@ DzmingLi 的 `digit_count` 在有符号 `Int` 中计算 `bit_length * 30103`。�
 
 ## 性能
 
-1–64 位时 DzmingLi 全面领先；到 256 位，两种 timing scope 下的五种操作都转为
-floating GDA 领先。1,024 位且双方仍正确时，floating GDA 根据操作和 scope 约快
-`3.4–33.8×`。更大的算术规模因 DzmingLi 结果错误，只保留已验证的 GDA latency，
-不计算 speedup。
+1–64 位时 DzmingLi 在 arithmetic-only 中总体领先，但包含解析和构造的 full-path 结果混合；到 256 位，两种 timing scope 下的五种操作都转为 floating GDA 领先。1,024 位且双方仍正确时，floating GDA 根据操作和 scope 约快 `3.54–95.44×`。更大的算术规模因 DzmingLi 结果错误，只保留已验证的 GDA latency，不计算 speedup。
 
 ## 边界
 

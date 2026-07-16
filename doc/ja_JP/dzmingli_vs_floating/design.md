@@ -1,5 +1,7 @@
 # DzmingLi decimal と floating GDA の設計・性能レポート
 
+このレポートは `Luna-Flow/floating/decimal_gda@0.7.1` の現在の benchmark run を説明します。
+
 ## 測定契約
 
 両実装には同一の coefficient-and-scale fixture を渡します。`arithmetic_only` は公開演算だけ、
@@ -30,10 +32,7 @@ FMA・二次 power は結果桁数を倍増させるため入力約 10,738 桁�
 
 ## 性能
 
-1–64 桁では DzmingLi が全項目で先行します。256 桁では両 timing scope の全 5 演算で
-floating GDA が先行します。双方が正しい 1,024 桁では、floating GDA は演算と scope により
-約 `3.4–33.8×` 高速です。より大きい算術点は DzmingLi が不正なので、GDA の検証済み latency
-のみを掲載し speedup は算出しません。
+1–64 桁では arithmetic-only で DzmingLi が概ね先行しますが、parse と構築を含む full-path は混在します。256 桁では両 timing scope の全 5 演算で floating GDA が先行します。双方が正しい 1,024 桁では、floating GDA は演算と scope により約 `3.54–95.44×` 高速です。より大きい算術点は DzmingLi が不正なので、GDA の検証済み latency のみを掲載し speedup は算出しません。
 
 ## 制約
 

@@ -6,9 +6,8 @@ pipeline to compare:
 - `DzmingLi/decimal@0.2.2`
 - `Luna-Flow/floating/decimal_gda@0.7.1`
 
-The checked-in performance artifacts were regenerated with `0.7.1`.
-`BENCHMARK_RESULTS.md` remains a historical 0.6.1 report; use the JSONL and
-figures for current measurements.
+The checked-in performance artifacts and `BENCHMARK_RESULTS.md` were
+regenerated with `0.7.1`.
 
 The benchmark intentionally pins `DzmingLi/decimal@0.2.2` for historical
 comparison even though that package is deprecated and has moved to

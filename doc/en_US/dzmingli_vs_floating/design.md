@@ -1,5 +1,8 @@
 # Design and Performance Report
 
+This report describes the current `Luna-Flow/floating/decimal_gda@0.7.1`
+benchmark run.
+
 ## Contract
 
 Both libraries consume identical coefficient-and-scale fixtures. `arithmetic_only`
@@ -38,11 +41,13 @@ first-failure point.
 
 ## Performance
 
-DzmingLi leads at 1–64 digits. At 256 digits, all five tested operations switch
-to floating GDA in both timing scopes. At 1,024 digits, where both remain
-correct, floating GDA is approximately `3.4–33.8×` faster depending on operation
-and scope. At invalid larger arithmetic sizes, reports retain validated GDA
-latency but omit paired speedup decisions.
+DzmingLi generally leads the arithmetic-only scope at 1–64 digits, while the
+full-path scope is mixed because parsing and construction are included. At 256
+digits, floating GDA leads all five tested operations in both timing scopes. At
+1,024 digits, where both remain correct, floating GDA is approximately
+`3.54–95.44×` faster depending on operation and scope. At invalid larger
+arithmetic sizes, reports retain validated GDA latency but omit paired speedup
+decisions.
 
 ## Limits
 

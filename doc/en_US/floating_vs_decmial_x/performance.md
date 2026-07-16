@@ -2,14 +2,14 @@
 
 ## Measurement Contract
 
-This is a historical report for the MoonBit native release benchmark comparing `moonbitlang/x/decimal@0.4.46` and `Luna-Flow/floating/decimal_gda@0.6.1`. Fixture construction, parsing, conversion, correctness checks, and formatting are outside the timed region. `exact_overlap` measures shared mathematical semantics; `x_compatible` also includes 28 fractional digits and truncation toward zero. The checked-in JSONL and figures were regenerated with `0.7.1`; use those artifacts for current measurements.
+This report covers the current MoonBit native release benchmark comparing `moonbitlang/x/decimal@0.4.46` and `Luna-Flow/floating/decimal_gda@0.7.1`. Fixture construction, parsing, conversion, correctness checks, and formatting are outside the timed region. `exact_overlap` measures shared mathematical semantics; `x_compatible` also includes 28 fractional digits and truncation toward zero.
 
 ## Results
 
-- **Add/subtract:** GDA is usually slightly faster at 1–256 digits (`0.6–1.1 µs/op`); at 4096 digits X is `4.4–4.6 µs/op` versus GDA `7.7–8.1 µs/op`. Growth is broadly linear.
-- **Multiply:** X leads at every size: about `3.9×` for tiny inputs, `2.75×` at 8–28 digits, and `2.6×` at 4096 digits. This indicates a constant-factor advantage, not a proven complexity difference.
-- **Divide:** GDA is about `1.1–1.4×` slower for `exact_overlap` and `1.4–6.5×` slower for `x_compatible`, where semantic post-processing is timed.
-- **Compare:** GDA is about `1.1–1.5×` faster at common sizes and about `5×` faster at 4096 digits, consistent with sign/coefficient-length/exponent shortcuts that avoid some scale alignment.
+- **Add/subtract:** GDA leads at 1–256 digits (`0.23–0.39 µs/op` versus X's `0.46–0.66 µs/op`); X leads at 1,024–4,096 digits and is about `1.4–1.8×` faster at the upper end.
+- **Multiply:** X leads at every scaling point by about `2.1–2.7×`, a constant-factor advantage in this workload rather than evidence of a different complexity class.
+- **Divide:** For `exact_overlap`, GDA leads by `1.2–4.1×` at 1–64 digits, while X leads by `1.3–3.4×` at 256–4,096 digits. In `x_compatible`, the two implementations stay within about `1.2×` through 256 digits, then GDA leads by about `1.8×` at 1,024 and `3.8×` at 4,096 digits.
+- **Compare:** GDA leads at every scaling point, from about `3.4×` at 1 digit to `14.8×` at 4,096 digits, consistent with early sign/coefficient-length/exponent shortcuts.
 
 ## Cross-Implementation Context
 

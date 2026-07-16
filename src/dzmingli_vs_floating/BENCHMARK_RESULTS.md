@@ -1,9 +1,5 @@
 # Extended benchmark findings
 
-This document is the historical `0.6.1` report. The checked-in JSONL and
-figures were regenerated with `0.7.1`; use those artifacts for current
-measurements.
-
 This document records the correctness boundary discovered while running the
 extended native benchmark on 2026-07-15.
 
@@ -14,7 +10,7 @@ extended native benchmark on 2026-07-15.
 - MoonBit: `moon 0.1.20260703 (6fbf8c3 2026-07-03)`
 - Build: release/native
 - DzmingLi implementation: `DzmingLi/decimal@0.2.2`
-- GDA implementation: `Luna-Flow/floating/decimal_gda@0.6.1`
+- GDA implementation: `Luna-Flow/floating/decimal_gda@0.7.1`
 
 ## Correctness results
 
@@ -162,30 +158,30 @@ latencies are:
 
 | Operation | Scope | DzmingLi µs/op | floating GDA µs/op | GDA speedup |
 | --- | --- | ---: | ---: | ---: |
-| add | arithmetic only | 30.179 | 1.260 | 23.95× |
-| subtract | arithmetic only | 29.791 | 1.240 | 24.02× |
-| multiply | arithmetic only | 60.603 | 17.586 | 3.45× |
-| divide | arithmetic only | 80.126 | 4.614 | 17.37× |
-| compare | arithmetic only | 12.351 | 0.383 | 32.29× |
-| add | full path | 182.818 | 44.180 | 4.14× |
-| subtract | full path | 177.915 | 44.533 | 4.00× |
-| multiply | full path | 209.601 | 61.180 | 3.43× |
-| divide | full path | 156.160 | 26.835 | 5.82× |
-| compare | full path | 159.177 | 43.904 | 3.63× |
+| add | arithmetic only | 29.261 | 0.978 | 29.92× |
+| subtract | arithmetic only | 29.260 | 0.970 | 30.17× |
+| multiply | arithmetic only | 59.400 | 16.798 | 3.54× |
+| divide | arithmetic only | 78.978 | 3.675 | 21.49× |
+| compare | arithmetic only | 12.459 | 0.131 | 95.44× |
+| add | full path | 174.869 | 8.331 | 21.00× |
+| subtract | full path | 174.518 | 8.346 | 20.91× |
+| multiply | full path | 205.549 | 24.133 | 8.52× |
+| divide | full path | 152.145 | 7.427 | 20.49× |
+| compare | full path | 156.066 | 7.475 | 20.88× |
 
 DzmingLi is invalid at the larger arithmetic scales, so the extreme points are
 reported as validated GDA latency rather than as speedups:
 
 | Digits | Operation | GDA arithmetic-only µs/op | GDA full-path µs/op |
 | ---: | --- | ---: | ---: |
-| 10,000 | add | 8.651 | 422.153 |
-| 10,000 | subtract | 8.656 | 424.071 |
-| 10,000 | multiply | 770.348 | 1,177.400 |
-| 10,000 | divide | 36.700 | 244.379 |
-| 20,000 | add | 17.037 | 854.378 |
-| 20,000 | subtract | 19.084 | 916.372 |
-| 20,000 | divide | 74.468 | 528.483 |
-| 20,000 | compare | 0.380 | 881.238 |
+| 10,000 | add | 7.518 | 77.640 |
+| 10,000 | subtract | 7.530 | 77.817 |
+| 10,000 | multiply | 748.170 | 823.110 |
+| 10,000 | divide | 30.021 | 65.515 |
+| 20,000 | add | 14.810 | 154.468 |
+| 20,000 | subtract | 15.083 | 155.582 |
+| 20,000 | divide | 60.588 | 131.363 |
+| 20,000 | compare | 0.130 | 139.865 |
 
 These figures are from one controlled local run and should be interpreted with
 the environment metadata above. Correctness results are deterministic for the

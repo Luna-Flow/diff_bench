@@ -23,9 +23,8 @@ The `dzmingli_vs_floating` package compares `DzmingLi/decimal@0.2.2` with
 deprecated DzmingLi release for historical comparison; its maintained successor
 is `moonbit-community/decimal`.
 
-The checked-in performance artifacts were regenerated with `0.7.1`.
-`BENCHMARK_RESULTS.md` remains a historical 0.6.1 report; use the JSONL and
-figures above for the current run.
+The checked-in performance artifacts and benchmark report were regenerated
+with `0.7.1`.
 
 Mare Mark validates both implementations against an exact `BigInt` oracle and
 reports performance for two symmetric timing scopes: `arithmetic_only` measures
