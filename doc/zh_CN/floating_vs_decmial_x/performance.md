@@ -2,7 +2,7 @@
 
 ## 测量口径
 
-本报告覆盖 MoonBit native release 基准，比较 `moonbitlang/x/decimal@0.4.46` 与 `Luna-Flow/floating/decimal_gda@0.6.1`。fixture 构造、解析、类型转换、正确性校验和输出格式化均不计时。`exact_overlap` 只比较两套 API 的共同数学语义；`x_compatible` 额外计入 28 位小数精度和向零截断。
+本报告是 MoonBit native release 基准的历史报告，比较的是 `moonbitlang/x/decimal@0.4.46` 与 `Luna-Flow/floating/decimal_gda@0.6.1`。fixture 构造、解析、类型转换、正确性校验和输出格式化均不计时。`exact_overlap` 只比较两套 API 的共同数学语义；`x_compatible` 额外计入 28 位小数精度和向零截断。仓库中的 JSONL 与图片已使用 `0.7.1` 重新生成，当前测量值请以这些产物为准。
 
 ## 结果解读
 

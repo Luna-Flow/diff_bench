@@ -4,7 +4,11 @@ This package uses the repository-wide `mare_mark@0.3.0` benchmark and Plot IR
 pipeline to compare:
 
 - `DzmingLi/decimal@0.2.2`
-- `Luna-Flow/floating/decimal_gda@0.6.1`
+- `Luna-Flow/floating/decimal_gda@0.7.1`
+
+The checked-in performance artifacts were regenerated with `0.7.1`.
+`BENCHMARK_RESULTS.md` remains a historical 0.6.1 report; use the JSONL and
+figures for current measurements.
 
 The benchmark intentionally pins `DzmingLi/decimal@0.2.2` for historical
 comparison even though that package is deprecated and has moved to
@@ -73,14 +77,14 @@ run at 16,384 and 20,000 digits. The operation-specific ceiling avoids a known
 
 ```sh
 moon run --release src/dzmingli_vs_floating/bench --target native \
-  > artifacts/dzmingli_vs_floating/scaling.jsonl
+  | sed -n '/^{/p' > artifacts/dzmingli_vs_floating/scaling.jsonl
 ```
 
 Run the common-digit benchmark for 1, 4, 8, 16, 18, and 28-digit coefficients:
 
 ```sh
 moon run --release src/dzmingli_vs_floating/bench_common --target native \
-  > artifacts/dzmingli_vs_floating/common_digits.jsonl
+  | sed -n '/^{/p' > artifacts/dzmingli_vs_floating/common_digits.jsonl
 ```
 
 The runners emit Mare Mark validation, calibration, observation, summary, and

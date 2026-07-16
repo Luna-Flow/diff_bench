@@ -1,7 +1,7 @@
 # ベンチマーク API と実行入口
 
 `dzmingli_vs_floating` は同一の中立 decimal fixture を用いて
-`DzmingLi/decimal@0.2.2` と `Luna-Flow/floating/decimal_gda@0.6.1` を比較します。
+`DzmingLi/decimal@0.2.2` と `Luna-Flow/floating/decimal_gda@0.7.1` を比較します。
 
 scalable な性能交差面は、四則演算、整数除算、剰余、整数 power、FMA、完全平方根、
 単項 plus/minus/abs、quantize、rescale、scaleb、reduce、二つの to-integral、compare

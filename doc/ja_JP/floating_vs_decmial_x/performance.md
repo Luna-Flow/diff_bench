@@ -2,7 +2,7 @@
 
 ## 測定条件
 
-MoonBit native release で `moonbitlang/x/decimal@0.4.46` と `Luna-Flow/floating/decimal_gda@0.6.1` を比較します。fixture の生成、解析、変換、正当性検証、整形は計測外です。`exact_overlap` は共通する数学的意味だけを測り、`x_compatible` は小数 28 桁とゼロ方向切り捨ても計測します。
+これは `moonbitlang/x/decimal@0.4.46` と `Luna-Flow/floating/decimal_gda@0.6.1` を比較した MoonBit native release ベンチマークの履歴レポートです。fixture の生成、解析、変換、正当性検証、整形は計測外です。`exact_overlap` は共通する数学的意味だけを測り、`x_compatible` は小数 28 桁とゼロ方向切り捨ても計測します。チェックイン済みの JSONL と図は `0.7.1` で再生成されているため、現在の測定値にはそれらを参照してください。
 
 ## 結果
 

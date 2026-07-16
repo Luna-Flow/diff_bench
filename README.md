@@ -19,9 +19,13 @@ Plot IR beside those figures preserves the provenance needed to reproduce them.
 ## DzmingLi decimal versus floating GDA
 
 The `dzmingli_vs_floating` package compares `DzmingLi/decimal@0.2.2` with
-`Luna-Flow/floating/decimal_gda@0.6.1`. The benchmark deliberately pins the
+`Luna-Flow/floating/decimal_gda@0.7.1`. The benchmark deliberately pins the
 deprecated DzmingLi release for historical comparison; its maintained successor
 is `moonbit-community/decimal`.
+
+The checked-in performance artifacts were regenerated with `0.7.1`.
+`BENCHMARK_RESULTS.md` remains a historical 0.6.1 report; use the JSONL and
+figures above for the current run.
 
 Mare Mark validates both implementations against an exact `BigInt` oracle and
 reports performance for two symmetric timing scopes: `arithmetic_only` measures
@@ -38,14 +42,14 @@ operations through 10,000 digits, and non-multiplication stress inputs through
 
 ```sh
 moon run --release src/dzmingli_vs_floating/bench --target native \
-  > artifacts/dzmingli_vs_floating/scaling.jsonl
+  | sed -n '/^{/p' > artifacts/dzmingli_vs_floating/scaling.jsonl
 ```
 
 Run the 1, 4, 8, 16, 18, and 28-digit benchmark:
 
 ```sh
 moon run --release src/dzmingli_vs_floating/bench_common --target native \
-  > artifacts/dzmingli_vs_floating/common_digits.jsonl
+  | sed -n '/^{/p' > artifacts/dzmingli_vs_floating/common_digits.jsonl
 ```
 
 The runners write `scaling.html`, `common_digits.html`, and matching JSONL
@@ -66,7 +70,9 @@ arithmetic audit finds 329 DzmingLi `toSci` failures; floating GDA passes all
 The `floating_vs_decmial_x` package compares:
 
 - `moonbitlang/x/decimal@0.4.46`
-- `Luna-Flow/floating/decimal_gda@0.6.1`
+- `Luna-Flow/floating/decimal_gda@0.7.1`
+
+The checked-in performance artifacts were regenerated with `0.7.1`.
 
 Both implementations consume the same neutral decimal fixtures. Mare Mark 0.3.0 performs validation
 outside the timing path, calibrates each implementation, uses balanced execution order, retains

@@ -6,8 +6,9 @@ import {
 
 warnings = "-29"
 
+pkgtype(kind: "executable")
+
 options(
-  "is-main": true,
   targets: {
     "main.mbt": [ "native" ],
     "main_unimplemented.mbt": [ "js", "wasm", "wasm-gc", "llvm" ],

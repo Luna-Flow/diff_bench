@@ -335,7 +335,7 @@ fn mare_case(
   )
   let gda_implementation = @mare_runner.Implementation::in_process(
     "floating_decimal_gda",
-    "Luna-Flow/floating@0.6.1",
+    "Luna-Flow/floating@0.7.1",
     () => (),
     (prepared, context) => {
       @mare_model.OperationResult::completed(

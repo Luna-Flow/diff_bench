@@ -5,9 +5,9 @@
 ```sh
 sh tools/run_dzmingli_dectest_audit.sh
 moon run --release src/dzmingli_vs_floating/bench --target native \
-  | sed -n '/^{/p' > artifacts/mare_mark_dzmingli_vs_floating_extended.jsonl
+  | sed -n '/^{/p' > artifacts/dzmingli_vs_floating/scaling.jsonl
 moon run --release src/dzmingli_vs_floating/bench_common --target native \
-  > artifacts/mare_mark_dzmingli_vs_floating_common_digits.jsonl
+  | sed -n '/^{/p' > artifacts/dzmingli_vs_floating/common_digits.jsonl
 ```
 
 DzmingLi 存在已知 `toSci` 失败，因此 decTest 命令会非零退出。scaling runner

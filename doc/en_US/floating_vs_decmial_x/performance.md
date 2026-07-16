@@ -2,7 +2,7 @@
 
 ## Measurement Contract
 
-This report covers the MoonBit native release benchmark for `moonbitlang/x/decimal@0.4.46` and `Luna-Flow/floating/decimal_gda@0.6.1`. Fixture construction, parsing, conversion, correctness checks, and formatting are outside the timed region. `exact_overlap` measures shared mathematical semantics; `x_compatible` also includes 28 fractional digits and truncation toward zero.
+This is a historical report for the MoonBit native release benchmark comparing `moonbitlang/x/decimal@0.4.46` and `Luna-Flow/floating/decimal_gda@0.6.1`. Fixture construction, parsing, conversion, correctness checks, and formatting are outside the timed region. `exact_overlap` measures shared mathematical semantics; `x_compatible` also includes 28 fractional digits and truncation toward zero. The checked-in JSONL and figures were regenerated with `0.7.1`; use those artifacts for current measurements.
 
 ## Results
 

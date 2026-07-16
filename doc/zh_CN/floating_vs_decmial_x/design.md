@@ -2,7 +2,7 @@
 
 ## 1. 实验目标
 
-本包比较 `moonbitlang/x/decimal@0.4.46` 与 `Luna-Flow/floating/decimal_gda@0.6.1` 在相同中立输入上的正确性和性能。fixture 构造、类型转换、校验和结果规范化均位于计时区间之外。
+本包当前比较 `moonbitlang/x/decimal@0.4.46` 与 `Luna-Flow/floating/decimal_gda@0.7.1` 在相同中立输入上的正确性和性能。fixture 构造、类型转换、校验和结果规范化均位于计时区间之外。下述观测是 0.6.1 的历史摘要；当前测量值以重新生成的 JSONL 和图片为准。
 
 本报告只描述当前仓库和当前运行环境的结果，不代表所有硬件、编译器或十进制实现。
 

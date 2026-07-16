@@ -1,7 +1,7 @@
 # 基准 API 与运行入口
 
 `dzmingli_vs_floating` 使用同一组中立十进制 fixture，对比
-`DzmingLi/decimal@0.2.2` 与 `Luna-Flow/floating/decimal_gda@0.6.1`。
+`DzmingLi/decimal@0.2.2` 与 `Luna-Flow/floating/decimal_gda@0.7.1`。
 
 可扩展性能交集共 19 项：基础四则、整数除法、余数、整数幂、FMA、完平方根、
 正负号/绝对值、quantize、rescale、scaleb、reduce、两种 to-integral 与 compare。

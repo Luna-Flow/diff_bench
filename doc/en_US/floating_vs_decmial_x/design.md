@@ -1,6 +1,6 @@
 # Design and Performance Report
 
-The benchmark compares `moonbitlang/x/decimal@0.4.46` with `Luna-Flow/floating/decimal_gda@0.6.1` on shared neutral fixtures; setup, validation, conversion, and normalization are outside timing. `exact_overlap` measures directly shared mathematical semantics. `x_compatible` also measures X's 28-fractional-digit, truncation-toward-zero pipeline.
+The current benchmark compares `moonbitlang/x/decimal@0.4.46` with `Luna-Flow/floating/decimal_gda@0.7.1` on shared neutral fixtures; setup, validation, conversion, and normalization are outside timing. `exact_overlap` measures directly shared mathematical semantics. `x_compatible` also measures X's 28-fractional-digit, truncation-toward-zero pipeline. The observations below are a historical 0.6.1 summary; use the regenerated JSONL and figures for current measurements.
 
 Observed results: GDA is usually slightly faster for addition/subtraction at 1–256 digits, but X is faster at 4096 digits; X leads multiplication by roughly `2.6–3.9×`; GDA division is about `1.1–1.4×` slower for `exact_overlap` and `1.4–6.5×` slower for `x_compatible`; GDA comparison is about `1.1–1.5×` faster at common sizes and about `5×` faster at 4096 digits. These are workload- and host-specific observations, not universal library claims.
 

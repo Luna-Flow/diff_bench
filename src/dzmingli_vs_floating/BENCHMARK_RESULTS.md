@@ -1,5 +1,9 @@
 # Extended benchmark findings
 
+This document is the historical `0.6.1` report. The checked-in JSONL and
+figures were regenerated with `0.7.1`; use those artifacts for current
+measurements.
+
 This document records the correctness boundary discovered while running the
 extended native benchmark on 2026-07-15.
 

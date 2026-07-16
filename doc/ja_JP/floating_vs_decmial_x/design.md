@@ -1,6 +1,6 @@
 # 設計と性能レポート
 
-共通の中立 fixture を使い、`moonbitlang/x/decimal@0.4.46` と `Luna-Flow/floating/decimal_gda@0.6.1` を比較します。準備、検証、変換、正規化は計測外です。`exact_overlap` は共通表現可能な演算、`x_compatible` は X の 28 小数桁・ゼロ方向切り捨てを含む処理を測定します。
+共通の中立 fixture を使い、現在は `moonbitlang/x/decimal@0.4.46` と `Luna-Flow/floating/decimal_gda@0.7.1` を比較します。準備、検証、変換、正規化は計測外です。`exact_overlap` は共通表現可能な演算、`x_compatible` は X の 28 小数桁・ゼロ方向切り捨てを含む処理を測定します。以下の観測は 0.6.1 の履歴要約であり、現在の測定値は再生成された JSONL と図を参照してください。
 
 結果の要約：加減算は 1–256 桁で GDA がやや速く、4096 桁では X が速い。乗算は X が約 `2.6–3.9×` 高速。除算は GDA が `exact_overlap` で約 `1.1–1.4×`、`x_compatible` で約 `1.4–6.5×` 遅い。比較は GDA が一般的なサイズで約 `1.1–1.5×`、4096 桁で約 `5×` 高速です。いずれも本ワークロード固有の観測です。
 

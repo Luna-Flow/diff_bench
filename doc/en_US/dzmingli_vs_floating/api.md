@@ -1,7 +1,7 @@
 # Benchmark API and Entrypoints
 
 `dzmingli_vs_floating` compares `DzmingLi/decimal@0.2.2` and
-`Luna-Flow/floating/decimal_gda@0.6.1` on shared neutral decimal fixtures.
+`Luna-Flow/floating/decimal_gda@0.7.1` on shared neutral decimal fixtures.
 The package exposes fixture generation, exact-finite `BigInt` reference
 operations, adapters, Mare Mark execution, and report rendering.
 
