@@ -1,0 +1,8 @@
+{
+  "title": "diff_bench",
+  "summary": "Differential correctness and performance benchmarks for Luna-Flow MoonBit packages.",
+  "locales": [
+    "zh_CN",
+    "ja_JP"
+  ]
+}

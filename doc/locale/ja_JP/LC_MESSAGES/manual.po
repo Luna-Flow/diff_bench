@@ -1,0 +1,591 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Luna-Flow documentation\n"
+"Report-Msgid-Bugs-To: https://github.com/Luna-Flow\n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: conf.json:summary
+msgid "Differential correctness and performance benchmarks for Luna-Flow MoonBit packages."
+msgstr "Luna-Flow の MoonBit パッケージ向けの差分正確性・性能ベンチマーク。"
+
+#: manual/api/dzmingli_vs_floating.md:1
+msgid "Benchmark API and entrypoints"
+msgstr "ベンチマーク API と実行入口"
+
+#: manual/api/dzmingli_vs_floating.md:3
+msgid "`dzmingli_vs_floating` compares `DzmingLi/decimal@0.2.2` and `Luna-Flow/floating/decimal_gda@0.7.1` on shared neutral decimal fixtures. The package exposes fixture generation, exact-finite `BigInt` reference operations, adapters, Mare Mark execution, and report rendering."
+msgstr "`dzmingli_vs_floating` は同一の中立 decimal fixture を用いて `DzmingLi/decimal@0.2.2` と `Luna-Flow/floating/decimal_gda@0.7.1` を比較します。このパッケージは fixture の生成、exact-finite な `BigInt` 参照演算、アダプター、Mare Mark の実行、レポートの描画を提供します。"
+
+#: manual/api/dzmingli_vs_floating.md:8
+msgid "The scalable overlap covers 19 operations: the four basic operations, divide-integer, remainder, integer power, FMA, exact square root, unary plus/minus/abs, quantize, rescale, scaleb, reduce, both to-integral variants, and compare. Official decTest additionally covers shared `exp`, `ln`, and `log10` semantics."
+msgstr "scalable な性能交差面は、四則演算、整数除算、剰余、整数 power、FMA、完全平方根、単項 plus/minus/abs、quantize、rescale、scaleb、reduce、二つの to-integral、compare の 19 操作です。公式 decTest は共通の `exp`、`ln`、`log10` も検証します。"
+
+#: manual/api/dzmingli_vs_floating.md:14
+msgid "`src/dzmingli_vs_floating/bench`: scaling run through 10,000 digits, plus non-multiplication stress through 20,000 digits."
+msgstr "`src/dzmingli_vs_floating/bench`: 通常サイズは 10,000 桁、乗算以外の stress は 20,000 桁まで。"
+
+#: manual/api/dzmingli_vs_floating.md:16
+msgid "`src/dzmingli_vs_floating/bench_common`: 1, 4, 8, 16, 18, and 28 digits."
+msgstr "`src/dzmingli_vs_floating/bench_common`: 1、4、8、16、18、28 桁。"
+
+#: manual/api/dzmingli_vs_floating.md:17
+msgid "`tools/run_dzmingli_dectest_audit.sh`: pinned official GDA decTest audit."
+msgstr "`tools/run_dzmingli_dectest_audit.sh`: 固定された公式 GDA decTest 監査。"
+
+#: manual/api/dzmingli_vs_floating.md:19
+msgid "The runners emit validation, calibration, observation, summary, and comparison JSONL records and write self-contained HTML reports under `artifacts/`."
+msgstr "runner は JSONL の validation、calibration、observation、summary、comparison と、 `artifacts/` 配下の自己完結 HTML レポートを生成します。"
+
+#: manual/api/floating_vs_decmial_x.md:1
+msgid "`floating_vs_decmial_x` API"
+msgstr "`floating_vs_decmial_x` API"
+
+#: manual/api/floating_vs_decmial_x.md:3
+msgid "Positioning"
+msgstr "位置づけ"
+
+#: manual/api/floating_vs_decmial_x.md:5
+msgid "This package is the repository's differential-testing and performance benchmark, not a production runtime library. It is kept only in the GitHub repository for reference, reproduction and regression checks, and is not published to Mooncakes."
+msgstr "本パッケージはリポジトリ内の差分テスト・性能ベンチマークであり、本番用のランタイムライブラリではありません。参照、再現、回帰チェックのために GitHub リポジトリにのみ保持し、Mooncakes には公開しません。"
+
+#: manual/api/floating_vs_decmial_x.md:7
+msgid "Entry points"
+msgstr "実行入口"
+
+#: manual/api/floating_vs_decmial_x.md:14
+msgid "`bench` measures coefficients of 1, 4, 16, 64, 256, 1024 and 4096 digits; `bench_common` measures coefficients of 1, 4, 8, 16, 18 and 28 digits."
+msgstr "`bench` は 1、4、16、64、256、1024、4096 桁の係数を、`bench_common` は 1、4、8、16、18、28 桁の係数を計測します。"
+
+#: manual/api/floating_vs_decmial_x.md:16
+msgid "Main exports"
+msgstr "主なエクスポート"
+
+#: manual/api/floating_vs_decmial_x.md:18
+msgid "`DecimalValue`: a neutral representation as a coefficient and a decimal scale."
+msgstr "`DecimalValue`：係数と十進 scale による中立的な表現。"
+
+#: manual/api/floating_vs_decmial_x.md:19
+msgid "`DecimalSemantics`: the `ExactOverlap` and `XCompatible` semantic groups."
+msgstr "`DecimalSemantics`：`ExactOverlap` と `XCompatible` のセマンティクスグループ。"
+
+#: manual/api/floating_vs_decmial_x.md:20
+msgid "`Operation`: addition, subtraction, multiplication, division, comparison and the other measured operations."
+msgstr "`Operation`：加算、減算、乗算、除算、比較などの計測対象の操作。"
+
+#: manual/api/floating_vs_decmial_x.md:21
+msgid "`prepare_fixture`: builds the shared fixture for both implementations outside the timed region."
+msgstr "`prepare_fixture`：計測区間の外で両実装に共通の fixture を構築します。"
+
+#: manual/api/floating_vs_decmial_x.md:22
+msgid "`working_precision`: computes the working precision GDA needs for an operation and a semantic group."
+msgstr "`working_precision`：操作とセマンティクスグループに応じて GDA が必要とする作業精度を計算します。"
+
+#: manual/api/floating_vs_decmial_x.md:23
+msgid "`canonical_observation`: converts the results of both implementations to one comparison boundary."
+msgstr "`canonical_observation`：両実装の結果を共通の比較境界へ変換します。"
+
+#: manual/api/floating_vs_decmial_x.md:25
+msgid "The benchmark output consists of validation, calibration, raw observation, summary and paired comparison JSONL records, together with HTML reports under `artifacts/`."
+msgstr "ベンチマークの出力は、検証、較正、生の観測、要約、ペア比較の JSONL レコードと、`artifacts/` 配下の HTML レポートです。"
+
+#: manual/contributing.md:1
+msgid "Contribution guidelines"
+msgstr "コントリビューションガイドライン"
+
+#: manual/contributing.md:3
+msgid "Code style"
+msgstr "コードスタイル"
+
+#: manual/contributing.md:5
+msgid "Format all MoonBit code with `just fmt`."
+msgstr "MoonBit コードは `just fmt` で整形します。"
+
+#: manual/contributing.md:6
+msgid "Keep files organized by package boundary first, then by behavior."
+msgstr "まずパッケージ境界で整理し、その後に具体的な振る舞いでファイルを分けます。"
+
+#: manual/contributing.md:7
+msgid "Keep comments short and technical. Explain contracts, invariants, or non-obvious implementation choices."
+msgstr "コメントは短く技術的にし、契約、不変条件、または分かりにくい実装上の判断を説明します。"
+
+#: manual/contributing.md:9
+msgid "Naming conventions"
+msgstr "命名規則"
+
+#: manual/contributing.md:11
+msgid "Bindings and functions: lowercase with underscores, such as `scaled_value`."
+msgstr "束縛と関数：小文字とアンダースコア（例: `scaled_value`）。"
+
+#: manual/contributing.md:12
+msgid "Types and traits: PascalCase, such as `Solver`."
+msgstr "型と trait：PascalCase（例: `Solver`）。"
+
+#: manual/contributing.md:13
+msgid "Files: lowercase with underscores, named after concrete behavior."
+msgstr "ファイル：小文字とアンダースコアを使い、具体的な振る舞いにちなんで命名します。"
+
+#: manual/contributing.md:14
+msgid "Error codes, if introduced, should use uppercase with underscores and an `E_` prefix."
+msgstr "エラーコードを導入する場合は、大文字とアンダースコアを使い、`E_` を接頭辞にします。"
+
+#: manual/contributing.md:16
+msgid "Testing"
+msgstr "テスト"
+
+#: manual/contributing.md:18
+msgid "Add or update tests whenever behavior changes."
+msgstr "振る舞いを変更した場合はテストを追加または更新します。"
+
+#: manual/contributing.md:19
+msgid "Use package-local `*_test.mbt` or `*_wbtest.mbt` files as appropriate."
+msgstr "必要に応じて `*_test.mbt` または `*_wbtest.mbt` を使います。"
+
+#: manual/contributing.md:20
+msgid "Run `just test` for normal validation and `just ready` before opening a PR."
+msgstr "通常の検証には `just test`、PR 前には `just ready` を実行します。"
+
+#: manual/contributing.md:21
+msgid "Regenerate public interface files with `just info` when public APIs change."
+msgstr "公開 API を変更した場合は `just info` で interface ファイルを再生成します。"
+
+#: manual/contributing.md:23
+msgid "Dependencies"
+msgstr "依存関係"
+
+#: manual/contributing.md:25
+msgid "Update dependencies through `just update-deps`."
+msgstr "依存関係は `just update-deps` で更新します。"
+
+#: manual/contributing.md:26
+msgid "Review `moon.mod` diffs before committing."
+msgstr "コミット前に `moon.mod` の差分を確認します。"
+
+#: manual/contributing.md:27
+msgid "Avoid changing dependency or version declarations in unrelated PRs."
+msgstr "無関係な PR で依存関係やバージョン宣言を変更しないでください。"
+
+#: manual/contributing.md:29
+msgid "Commit guidelines"
+msgstr "コミット規則"
+
+#: manual/contributing.md:31
+msgid "Use concise English Conventional Commit messages, such as `fix: handle empty input`."
+msgstr "`fix: handle empty input` のような、簡潔な英語の Conventional Commit メッセージを使います。"
+
+#: manual/contributing.md:32
+msgid "Keep each commit focused on one logical change."
+msgstr "各コミットは一つの論理的な変更に絞ります。"
+
+#: manual/contributing.md:34
+msgid "Release checklist"
+msgstr "リリースチェックリスト"
+
+#: manual/contributing.md:36
+msgid "Update `version` in `moon.mod`."
+msgstr "`moon.mod` の `version` を更新します。"
+
+#: manual/contributing.md:37
+msgid "Ensure README and docs reflect the current package."
+msgstr "README とドキュメントが現在のパッケージ状態を反映していることを確認します。"
+
+#: manual/contributing.md:38
+msgid "Run `just ready`."
+msgstr "`just ready` を実行します。"
+
+#: manual/contributing.md:39
+msgid "Trigger the `publish-package` GitHub Actions workflow with the exact `moon.mod` version."
+msgstr "`publish-package` GitHub Actions workflow を手動実行し、`moon.mod` と完全に一致するバージョンを入力します。"
+
+#: manual/design/dzmingli_vs_floating.md:1
+msgid "Design and performance report"
+msgstr "DzmingLi decimal と floating GDA の設計・性能レポート"
+
+#: manual/design/dzmingli_vs_floating.md:3
+msgid "This report describes the current `Luna-Flow/floating/decimal_gda@0.7.1` benchmark run."
+msgstr "このレポートは `Luna-Flow/floating/decimal_gda@0.7.1` の現在の benchmark run を説明します。"
+
+#: manual/design/dzmingli_vs_floating.md:6
+msgid "Contract"
+msgstr "測定契約"
+
+#: manual/design/dzmingli_vs_floating.md:8
+msgid "Both libraries consume identical coefficient-and-scale fixtures. `arithmetic_only` times only the public operation; `full_path` additionally parses both canonical operand strings. Validation, canonicalization, calibration, and reporting stay outside timing. Division uses exact terminating divisors. Performance is paired only where both implementations pass the independent exact-finite `BigInt` oracle."
+msgstr "両実装には同一の coefficient-and-scale fixture を渡します。`arithmetic_only` は公開演算だけ、 `full_path` はさらに二つの canonical 文字列の parse を計測します。検証、canonicalization、 calibration、reporting は計測外です。除算は有限小数になる除数のみを使い、両実装が独立した exact-finite `BigInt` oracle に合格した点だけを性能比較します。"
+
+#: manual/design/dzmingli_vs_floating.md:15
+msgid "Correctness"
+msgstr "正当性"
+
+#: manual/design/dzmingli_vs_floating.md:17
+msgid "The scaling corpus produced 1,476 validations. Floating GDA passed all 738 of its rows; DzmingLi passed 630 and failed 108. Failures start at 4,096 coefficient digits for add, subtract, multiply, and divide. Compare remains correct through 20,000 digits."
+msgstr "scaling corpus は 1,476 件を検証しました。floating GDA は 738/738 合格、DzmingLi は 630 件合格、108 件失敗です。加減乗除は coefficient 4,096 桁から失敗し、compare は 20,000 桁まで正しい結果でした。"
+
+#: manual/design/dzmingli_vs_floating.md:22
+msgid "The official GDA audit executes 17,651 legal rows from 23 arithmetic/base files; floating GDA passes all of them. DzmingLi passes every shared arithmetic operation, comparison, and `apply`, but fails 329 `toSci` rows because formatting does not apply active precision and rounding. Official finite operands reach only 64 coefficient digits, so decTest cannot replace the large-coefficient oracle."
+msgstr "公式 GDA 監査は 23 の arithmetic/base ファイル、合法な 17,651 行を実行し、 floating GDA はすべて合格しました。DzmingLi は全共有算術、比較、`apply` に合格しますが、active precision と rounding を format に適用しないため `toSci` 329 行に失敗します。公式の有限 operand は最大 64 桁なので、 decTest だけでは大きな coefficient の oracle を置き換えられません。"
+
+#: manual/design/dzmingli_vs_floating.md:29
+msgid "The scalable layer covers 19 exact operations. The 14 newly added operations run through 1,024 digits; `exp`, `ln`, and `log10` remain decTest-only because identity-only timing would not measure their algorithms and general results need a separate independent transcendental oracle."
+msgstr "桁数性能層は 19 の exact operation を扱い、新規 14 操作は 1,024 桁まで測定します。 `exp/ln/log10` は identity-only timing がアルゴリズムを表さず、一般結果には別の独立 transcendental oracle が必要なため decTest-only です。"
+
+#: manual/design/dzmingli_vs_floating.md:34
+msgid "DzmingLi's `digit_count` evaluates `bit_length * 30103` in signed `Int`. On the current native target it can overflow near 21,475 coefficient digits. Product, square, FMA, and integer-power results may double coefficient length and cross the boundary from inputs near 10,738 digits. Multiplication completes at 10,000 digits and non-product operations at 20,000; 32,768 and 65,536 digits reproduce the abort. These are analytical and observed bounds, not one universal exact first-failure point."
+msgstr "DzmingLi の `digit_count` は signed `Int` で `bit_length * 30103` を計算します。現在の native target では coefficient 約 21,475 桁から overflow の可能性があり、積・平方・ FMA・二次 power は結果桁数を倍増させるため入力約 10,738 桁から境界を越え得ます。 10,000 桁の乗算と 20,000 桁の非乗算は完走し、32,768/65,536 桁は abort しました。これは解析・観測上の境界であり、全 operand に共通する厳密な最初の失敗点ではありません。"
+
+#: manual/design/dzmingli_vs_floating.md:42
+msgid "Performance"
+msgstr "性能"
+
+#: manual/design/dzmingli_vs_floating.md:44
+msgid "DzmingLi generally leads the arithmetic-only scope at 1–64 digits, while the full-path scope is mixed because parsing and construction are included. At 256 digits, floating GDA leads all five tested operations in both timing scopes. At 1,024 digits, where both remain correct, floating GDA is approximately `3.54–95.44×` faster depending on operation and scope. At invalid larger arithmetic sizes, reports retain validated GDA latency but omit paired speedup decisions."
+msgstr "1–64 桁では arithmetic-only で DzmingLi が概ね先行しますが、parse と構築を含む full-path は混在します。256 桁では両 timing scope の全 5 演算で floating GDA が先行します。双方が正しい 1,024 桁では、floating GDA は演算と scope により約 `3.54–95.44×` 高速です。より大きい算術点は DzmingLi が不正なので、GDA の検証済み latency のみを掲載し speedup は算出しません。"
+
+#: manual/design/dzmingli_vs_floating.md:52
+msgid "Limits"
+msgstr "制約"
+
+#: manual/design/dzmingli_vs_floating.md:54
+msgid "Results are from one Apple M4 native release run with uncontrolled CPU frequency. The corpus has three deterministic scale profiles and division uses small terminating divisors. These results are regression evidence, not a universal implementation ranking."
+msgstr "Apple M4、native release、周波数制御なしの一回の測定です。fixture は三つの決定的 scale profile、除算は小さな有限除数に限定されます。結果は回帰分析用であり一般的な順位ではありません。"
+
+#: manual/design/floating_vs_decmial_x.md:1
+msgid "`floating_vs_decmial_x` design and performance report"
+msgstr "`floating_vs_decmial_x` 設計と性能レポート"
+
+#: manual/design/floating_vs_decmial_x.md:3
+msgid "Goal"
+msgstr "目的"
+
+#: manual/design/floating_vs_decmial_x.md:5
+msgid "The package compares the correctness and performance of `moonbitlang/x/decimal@0.4.46` and `Luna-Flow/floating/decimal_gda@0.7.1` on identical neutral inputs. Fixture construction, type conversion, validation and result normalization all stay outside the timed region."
+msgstr "本パッケージは、同一の中立的な入力に対する `moonbitlang/x/decimal@0.4.46` と `Luna-Flow/floating/decimal_gda@0.7.1` の正確性と性能を比較します。fixture の構築、型変換、検証、結果の正規化はすべて計測区間の外で行います。"
+
+#: manual/design/floating_vs_decmial_x.md:7
+msgid "This report describes only the results for the current repository and the current environment. It does not speak for all hardware, compilers or decimal implementations."
+msgstr "このレポートは現在のリポジトリと現在の実行環境での結果のみを記述し、あらゆるハードウェア、コンパイラ、十進実装を代表するものではありません。"
+
+#: manual/design/floating_vs_decmial_x.md:9
+msgid "Semantic groups"
+msgstr "セマンティクスグループ"
+
+#: manual/design/floating_vs_decmial_x.md:11
+msgid "`exact_overlap`: operations whose mathematical result both APIs can represent directly."
+msgstr "`exact_overlap`：数学的な結果を両方の API が直接表現できる操作。"
+
+#: manual/design/floating_vs_decmial_x.md:12
+msgid "`x_compatible`: multiplication and division follow X's policy of 28 fractional digits with truncation toward zero; GDA performs the matching post-processing inside the timed path."
+msgstr "`x_compatible`：乗算と除算は X の小数 28 桁・ゼロ方向切り捨ての方針に従い、GDA は対応する後処理を計測経路の中で行います。"
+
+#: manual/design/floating_vs_decmial_x.md:14
+msgid "The two groups must not be read together; in particular, GDA's complete semantic pipeline and a single X arithmetic call are not the same kind of cost."
+msgstr "二つのグループの結果を混ぜて解釈してはいけません。特に、GDA の完全なセマンティクスパイプラインと X の単一の算術呼び出しは同じ種類のコストではありません。"
+
+#: manual/design/floating_vs_decmial_x.md:16
+msgid "Summary of results"
+msgstr "結果の要約"
+
+#: manual/design/floating_vs_decmial_x.md:18
+msgid "Addition and subtraction"
+msgstr "加算と減算"
+
+#: manual/design/floating_vs_decmial_x.md:20
+msgid "GDA leads at 1–256 digits (`0.23–0.39 µs/op`, against `0.46–0.66 µs/op` for X); X overtakes it at 1,024–4,096 digits and is about `1.4–1.8×` faster at the upper end. Both grow roughly linearly; the difference comes mainly from small-object paths, scale alignment and the constant overhead of big integers."
+msgstr "1–256 桁では GDA が優位です（`0.23–0.39 µs/op`、X は `0.46–0.66 µs/op`）。1,024–4,096 桁では X が逆転し、上端では約 `1.4–1.8×` 高速です。どちらもおおむね線形に増加し、差は主に小さなオブジェクトの経路、scale の揃え、多倍長整数の定数オーバーヘッドに由来します。"
+
+#: manual/design/floating_vs_decmial_x.md:22
+msgid "Multiplication"
+msgstr "乗算"
+
+#: manual/design/floating_vs_decmial_x.md:24
+msgid "X leads at every tested size by about `2.1–2.7×`. The curves have similar shapes, so the difference is mainly a constant factor and does not support a claim that the complexity classes differ."
+msgstr "X はすべての計測サイズで約 `2.1–2.7×` 優位です。曲線の形は似ているため、差は主に定数倍であり、計算量のクラスが異なると主張する根拠にはなりません。"
+
+#: manual/design/floating_vs_decmial_x.md:26
+msgid "Division"
+msgstr "除算"
+
+#: manual/design/floating_vs_decmial_x.md:28
+msgid "Under `exact_overlap`, GDA is about `1.2–4.1×` faster at 1–64 digits and X is about `1.3–3.4×` faster at 256–4,096 digits. In the `x_compatible` pipeline the two stay within about `1.2×` of each other up to 256 digits, and GDA is about `1.8×` faster at 1,024 digits and `3.8×` faster at 4,096 digits. Division is the operation most affected by working precision, rounding policy and the internal division algorithm, so it cannot be compared apart from its semantics."
+msgstr "`exact_overlap` では、1–64 桁で GDA が約 `1.2–4.1×`、256–4,096 桁で X が約 `1.3–3.4×` 高速です。`x_compatible` パイプラインでは 256 桁まで両者の差は約 `1.2×` 以内に収まり、1,024 桁では GDA が約 `1.8×`、4,096 桁では約 `3.8×` 高速です。除算は作業精度、丸め方針、内部の除算アルゴリズムの影響を最も受けやすいため、セマンティクスと切り離して比較することはできません。"
+
+#: manual/design/floating_vs_decmial_x.md:30
+msgid "Comparison"
+msgstr "比較"
+
+#: manual/design/floating_vs_decmial_x.md:32
+msgid "GDA is faster at every tested size, from about `3.4×` at 1 digit to about `14.8×` at 4,096 digits. This matches the implementation paths: GDA can compare by sign, coefficient length and adjusted exponent, while X has to align the operands to a common scale."
+msgstr "GDA はすべての計測サイズで高速で、1 桁の約 `3.4×` から 4,096 桁の約 `14.8×` までです。これは実装経路と一致します。GDA は符号、係数の長さ、調整済み指数で比較できますが、X はオペランドを共通の scale に揃える必要があります。"
+
+#: manual/design/floating_vs_decmial_x.md:34
+msgid "Relation to other implementations"
+msgstr "他の実装との関係"
+
+#: manual/design/floating_vs_decmial_x.md:36
+msgid "Fixed-precision `decimal64/decimal128` is usually faster within its precision bound, because it never needs unbounded big integers."
+msgstr "固定精度の `decimal64/decimal128` は、上限なく増える多倍長整数を必要としないため、通常はその精度の範囲内で高速です。"
+
+#: manual/design/floating_vs_decmial_x.md:37
+msgid "In arbitrary-precision BigInt decimal libraries, addition and subtraction are usually close to `O(n)`; multiplication and division depend on the underlying big-integer algorithms and their thresholds."
+msgstr "任意精度の BigInt 十進ライブラリでは、加減算は通常 `O(n)` に近く、乗除算は基盤となる多倍長整数アルゴリズムとその閾値に依存します。"
+
+#: manual/design/floating_vs_decmial_x.md:38
+msgid "Mature C implementations usually benefit from limb arithmetic, memory layout and compiler or assembly optimizations, so the numbers of this benchmark cannot be extrapolated to them."
+msgstr "成熟した C 実装は通常、limb 演算、メモリ配置、コンパイラやアセンブリによる最適化の恩恵を受けるため、このベンチマークの数値をそのまま外挿することはできません。"
+
+#: manual/design/floating_vs_decmial_x.md:39
+msgid "IEEE/GDA-style libraries usually pay extra for general capabilities such as precision contexts, rounding modes, status flags, NaN and Infinity."
+msgstr "IEEE/GDA 形式のライブラリは通常、精度コンテキスト、丸めモード、ステータスフラグ、NaN、Infinity などの汎用機能のために追加のコストを払います。"
+
+#: manual/design/floating_vs_decmial_x.md:41
+msgid "Conclusion and boundaries"
+msgstr "結論と境界"
+
+#: manual/design/floating_vs_decmial_x.md:43
+msgid "For this workload, X suits simple, fixed, high-performance decimal arithmetic, and GDA suits scenarios that need complete GDA/IEEE semantics. The conclusion serves only as an implementation reference and for regression analysis in this repository; it is not a general recommendation for choosing a library."
+msgstr "このワークロードでは、X は単純で固定的な高性能十進演算に、GDA は完全な GDA/IEEE セマンティクスを必要とする場面に向いています。この結論は本リポジトリにおける実装の参考と回帰分析のためのものであり、一般的なライブラリ選定の推奨ではありません。"
+
+#: manual/design/floating_vs_decmial_x.md:45
+msgid "Publication policy"
+msgstr "公開方針"
+
+#: manual/design/floating_vs_decmial_x.md:47
+msgid "`floating_vs_decmial_x` is a benchmark and reference package that stays in the GitHub repository. It is not published to Mooncakes and makes no promise to be a stable dependency or runtime API for downstream projects."
+msgstr "`floating_vs_decmial_x` は GitHub リポジトリに置かれるベンチマーク兼参照用パッケージです。Mooncakes には公開せず、下流プロジェクトの安定した依存関係やランタイム API となることも約束しません。"
+
+#: manual/index.md:1
+msgid "diff_bench"
+msgstr "diff_bench"
+
+#: manual/index.md:3
+msgid "`diff_bench` contains differential correctness and performance benchmarks for Luna-Flow MoonBit packages."
+msgstr "`diff_bench` は Luna-Flow MoonBit パッケージの差分正当性・性能ベンチマークを収録します。"
+
+#: manual/index.md:5
+msgid "`floating_vs_decmial_x` is a GitHub-only reference benchmark. It is not published to Mooncakes or intended as a downstream runtime dependency."
+msgstr "`floating_vs_decmial_x` は GitHub 上の参考用ベンチマークです。Mooncakes には公開せず、下流ランタイム依存としては想定しません。"
+
+#: manual/index.md:7
+msgid "Benchmarks"
+msgstr "ベンチマーク"
+
+#: manual/index.md:9
+msgid "`dzmingli_vs_floating` compares `DzmingLi/decimal@0.2.2` with `Luna-Flow/floating/decimal_gda@0.7.1` against an exact `BigInt` oracle. The [design report](design/dzmingli_vs_floating.md) states the measurement contract and the correctness findings, the [performance analysis](performance/dzmingli_vs_floating.md) gives the measured latencies, and the [tutorial](tutorial/dzmingli_vs_floating.md) reproduces the run."
+msgstr "`dzmingli_vs_floating` は厳密な `BigInt` oracle を基準に `DzmingLi/decimal@0.2.2` と `Luna-Flow/floating/decimal_gda@0.7.1` を比較します。[設計レポート](design/dzmingli_vs_floating.md)は計測の契約と正確性の結果を、[性能分析](performance/dzmingli_vs_floating.md)は計測したレイテンシを示し、[チュートリアル](tutorial/dzmingli_vs_floating.md)は実行の再現方法を説明します。"
+
+#: manual/index.md:16
+msgid "`floating_vs_decmial_x` compares `moonbitlang/x/decimal@0.4.46` with `Luna-Flow/floating/decimal_gda@0.7.1`. The [design report](design/floating_vs_decmial_x.md) explains the semantic groups and summarizes the results, the [performance analysis](performance/floating_vs_decmial_x.md) interprets them, and the [tutorial](tutorial/floating_vs_decmial_x.md) reproduces the run."
+msgstr "`floating_vs_decmial_x` は `moonbitlang/x/decimal@0.4.46` と `Luna-Flow/floating/decimal_gda@0.7.1` を比較します。[設計レポート](design/floating_vs_decmial_x.md)はセマンティクスのグループを説明して結果を要約し、[性能分析](performance/floating_vs_decmial_x.md)はその結果を解釈し、[チュートリアル](tutorial/floating_vs_decmial_x.md)は実行の再現方法を説明します。"
+
+#: manual/index.md:23
+msgid "Artifacts"
+msgstr "成果物"
+
+#: manual/index.md:25
+msgid "Raw JSONL records, self-contained HTML reports, Plot IR and the rendered PNG, PDF and SVG figures are kept in the repository under `artifacts/<package>/`, outside the manual. The performance pages link to them."
+msgstr "生の JSONL レコード、自己完結型 HTML レポート、Plot IR、描画済みの PNG・PDF・SVG 図は、マニュアルの外にあるリポジトリの `artifacts/<package>/` に保存されています。性能分析のページからリンクしています。"
+
+#: manual/index.md:29
+msgid "Contributing"
+msgstr "コントリビュート"
+
+#: manual/index.md:31
+msgid "The [contribution guidelines](contributing.md) cover code style, naming, testing, dependencies and the release checklist."
+msgstr "[コントリビューションガイドライン](contributing.md)では、コードスタイル、命名、テスト、依存関係、リリースチェックリストを扱います。"
+
+#: manual/performance/dzmingli_vs_floating.md:1
+#: manual/performance/floating_vs_decmial_x.md:1
+msgid "Performance analysis"
+msgstr "性能分析"
+
+#: manual/performance/dzmingli_vs_floating.md:3
+msgid "The current `0.7.1` run contains 1,476 scaling validations, with 1,368 passes and 108 DzmingLi failures. The expanded common-digit run contains 1,368/1,368 successful validations for 19 operations."
+msgstr "現在の `0.7.1` run は scaling で 1,476 件を検証し、1,368 件が合格、DzmingLi の 108 件が失敗しました。拡張 common-digits は 19 操作について 1,368/1,368 検証に合格しています。"
+
+#: manual/performance/dzmingli_vs_floating.md:7
+msgid "At 1,024 digits, where both implementations still pass the oracle, floating GDA records `0.978–16.798 µs/op` for the five arithmetic-only operations versus DzmingLi's `12.459–78.978 µs/op`. Full-path medians are `7.427–24.133 µs/op` versus `152.145–205.549 µs/op`. The resulting GDA speedup ranges from `3.54×` for arithmetic-only multiplication to `95.44×` for arithmetic-only comparison."
+msgstr "双方が oracle に合格する 1,024 桁では、arithmetic-only の floating GDA は `0.978–16.798 µs/op`、DzmingLi は `12.459–78.978 µs/op` です。full-path はそれぞれ `7.427–24.133 µs/op` と `152.145–205.549 µs/op` で、GDA の speedup は操作と scope により `3.54–95.44×` です。"
+
+#: manual/performance/dzmingli_vs_floating.md:13
+msgid "DzmingLi arithmetic is incorrect from 4,096 digits, so those points are not speedups. At 20,000 digits the validated GDA medians are `14.810 µs` add, `15.083 µs` subtract, `60.588 µs` divide, and `0.130 µs` compare for arithmetic-only; full-path medians are `154.468`, `155.582`, `131.363`, and `139.865 µs`, respectively."
+msgstr "DzmingLi の算術は 4,096 桁以降で不正なため、その点は speedup として扱いません。20,000 桁の検証済み GDA は arithmetic-only で加算 `14.810`、減算 `15.083`、除算 `60.588`、比較 `0.130 µs/op`、full-path は順に `154.468`、`155.582`、`131.363`、`139.865 µs/op` です。"
+
+#: manual/performance/dzmingli_vs_floating.md:19
+msgid "DzmingLi's arithmetic-only comparison curve remains data-dependent at large input sizes: its medians at 4,096, 8,192, 10,000, 16,384, and 20,000 digits are `105.918`, `0.103`, `675.705`, `0.101`, and `2,203.063 µs/op`. Some fixtures can be ordered immediately from sign, exponent, or significant-digit metadata, while others require a deep coefficient comparison. The connected curve therefore contains execution-class spikes rather than a single digit-count scaling law. Full-path timing also includes parsing and construction costs; comparison should be evaluated by input class as well as coefficient size."
+msgstr "DzmingLi の arithmetic-only 比較は大規模入力でデータ依存の短絡経路を示します。4,096、8,192、10,000、16,384、20,000 桁の中央値は `105.918`、`0.103`、`675.705`、`0.101`、`2,203.063 µs/op` です。符号、指数、有効桁数だけで判定できる fixture と長い係数を深く比較する fixture が混在するためで、単一の桁数スケーリングとして解釈できません。"
+
+#: manual/performance/dzmingli_vs_floating.md:28
+#: manual/performance/floating_vs_decmial_x.md:22
+msgid "Data and figures"
+msgstr "データと図"
+
+#: manual/performance/dzmingli_vs_floating.md:30
+msgid "The figures and reports for this analysis are kept in the repository: the [main figure](../../../artifacts/dzmingli_vs_floating/main.svg), the [supplementary figure](../../../artifacts/dzmingli_vs_floating/supplementary.svg), the [scaling report](../../../artifacts/dzmingli_vs_floating/scaling.html) and the [common-digit report](../../../artifacts/dzmingli_vs_floating/common_digits.html), with the JSONL records and the Plot IR beside them."
+msgstr "この分析の図とレポートはリポジトリに保存されています：[メイン図](../../../artifacts/dzmingli_vs_floating/main.svg)、[補足図](../../../artifacts/dzmingli_vs_floating/supplementary.svg)、[scaling レポート](../../../artifacts/dzmingli_vs_floating/scaling.html)、[共通桁レポート](../../../artifacts/dzmingli_vs_floating/common_digits.html)。JSONL レコードと Plot IR も同じ場所にあります。"
+
+#: manual/performance/floating_vs_decmial_x.md:3
+msgid "Measurement contract"
+msgstr "測定条件"
+
+#: manual/performance/floating_vs_decmial_x.md:5
+msgid "This report covers the current MoonBit native release benchmark comparing `moonbitlang/x/decimal@0.4.46` and `Luna-Flow/floating/decimal_gda@0.7.1`. Fixture construction, parsing, conversion, correctness checks, and formatting are outside the timed region. `exact_overlap` measures shared mathematical semantics; `x_compatible` also includes 28 fractional digits and truncation toward zero."
+msgstr "これは `moonbitlang/x/decimal@0.4.46` と `Luna-Flow/floating/decimal_gda@0.7.1` を比較する現在の MoonBit native release ベンチマークです。fixture の生成、解析、変換、正当性検証、整形は計測外です。`exact_overlap` は共通する数学的意味だけを測り、`x_compatible` は小数 28 桁とゼロ方向切り捨ても計測します。"
+
+#: manual/performance/floating_vs_decmial_x.md:7
+msgid "Results"
+msgstr "結果"
+
+#: manual/performance/floating_vs_decmial_x.md:9
+msgid "**Add/subtract:** GDA leads at 1–256 digits (`0.23–0.39 µs/op` versus X's `0.46–0.66 µs/op`); X leads at 1,024–4,096 digits and is about `1.4–1.8×` faster at the upper end."
+msgstr "**加減算**：1–256 桁では GDA が優位（`0.23–0.39 µs/op` 対 X の `0.46–0.66 µs/op`）。1,024–4,096 桁では X が逆転し、上限側で約 `1.4–1.8×` 高速です。"
+
+#: manual/performance/floating_vs_decmial_x.md:10
+msgid "**Multiply:** X leads at every scaling point by about `2.1–2.7×`, a constant-factor advantage in this workload rather than evidence of a different complexity class."
+msgstr "**乗算**：全サイズで X が約 `2.1–2.7×` 高速です。本 workload では定数倍の差を示しますが、計算量クラスの違いを示すものではありません。"
+
+#: manual/performance/floating_vs_decmial_x.md:11
+msgid "**Divide:** For `exact_overlap`, GDA leads by `1.2–4.1×` at 1–64 digits, while X leads by `1.3–3.4×` at 256–4,096 digits. In `x_compatible`, the two implementations stay within about `1.2×` through 256 digits, then GDA leads by about `1.8×` at 1,024 and `3.8×` at 4,096 digits."
+msgstr "**除算**：`exact_overlap` では 1–64 桁で GDA が約 `1.2–4.1×` 高速、256–4,096 桁では X が約 `1.3–3.4×` 高速です。`x_compatible` は 256 桁まで約 `1.2×` 以内で、1,024 桁と 4,096 桁では GDA がそれぞれ約 `1.8×`、`3.8×` 高速です。"
+
+#: manual/performance/floating_vs_decmial_x.md:12
+msgid "**Compare:** GDA leads at every scaling point, from about `3.4×` at 1 digit to `14.8×` at 4,096 digits, consistent with early sign/coefficient-length/exponent shortcuts."
+msgstr "**比較**：全サイズで GDA が高速で、1 桁の約 `3.4×` から 4,096 桁の約 `14.8×` まで差が広がります。符号・係数長・指数による早期判定が影響します。"
+
+#: manual/performance/floating_vs_decmial_x.md:14
+msgid "Cross-implementation context"
+msgstr "他実装との位置付け"
+
+#: manual/performance/floating_vs_decmial_x.md:16
+msgid "Fixed-precision decimal64/128 is often fastest within its bound. Arbitrary-precision add/subtract is commonly near `O(n)`, while multiply/divide depend on BigInt algorithms and thresholds. Mature C implementations may benefit from limb layout and SIMD/assembly. Full IEEE/GDA contexts pay for rounding, status flags, and special values."
+msgstr "固定精度 decimal64/128 は範囲内で高速、任意精度の加減算は概ね `O(n)`、乗除算は BigInt のアルゴリズムと閾値に依存します。成熟した C 実装は limb 配置や SIMD/アセンブリの恩恵を受け、完全な IEEE/GDA コンテキストは丸め・状態フラグ・特殊値のコストを伴います。"
+
+#: manual/performance/floating_vs_decmial_x.md:18
+msgid "Conclusion and limits"
+msgstr "結論と限界"
+
+#: manual/performance/floating_vs_decmial_x.md:20
+msgid "For this workload, X favors simple high-throughput arithmetic; GDA favors explicit precision, rounding, and context semantics. The observed ratio is broadly stable with size, supporting a constant-factor implementation gap rather than a different asymptotic class; larger BigInt sizes may expose thresholds. Other GDA implementations may have similar overhead with similar algorithms, but limb layout, caching, native code, fixed precision, or hardware can change constants; the standard does not prescribe an algorithm. Results are specific to these fixtures, target, build mode, and host. Recheck JSONL and `artifacts/` reports. This benchmark remains GitHub-only and is not published to Mooncakes."
+msgstr "この workload では、X は単純な高スループット算術、GDA は明示的な精度・丸め・コンテキスト意味論に適します。倍率は桁数に対して概ね一定で、異なる漸近計算量ではなく定数倍の実装差を示します。大きな BigInt では閾値の影響があり得ます。他の GDA 実装は同様のアルゴリズムなら近いオーバーヘッドですが、limb 配置、キャッシュ、ネイティブコード、固定精度、ハードウェアで定数は変わります。標準はアルゴリズムを規定しません。結果は fixture、target、ビルドモード、ホストに依存します。JSONL と `artifacts/` を再確認してください。本ベンチマークは GitHub 専用で Mooncakes には公開しません。"
+
+#: manual/performance/floating_vs_decmial_x.md:24
+msgid "The figures and reports for this analysis are kept in the repository: the [main figure](../../../artifacts/floating_vs_decmial_x/main.svg), the [scaling report](../../../artifacts/floating_vs_decmial_x/scaling.html) and the [common-digit report](../../../artifacts/floating_vs_decmial_x/common_digits.html), with the JSONL records and the Plot IR beside them."
+msgstr "この分析の図とレポートはリポジトリに保存されています：[メイン図](../../../artifacts/floating_vs_decmial_x/main.svg)、[scaling レポート](../../../artifacts/floating_vs_decmial_x/scaling.html)、[共通桁レポート](../../../artifacts/floating_vs_decmial_x/common_digits.html)。JSONL レコードと Plot IR も同じ場所にあります。"
+
+#: manual/tutorial/dzmingli_vs_floating.md:1
+msgid "Reproducing the comparison"
+msgstr "比較の再現方法"
+
+#: manual/tutorial/dzmingli_vs_floating.md:3
+msgid "Run from the repository root on the native release target:"
+msgstr "リポジトリのルートで実行します。"
+
+#: manual/tutorial/dzmingli_vs_floating.md:13
+msgid "The decTest command intentionally exits nonzero while DzmingLi has known `toSci` failures. The scaling command also exits nonzero after writing its complete report when exact-finite validation failures are present. Confirm all summary records have `\"complete\":true` before interpreting performance."
+msgstr "DzmingLi には既知の `toSci` 失敗があるため decTest は非ゼロ終了します。scaling も完全なレポートを書き出した後、exact-finite 検証失敗により非ゼロ終了します。性能を解釈する前に、すべての summary が `\"complete\":true` であることを確認します。"
+
+#: manual/tutorial/floating_vs_decmial_x.md:1
+msgid "Running and reproducing"
+msgstr "実行と再現"
+
+#: manual/tutorial/floating_vs_decmial_x.md:3
+msgid "Run the benchmark"
+msgstr "ベンチマークを実行する"
+
+#: manual/tutorial/floating_vs_decmial_x.md:5
+msgid "From the repository root, run:"
+msgstr "リポジトリのルートで次を実行します。"
+
+#: manual/tutorial/floating_vs_decmial_x.md:11
+msgid "To compare only the coefficient sizes common in X, 1, 4, 8, 16, 18 and 28 digits, run:"
+msgstr "X でよく使われる 1、4、8、16、18、28 桁の係数サイズだけを比較する場合は、次を実行します。"
+
+#: manual/tutorial/floating_vs_decmial_x.md:17
+msgid "Record the environment"
+msgstr "環境を記録する"
+
+#: manual/tutorial/floating_vs_decmial_x.md:19
+msgid "Pass known host facts through `MARE_CPU`, `MARE_OS`, `MARE_BUILD_MODE` and the other `MARE_*` environment variables. Facts that are not provided are recorded as `unknown` or `unspecified`; they are never inferred from the source code or from another machine."
+msgstr "既知のホスト情報は `MARE_CPU`、`MARE_OS`、`MARE_BUILD_MODE` などの `MARE_*` 環境変数で渡します。渡されなかった情報は `unknown` または `unspecified` として記録され、ソースコードや他のマシンから推測されることはありません。"
+
+#: manual/tutorial/floating_vs_decmial_x.md:21
+msgid "Read the results"
+msgstr "結果を読む"
+
+#: manual/tutorial/floating_vs_decmial_x.md:23
+msgid "`arithmetic_only`: each implementation executes exactly one public arithmetic operation."
+msgstr "`arithmetic_only`：各実装は公開算術操作をちょうど一回だけ実行します。"
+
+#: manual/tutorial/floating_vs_decmial_x.md:24
+msgid "`semantic_equivalent_pipeline`: includes the complete public API flow needed to reproduce X's result policy."
+msgstr "`semantic_equivalent_pipeline`：X の結果方針を再現するために必要な公開 API の処理全体を含みます。"
+
+#: manual/tutorial/floating_vs_decmial_x.md:25
+msgid "[scaling.html](../../../artifacts/floating_vs_decmial_x/scaling.html): the report over the wide range of coefficient sizes."
+msgstr "[scaling.html](../../../artifacts/floating_vs_decmial_x/scaling.html)：広い範囲の係数サイズにわたるレポート。"
+
+#: manual/tutorial/floating_vs_decmial_x.md:26
+msgid "[common_digits.html](../../../artifacts/floating_vs_decmial_x/common_digits.html): the report for common digit counts."
+msgstr "[common_digits.html](../../../artifacts/floating_vs_decmial_x/common_digits.html)：よく使われる桁数のレポート。"
+
+#: manual/tutorial/floating_vs_decmial_x.md:28
+msgid "Results from different MoonBit targets must be run and analyzed separately; they cannot be merged."
+msgstr "異なる MoonBit target の結果は別々に実行・分析する必要があり、統合することはできません。"
+
+#~ msgid "This repository's documentation must describe the real implementation on the current branch."
+#~ msgstr "このリポジトリのドキュメントは、現在のブランチ上の実装を正確に説明する必要があります。"
+
+#~ msgid "Provide `README.md`, `doc_standard.md`, and structured package or subsystem documents for every supported locale."
+#~ msgstr "各ロケールに `README.md`、`doc_standard.md`、構造化されたパッケージまたはサブシステム文書を用意します。"
+
+#~ msgid "Document only APIs, workflows, and design decisions that exist in the current branch."
+#~ msgstr "現在のブランチに存在する API、ワークフロー、設計判断だけを記述します。"
+
+#~ msgid "Keep the directory layout aligned with real package or subsystem boundaries."
+#~ msgstr "ディレクトリ構造は実際のパッケージ境界またはサブシステム境界に合わせます。"
+
+#~ msgid "Each package or subsystem directory must contain `api.md`, `tutorial.md`, and `design.md`."
+#~ msgstr "各パッケージまたはサブシステムのディレクトリには `api.md`、`tutorial.md`、`design.md` を置きます。"
+
+#~ msgid "`CONTRIBUTING.md`: contribution rules and release checklist"
+#~ msgstr "`CONTRIBUTING.md`: コントリビューション規約とリリース確認項目"
+
+#~ msgid "`doc_standard.md`: documentation requirements"
+#~ msgstr "`doc_standard.md`: ドキュメント要件"
+
+#~ msgid "`core/api.md`: exported API reference"
+#~ msgstr "`core/api.md`: 公開 API リファレンス"
+
+#~ msgid "`core/tutorial.md`: usage walkthrough"
+#~ msgstr "`core/tutorial.md`: 利用チュートリアル"
+
+#~ msgid "`core/design.md`: implementation and design notes"
+#~ msgstr "`core/design.md`: 実装と設計メモ"
+
+#~ msgid "`floating_vs_decmial_x/api.md`: benchmark API and entry points"
+#~ msgstr "`floating_vs_decmial_x/api.md`: ベンチマーク API と実行入口"
+
+#~ msgid "`floating_vs_decmial_x/tutorial.md`: reproduction instructions"
+#~ msgstr "`floating_vs_decmial_x/tutorial.md`: 再現手順"
+
+#~ msgid "`floating_vs_decmial_x/design.md`: design and performance report"
+#~ msgstr "`floating_vs_decmial_x/design.md`: 設計と性能レポート"
+
+#~ msgid "`floating_vs_decmial_x/performance.md`: multilingual performance analysis"
+#~ msgstr "`floating_vs_decmial_x/performance.md`: 多言語パフォーマンス分析レポート"
+
+#~ msgid "`dzmingli_vs_floating/api.md`: benchmark API and entry points"
+#~ msgstr "`dzmingli_vs_floating/api.md`: ベンチマーク API と実行入口"
+
+#~ msgid "`dzmingli_vs_floating/tutorial.md`: reproduction instructions"
+#~ msgstr "`dzmingli_vs_floating/tutorial.md`: 再現手順"
+
+#~ msgid "`dzmingli_vs_floating/design.md`: correctness and design report"
+#~ msgstr "`dzmingli_vs_floating/design.md`: 正当性・設計レポート"
+
+#~ msgid "`dzmingli_vs_floating/performance.md`: measured performance analysis"
+#~ msgstr "`dzmingli_vs_floating/performance.md`: 測定性能分析"
+
+#~ msgid "Multilingual Performance Analysis"
+#~ msgstr "多言語パフォーマンス分析"

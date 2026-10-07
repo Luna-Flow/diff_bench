@@ -125,6 +125,15 @@ All layouts consume the shared Plot IR model and write PNG, PDF, and SVG from
 the same data. Each panel uses a base-2 logarithmic coefficient-size axis and
 reports median microseconds per operation (`µs/op`); lower values are faster.
 
+## Documentation
+
+The manual is published at
+[luna-flow.github.io/en/diff_bench](https://luna-flow.github.io/en/diff_bench/)
+with Simplified Chinese and Japanese translations. Its English source lives in
+[doc/manual](./doc/manual/index.md): API, design, tutorial, and performance
+pages for each benchmark package, plus the
+[contribution guidelines](./doc/manual/contributing.md).
+
 ## Development
 
 ```sh
