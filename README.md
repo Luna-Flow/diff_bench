@@ -1,140 +1,97 @@
 # diff_bench
 
-Differential correctness and performance benchmarks for Luna-Flow MoonBit packages.
+Differential correctness and performance benchmarks for Luna-Flow MoonBit
+packages. Each benchmark runs two decimal libraries on identical inputs,
+checks both against an independent exact `BigInt` oracle, and measures them
+with [Mare Mark](https://lunaflow.cn/en/mare_mark/) only where the results are
+right. The Luna-Flow subject is the `decimal_gda` package of
+[floating](https://lunaflow.cn/en/floating/).
 
-## Benchmark framework and publication artifacts
+Version `0.1.0`. This is a GitHub-only reference project: it is not published
+on mooncakes and is not meant as a runtime dependency.
 
-The repository has migrated both benchmark packages to the current pinned
-`Luna-Flow/mare_mark@0.3.0` framework. Every run emits versioned `mmka_1`
-JSONL, and the shared Python parser converts that data into `mmks_1` Plot IR.
-Package-specific Matplotlib layouts then render a consistent set of publication
-figures without recomputing benchmark statistics.
+## Install
 
-Each package keeps its raw records, self-contained HTML reports, Plot IR, and
-figures in its own `artifacts/<package>/` directory. PNG is convenient for
-quick previews and documents, PDF is suitable for distribution and archival,
-and SVG remains editable for web or publication workflows. Keeping JSONL and
-Plot IR beside those figures preserves the provenance needed to reproduce them.
+Clone the repository and work inside the module, or add the clone to a
+`moon.work` workspace:
 
-## DzmingLi decimal versus floating GDA
+```sh
+git clone https://github.com/Luna-Flow/diff_bench.git
+cd diff_bench
+moon test --target native
+```
 
-The `dzmingli_vs_floating` package compares `DzmingLi/decimal@0.2.2` with
-`Luna-Flow/floating/decimal_gda@0.7.1`. The benchmark deliberately pins the
-deprecated DzmingLi release for historical comparison; its maintained successor
-is `moonbit-community/decimal`.
+## Example
 
-The checked-in performance artifacts and benchmark report were regenerated
-with `0.7.1`.
+A package inside the module imports
+`"Luna-Flow/diff_bench/dzmingli_vs_floating"` in its `moon.pkg` and checks one
+division in both libraries against the oracle:
 
-Mare Mark validates both implementations against an exact `BigInt` oracle and
-reports performance for two symmetric timing scopes: `arithmetic_only` measures
-the public operation with operands prepared outside timing, while `full_path`
-includes context-aware parsing and constructing both already-serialized operands
-before that operation. Division
-uses exact terminating inputs, and this comparison applies neither X-compatible
-semantics nor fixed 28-digit quantization.
+```moonbit
+test "one division, two libraries, one oracle" {
+  let a = @dzmingli_vs_floating.parse_decimal_value("1.25")
+  let b = @dzmingli_vs_floating.parse_decimal_value("8")
+  let fixture = @dzmingli_vs_floating.prepare_fixture(Divide, a, b)
+  let expected = @dzmingli_vs_floating.oracle_operation(Divide, a, b).canonical
+  let dz = @dzmingli_vs_floating.canonical_observation(@dzmingli_vs_floating.run_dz(fixture))
+  let gda = @dzmingli_vs_floating.canonical_observation(@dzmingli_vs_floating.run_gda(fixture))
+  inspect(expected, content="0.15625")
+  inspect(@dzmingli_vs_floating.canonical_string(dz) == expected, content="true")
+  inspect(@dzmingli_vs_floating.canonical_string(gda) == expected, content="true")
+}
+```
 
-Run the native scaling benchmark, covering general 1–4,096-digit inputs, all
-operations through 10,000 digits, and non-multiplication stress inputs through
-20,000 coefficient digits. Every size uses three identical operand profiles and
-60 paired confirmatory samples:
+## Packages
+
+| Package | Purpose |
+| --- | --- |
+| `dzmingli_vs_floating` | `DzmingLi/decimal@0.2.2` versus floating GDA on 19 exact operations, with an exact-finite oracle and two timing scopes |
+| `dzmingli_vs_floating/bench` | native scaling run, 1 to 20,000 coefficient digits |
+| `dzmingli_vs_floating/bench_common` | native run at 1, 4, 8, 16, 18 and 28 digits |
+| `floating_vs_decmial_x` | `moonbitlang/x/decimal` versus floating GDA under the `exact_overlap` and `x_compatible` semantic groups |
+| `floating_vs_decmial_x/bench` | native scaling run, 1 to 4,096 coefficient digits |
+| `floating_vs_decmial_x/bench_common` | native run at 1, 4, 8, 16, 18 and 28 digits |
+
+The root package `Luna-Flow/diff_bench` holds only the template function
+`hello`. Raw JSONL, HTML reports, Plot IR and figures are kept under
+`artifacts/<package>/`; `tools/` holds the Python figure layouts and the
+official decTest audit (`tools/run_dzmingli_dectest_audit.sh`).
+
+Reproduce the published runs from the repository root:
 
 ```sh
 moon run --release src/dzmingli_vs_floating/bench --target native \
   | sed -n '/^{/p' > artifacts/dzmingli_vs_floating/scaling.jsonl
-```
-
-Run the 1, 4, 8, 16, 18, and 28-digit benchmark:
-
-```sh
-moon run --release src/dzmingli_vs_floating/bench_common --target native \
-  | sed -n '/^{/p' > artifacts/dzmingli_vs_floating/common_digits.jsonl
-```
-
-The runners write `scaling.html`, `common_digits.html`, and matching JSONL
-records under `artifacts/dzmingli_vs_floating/`. The Python layouts add
-`main.{png,pdf,svg}`, `supplementary.{png,pdf,svg}`, and their Plot IR JSON.
-See
-`src/dzmingli_vs_floating/README.md` for the corpus and measurement contract,
-and `src/dzmingli_vs_floating/BENCHMARK_RESULTS.md` for the recorded DzmingLi
-correctness failures and large-input abort boundary.
-
-The latest Apple M4 native run records 738/738 exact-finite validations passing
-for floating GDA and 630/738 for DzmingLi. The separate 23-file official GDA
-arithmetic audit finds 329 DzmingLi `toSci` failures; floating GDA passes all
-17,651 legal rows.
-
-## Decimal X versus floating GDA
-
-The `floating_vs_decmial_x` package compares:
-
-- `moonbitlang/x/decimal@0.4.46`
-- `Luna-Flow/floating/decimal_gda@0.7.1`
-
-The checked-in performance artifacts were regenerated with `0.7.1`.
-
-Both implementations consume the same neutral decimal fixtures. Mare Mark 0.3.0 performs validation
-outside the timing path, calibrates each implementation, uses balanced execution order, retains
-raw observations, and calculates paired performance comparisons.
-
-Run the native scaling benchmark:
-
-```sh
 moon run --release src/floating_vs_decmial_x/bench --target native \
   > artifacts/floating_vs_decmial_x/scaling.jsonl
 ```
 
-Run the separate common-digit benchmark for 1, 4, 8, 16, 18, and 28-digit
-coefficients:
+The figure layouts need Python 3 with Matplotlib, for example
+`python3 tools/layout_x_decimal.py`.
 
-```sh
-moon run --release src/floating_vs_decmial_x/bench_common --target native \
-  > artifacts/floating_vs_decmial_x/common_digits.jsonl
-```
+## Toolchain
 
-The runners write `scaling.html`, `common_digits.html`, and matching JSONL
-records under `artifacts/floating_vs_decmial_x/`; the Python layout adds
-`main.{png,pdf,svg}` and `main.ir.json`.
+MoonBit `moonc` 0.10 or later with the `moon.mod` and `moon.pkg` manifests.
+The executables and the asynchronous Mare Mark runs need the `native` target.
 
-For portable provenance, set the optional `MARE_*` environment overrides when
-the host facts are known (for example, `MARE_CPU`, `MARE_OS`, and
-`MARE_BUILD_MODE`). Missing host facts are recorded as `unknown` or
-`unspecified`; they are never inferred from another machine's benchmark.
-
-The command emits JSONL containing validation, calibration, observation, summary, and comparison
-records. Results from different MoonBit targets must not be combined.
-
-The native benchmark also writes `artifacts/floating_vs_decmial_x/scaling.html`
-using Mare Mark's Plot IR and self-contained HTML renderer.
-
-This repository is a GitHub-only benchmark and reference project. The
-`floating_vs_decmial_x` package is not published to Mooncakes and is not intended
-to be used as a downstream runtime dependency.
-
-To render the unified Matplotlib figures from the recorded scaling runs:
-
-```sh
-python3 -m venv .venv
-.venv/bin/pip install -r requirements-plot.txt
-.venv/bin/python tools/plot_dzmingli_benchmark.py
-.venv/bin/python tools/plot_dzmingli_supplementary_benchmark.py
-.venv/bin/python tools/layout_x_decimal.py
-```
-
-All layouts consume the shared Plot IR model and write PNG, PDF, and SVG from
-the same data. Each panel uses a base-2 logarithmic coefficient-size axis and
-reports median microseconds per operation (`µs/op`); lower values are faster.
+Known issue: on `native` and `js` the test
+`division precision follows the requested semantic contract` fails with
+`4099 != 4097`. Its expected value was recorded on `wasm-gc`, where
+`BigInt::from_string` in `moonbitlang/core` misparses long inputs; `4099` is
+the correct value. Other known limitations of the X comparison are listed in
+its [design page](doc/manual/design/floating_vs_decmial_x.md#boundaries).
 
 ## Documentation
 
 The manual is published at
-[luna-flow.github.io/en/diff_bench](https://luna-flow.github.io/en/diff_bench/)
-with Simplified Chinese and Japanese translations. Its English source lives in
-[doc/manual](./doc/manual/index.md): API, design, tutorial, and performance
-pages for each benchmark package, plus the
-[contribution guidelines](./doc/manual/contributing.md).
+[lunaflow.cn/en/diff_bench](https://lunaflow.cn/en/diff_bench/) with Chinese
+and Japanese translations. Its English source starts at
+[doc/manual/index.md](doc/manual/index.md): API, tutorial and design pages for
+every package, and the performance analysis of both comparisons.
 
-## Development
+## Contributing
+
+See the [contribution guidelines](doc/manual/contributing.md). Common commands:
 
 ```sh
 just fmt
@@ -142,3 +99,7 @@ just check-all
 just test
 just ready
 ```
+
+## License
+
+Apache-2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
