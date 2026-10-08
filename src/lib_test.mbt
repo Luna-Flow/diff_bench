@@ -1,4 +1,4 @@
 ///|
 test "hello" {
-  inspect(hello(), content="hello from Luna-Flow")
+  inspect(@diff_bench.hello(), content="hello from Luna-Flow")
 }
