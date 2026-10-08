@@ -91,7 +91,7 @@ pub fn prepare_fixture(
     x_right: x_from_neutral(right),
     gda_left: gda_from_neutral(left, precision),
     gda_right: gda_from_neutral(right, precision),
-    gda_quantum_28: gda_from_neutral({ coefficient: 1N, scale: 28 }, precision),
+    gda_quantum_28: gda_from_neutral({ coefficient: 1N, scale: 28, }, precision),
     gda_context: @floating_gda.context(
       precision~,
       rounding=@floating_gda.GdaRoundingMode::Down,
@@ -103,7 +103,9 @@ pub fn prepare_fixture(
 pub fn run_x(fixture : DecimalFixture) -> DecimalObservation {
   match fixture.operation {
     Compare => {
-      let order = normalize_order(fixture.x_left.compare(fixture.x_right))
+      let order = normalize_order(
+        Compare::compare(fixture.x_left, fixture.x_right),
+      )
       XCompare(order)
     }
     Parse | Format => X(fixture.x_left)
@@ -194,7 +196,7 @@ fn uses_x_compatible_rounding(semantics : DecimalSemantics) -> Bool {
 
 ///|
 pub fn canonical_x(value : @x_decimal.Decimal) -> DecimalValue {
-  normalize({ coefficient: value.coefficient(), scale: value.scale() })
+  normalize({ coefficient: value.coefficient(), scale: value.scale(), })
 }
 
 ///|
@@ -202,7 +204,7 @@ pub fn canonical_observation(observation : DecimalObservation) -> DecimalValue {
   match observation {
     X(value) => canonical_x(value)
     XCompare(value) =>
-      { coefficient: @bigint.BigInt::from_int(value), scale: 0 }
+      { coefficient: @bigint.BigInt::from_int(value), scale: 0, }
     Gda(outcome) => parse_decimal_value(outcome.value().to_string())
   }
 }
