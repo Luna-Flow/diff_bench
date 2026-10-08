@@ -28,6 +28,17 @@ All notable changes to `Luna-Flow/diff_bench` are recorded here.
   contracts with their error bounds, and the paired statistics.
 - The performance pages state the measurement environment and that the
   published runs predate the migration.
+- Manual brought to the Luna-Flow documentation standard: the index has
+  Install, Pages, exported items, reading paths and Validation; every API page
+  has Purpose and Importing; every tutorial has an "I want to" table; every
+  design page has Constraints and Alternatives rejected.
+- The design pages show that the decision (median of paired differences) and
+  the speedup column (ratio of medians) can disagree, as 22 published
+  DzmingLi records at 1 to 16 digits do, and that the X executables rotate the
+  scale profiles across sizes.
+- Corrected performance claims: the GDA range at 1,024 digits starts at
+  0.131 µs (compare), `x_compatible` multiplication is now reported, and only
+  `exact_overlap` multiplication shows a size-stable ratio.
 
 ### Known issues
 
@@ -43,6 +54,8 @@ All notable changes to `Luna-Flow/diff_bench` are recorded here.
 - The `floating_vs_decmial_x` HTML corpus summary overstates totals when a run
   has validation failures, and its Mare Mark implementation record still names
   `moonbitlang/x@0.4.46`.
+- The `floating_vs_decmial_x` executables choose scale pairs from the global
+  dataset id, so neighbouring sizes of a curve use different scale profiles.
 
 ## 0.1.0
 

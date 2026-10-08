@@ -87,7 +87,10 @@ The manual is published at
 [lunaflow.cn/en/diff_bench](https://lunaflow.cn/en/diff_bench/) with Chinese
 and Japanese translations. Its English source starts at
 [doc/manual/index.md](doc/manual/index.md): API, tutorial and design pages for
-every package, and the performance analysis of both comparisons.
+every package, and the performance analysis of both comparisons
+([DzmingLi](doc/manual/performance/dzmingli_vs_floating.md),
+[X](doc/manual/performance/floating_vs_decmial_x.md)). New readers start with
+the [`dzmingli_vs_floating` tutorial](doc/manual/tutorial/dzmingli_vs_floating.md).
 
 ## Contributing
 
