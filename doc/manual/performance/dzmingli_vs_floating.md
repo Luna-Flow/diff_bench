@@ -17,7 +17,7 @@ and 108 DzmingLi failures. The expanded common-digit run contains 1,368/1,368
 successful validations for 19 operations.
 
 At 1,024 digits, where both implementations still pass the oracle, floating
-GDA records `0.978–16.798 µs/op` for the five arithmetic-only operations versus
+GDA records `0.131–16.798 µs/op` for the five arithmetic-only operations versus
 DzmingLi's `12.459–78.978 µs/op`. Full-path medians are `7.427–24.133 µs/op`
 versus `152.145–205.549 µs/op`. The resulting GDA speedup ranges from `3.54×`
 for arithmetic-only multiplication to `95.44×` for arithmetic-only comparison.
