@@ -10,6 +10,9 @@ All notable changes to `Luna-Flow/diff_bench` are recorded here.
   `moon.pkg`; no public API changed.
 - Bumped `moonbitlang/async` from 0.20.1 to 0.22.4 and `moonbitlang/x` from
   0.4.46 to 0.5.5.
+- Bumped `Luna-Flow/floating` from 0.7.1 to 0.8.0 (`Luna-Flow/mare_mark`
+  stays at 0.3.0). The benchmarks use only the `decimal_gda` module functions
+  and `GdaContext`, which 0.8.0 does not change, so no code change is needed.
 - `floating_vs_decmial_x` calls `Compare::compare` explicitly for X decimals
   instead of the deprecated promoted method.
 - Sources reformatted with the MoonBit 0.10 formatter.
