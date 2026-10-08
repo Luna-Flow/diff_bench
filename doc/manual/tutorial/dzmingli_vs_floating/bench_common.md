@@ -3,6 +3,13 @@
 This page runs the `bench_common` executable of `dzmingli_vs_floating`, keeps its records, and checks
 that the run is complete before you read its numbers.
 
+| I want to | Use |
+| --- | --- |
+| reproduce the published `common_digits` run | `moon run --release src/dzmingli_vs_floating/bench_common --target native` |
+| record the host in the output | the `MARE_*` environment variables |
+| know whether the run is usable | the `validation` and `summary` records of the JSONL |
+| read the results | the `"comparison"` records and `artifacts/dzmingli_vs_floating/common_digits.html` |
+
 ## Quick start
 
 From the repository root:

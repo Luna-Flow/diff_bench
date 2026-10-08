@@ -6,7 +6,14 @@ The executable turns the library package into a reproducible experiment: fixed
 operations, fixed sizes, a fixed seed and protocol, and output that keeps every
 raw record next to the summary.
 
-## Design decisions
+## Constraints
+
+- Published numbers are native release measurements, so the executable has to
+  run on `native` and must not produce misleading numbers elsewhere.
+- A run must be reproducible from the repository alone: no arguments, no
+  clock-derived seeds, no state carried between runs.
+
+## Main design decisions
 
 - **Fixed seed `0xDEC1A1` and protocol.** The corpus and the execution order are
   reproducible, and the fingerprints in the JSONL identify each dataset.
@@ -31,6 +38,19 @@ long-running scaling report.
 The executable validates every dataset before timing it, through the library's
 oracle. A size enters the paired statistics only through valid observations,
 as described in the [package design](../dzmingli_vs_floating.md).
+
+## Alternatives rejected
+
+- **Command-line arguments for sizes and operations.** Rejected: a published
+  number would then depend on how the executable was called, and the recorded
+  replay commands could not reproduce it. Changing the experiment means
+  editing `main.mbt`, which is versioned.
+- **Writing the JSONL to a file chosen by the executable.** Rejected: standard
+  output can be filtered, piped and archived without the program knowing where
+  the records go; only the HTML report has a fixed path.
+- **Falling back to another target.** Rejected: numbers from another target
+  are not comparable with the published native ones, so other targets print a
+  message instead of measuring.
 
 ## Boundaries
 

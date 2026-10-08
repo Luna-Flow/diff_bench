@@ -13,6 +13,34 @@ The [API page](../api/dzmingli_vs_floating.md) lists the items, and the
 [tutorial](../tutorial/dzmingli_vs_floating.md) runs them. Measured numbers
 are in the [performance chapter](../performance/dzmingli_vs_floating.md).
 
+## Constraints
+
+- Both libraries are third-party subjects: the harness may use only their
+  public APIs and may not trust either of them to judge the other.
+- Both must receive the same numbers, built outside the timed region, and the
+  corpus must be reproducible from a seed rather than from the clock.
+- Results are exact decimals, so correctness can and must be decided by exact
+  comparison, not by a tolerance.
+- `DzmingLi/decimal@0.2.2` estimates digit counts in a 32-bit `Int`, which
+  bounds the sizes some operations can be run at.
+
+## Main design decisions
+
+- Judge each library against an independent exact `BigInt` oracle, not
+  against the other library, and time a size only where both pass.
+- Compare results as canonical neutral decimals with a tolerance of exactly
+  zero; status flags and exponent cohorts are left to the decTest audit.
+- Compute every fixture at a precision derived from its operands that provably
+  holds the exact result, with two guard digits, so rounding never happens.
+- Time either the operation alone (`arithmetic_only`) or parsing plus the
+  operation (`full_path`), on the same fingerprinted datasets.
+- Pair the samples of both libraries by dataset, repetition and block, and
+  summarize them by medians with a 3 % practical-significance threshold.
+- Stop each operation below the size where DzmingLi's digit estimator
+  overflows.
+
+The derivations behind these choices follow the mathematical background.
+
 ## Mathematical background
 
 ### Decimal values
@@ -76,7 +104,7 @@ where both implementations share a wrong result, and when it fails it does not
 say which side is wrong. With an oracle each implementation is judged on its
 own, and a disagreement between the two is explained by the verdicts.
 
-## Design decisions
+## Design decisions in detail
 
 ### Three implementations, two of them measured
 
@@ -244,6 +272,30 @@ hypothesis test, and the report carries no confidence interval.[^iqr]
 
 With three datasets per size and 20 confirmatory repetitions each, a valid size
 has 60 pairs.
+
+The decision and the speedup column use different statistics. $\delta$ is
+built from the median of the paired differences, the speedup from the ratio
+of the two marginal medians, and in general
+
+$$
+\operatorname{median}_i (t^{\mathrm{GDA}}_i - t^{\mathrm{DZ}}_i)
+\neq \operatorname{median}_i t^{\mathrm{GDA}}_i - \operatorname{median}_i t^{\mathrm{DZ}}_i .
+$$
+
+They can even disagree in sign. With three pairs
+$t^{\mathrm{DZ}} = (1, 10, 10)$ and $t^{\mathrm{GDA}} = (2, 9, 11)$, the
+differences are $(1, -1, 1)$ with median $1$, so $\delta = +10\,\%$ and the
+decision is `dzmingli_faster`, while the ratio of medians is
+$9 / 10 = 0.9$, which reads as GDA being faster. The two agree when the
+differences are roughly symmetric around a common shift, which is what the
+block model above predicts, but the published runs contain records where they
+do not: 9 of the 246 comparison records of the scaling run and 13 of the 228
+of the common-digit run have a decision outside `equivalent` whose direction
+contradicts the speedup column. All of them are at 1 to 16 digits, where the
+two medians differ by at most about 13 %; at 4 digits, for example, `add` has
+$\delta \approx +6\,\%$ (`dzmingli_faster`) and a speedup of $0.98$. Read such
+records through $\delta$, the paired statistic, and treat them as ties in
+practice.
 
 ### Operation-specific size ceilings
 

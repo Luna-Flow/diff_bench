@@ -7,6 +7,15 @@ and how to reproduce the published benchmark and its official decTest audit.
 The mathematics behind the checks is on the
 [design page](../design/dzmingli_vs_floating.md).
 
+| I want to | Use |
+| --- | --- |
+| check one operation in both libraries | `prepare_fixture`, `run_dz`, `run_gda`, `oracle_operation` |
+| compare a result with the oracle | `canonical_string(canonical_observation(o))` against `.canonical` |
+| check a whole deterministic corpus | `generate_cases` and the loop below |
+| include parsing in the timed work | `run_dz_full`, `run_gda_full` (`FullPath`) |
+| time both libraries | `run_mare_benchmark` with `smoke_protocol()` in an `async test` |
+| reproduce the published numbers | `moon run --release src/dzmingli_vs_floating/bench --target native` |
+
 ## Quick start
 
 `diff_bench` is a GitHub-only repository; it is not published on mooncakes.
@@ -21,7 +30,7 @@ moon test --target native
 
 A package inside the module imports the benchmark package in its `moon.pkg`:
 
-```text
+```moonbit nocheck
 import {
   "Luna-Flow/diff_bench/dzmingli_vs_floating",
 }

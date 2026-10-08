@@ -1,5 +1,7 @@
 # dzmingli_vs_floating API
 
+## Purpose
+
 The package `Luna-Flow/diff_bench/dzmingli_vs_floating` compares
 `DzmingLi/decimal@0.2.2` with `Luna-Flow/floating/decimal_gda@0.7.1` on
 identical decimal inputs, checks both against an exact `BigInt` oracle, and
@@ -11,8 +13,21 @@ The [tutorial](../tutorial/dzmingli_vs_floating.md) shows the items in use, and
 the [design page](../design/dzmingli_vs_floating.md) derives the precision
 contract and the oracle. Source: `src/dzmingli_vs_floating/`.
 
-The examples on this page are blackbox tests: they import the package as
-`@dzmingli_vs_floating` and `moonbitlang/core/bigint`.
+## Importing
+
+Inside the module, add the package to a `moon.pkg`, with `bigint` when you
+build `DecimalValue` literals:
+
+```moonbit nocheck
+import {
+  "Luna-Flow/diff_bench/dzmingli_vs_floating",
+  "moonbitlang/core/bigint",
+}
+```
+
+The examples on this page are blackbox tests that call the package as
+`@dzmingli_vs_floating`. The asynchronous examples also need
+`"moonbitlang/async"` in the test imports.
 
 ## Neutral decimal model
 

@@ -1,8 +1,16 @@
 # dzmingli_vs_floating/bench_common API
 
+## Purpose
+
 `Luna-Flow/diff_bench/dzmingli_vs_floating/bench_common` is an executable package. It has no public
 items; its interface is the command line and the files it writes. It uses the
 library package [`dzmingli_vs_floating`](../dzmingli_vs_floating.md).
+
+## Importing
+
+An executable package cannot be imported. Run it with `moon run` from the
+repository root, as shown under [Command](#command); to reuse its pieces,
+import the library package instead.
 
 ## Command
 
