@@ -18,7 +18,23 @@
 - Add or update tests whenever behavior changes.
 - Use package-local `*_test.mbt` or `*_wbtest.mbt` files as appropriate.
 - Run `just test` for normal validation and `just ready` before opening a PR.
+  Run `moon test --target native` as well: the asynchronous Mare Mark tests do
+  not run on the default `wasm-gc` target.
+- Build long `BigInt` test values with arithmetic or `parse_decimal_value`, not
+  `BigInt::from_string`, which misparses long strings on `wasm-gc`.
+- A new benchmarked operation needs an oracle rule, a working-precision bound
+  that holds the exact result, and a test against the oracle before it is
+  timed.
 - Regenerate public interface files with `just info` when public APIs change.
+
+## Documentation
+
+- The English manual is in `doc/manual`: one API, tutorial and design page per
+  package, named after the package path, plus the performance chapter.
+- Keep MoonBit examples compiling; fence intentionally partial snippets as
+  `moonbit nocheck`.
+- After changing English pages, run `lunadoc update` and update the Chinese and
+  Japanese catalogs in `doc/locale`.
 
 ## Dependencies
 
