@@ -233,13 +233,26 @@ test "expanded scales create independent datasets per digit size" {
 }
 
 ///|
+/// Returns 10^digits - 1, a number of `digits` nines, built by multiplication.
+///
+/// `BigInt::from_string` truncates long digit strings on wasm-gc, so the
+/// operands are not read from strings.
+fn all_nines(digits : Int) -> @bigint.BigInt {
+  let mut power = 1N
+  for _ in 0..<digits {
+    power = power * 10N
+  }
+  power - 1N
+}
+
+///|
 test "division precision follows the requested semantic contract" {
   let left : @floating_vs_decmial_x.DecimalValue = {
-    coefficient: @bigint.BigInt::from_string("9".repeat(4096)),
+    coefficient: all_nines(4096),
     scale: 0,
   }
   let balanced_right : @floating_vs_decmial_x.DecimalValue = {
-    coefficient: @bigint.BigInt::from_string("7".repeat(4096)),
+    coefficient: all_nines(4096) / 9N * 7N,
     scale: 0,
   }
   let exact_right : @floating_vs_decmial_x.DecimalValue = {
@@ -262,6 +275,6 @@ test "division precision follows the requested semantic contract" {
       exact_right,
       semantics=ExactOverlap,
     ),
-    4097,
+    4099,
   )
 }
