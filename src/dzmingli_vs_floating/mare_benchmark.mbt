@@ -90,9 +90,9 @@ fn decimal_scales(operation : Operation, dataset_id : Int) -> (Int, Int) {
 ///|
 fn exact_divisor(dataset_id : Int) -> DecimalValue {
   let divisors : Array[DecimalValue] = [
-    { coefficient: 2N, scale: 0 },
-    { coefficient: 8N, scale: 0 },
-    { coefficient: 25N, scale: 0 },
+    { coefficient: 2N, scale: 0, },
+    { coefficient: 8N, scale: 0, },
+    { coefficient: 25N, scale: 0, },
   ]
   divisors[dataset_id % divisors.length()]
 }
@@ -122,18 +122,18 @@ fn materialize_mare_input(
   }
   let (right, right_scale) = match operation {
     Divide | DivideInteger | Remainder => (exact_divisor(profile), 0)
-    Power => ({ coefficient: 2N, scale: 0 }, 0)
-    Quantize => ({ coefficient: 1N, scale: left.scale }, left.scale)
+    Power => ({ coefficient: 2N, scale: 0, }, 0)
+    Quantize => ({ coefficient: 1N, scale: left.scale, }, left.scale)
     Rescale =>
-      ({ coefficient: @bigint.BigInt::from_int(-left.scale), scale: 0 }, 0)
-    ScaleB => ({ coefficient: 0N, scale: 0 }, 0)
+      ({ coefficient: @bigint.BigInt::from_int(-left.scale), scale: 0, }, 0)
+    ScaleB => ({ coefficient: 0N, scale: 0, }, 0)
     SquareRoot
     | Plus
     | Minus
     | Abs
     | Reduce
     | ToIntegralExact
-    | ToIntegralValue => ({ coefficient: 0N, scale: 0 }, 0)
+    | ToIntegralValue => ({ coefficient: 0N, scale: 0, }, 0)
     _ =>
       (
         parse_decimal_value(
@@ -152,7 +152,7 @@ fn materialize_mare_input(
       generate_decimal(seed + 193, digits, left_scale, seed % 7 == 0),
     )
   } else {
-    { coefficient: 0N, scale: 0 }
+    { coefficient: 0N, scale: 0, }
   }
   {
     left,
@@ -697,7 +697,7 @@ pub async fn run_mare_benchmark(
     )
     jsonl_parts.push(jsonl.to_jsonl())
   }
-  { results, jsonl: jsonl_parts.join("\n"), validation_count, failed_count }
+  { results, jsonl: jsonl_parts.join("\n"), validation_count, failed_count, }
 }
 
 ///|

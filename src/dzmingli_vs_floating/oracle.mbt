@@ -49,7 +49,7 @@ pub fn oracle_divide(left : DecimalValue, right : DecimalValue) -> DecimalValue 
     numerator = numerator * 10N
     scale = scale + 1
   }
-  normalize({ coefficient: numerator / denominator, scale })
+  normalize({ coefficient: numerator / denominator, scale, })
 }
 
 ///|
@@ -74,7 +74,7 @@ fn oracle_power(left : DecimalValue, right : DecimalValue) -> DecimalValue {
     abort("power oracle requires a non-negative integer exponent")
   }
   let exponent = right.coefficient.to_int()
-  let mut result : DecimalValue = { coefficient: 1N, scale: 0 }
+  let mut result : DecimalValue = { coefficient: 1N, scale: 0, }
   for _ in 0..<exponent {
     result = multiply(result, left)
   }
@@ -145,7 +145,7 @@ fn oracle_scaleb(value : DecimalValue, scale : DecimalValue) -> DecimalValue {
       scale: 0,
     })
   } else {
-    normalize({ coefficient: value.coefficient, scale: adjusted_scale })
+    normalize({ coefficient: value.coefficient, scale: adjusted_scale, })
   }
 }
 
@@ -168,15 +168,15 @@ pub fn oracle_operation3(
     Fma => add(multiply(left, right), third)
     SquareRoot => oracle_square_root(left)
     Plus => left
-    Minus => { coefficient: -left.coefficient, scale: left.scale }
-    Abs => { coefficient: abs_bigint(left.coefficient), scale: left.scale }
+    Minus => { coefficient: -left.coefficient, scale: left.scale, }
+    Abs => { coefficient: abs_bigint(left.coefficient), scale: left.scale, }
     Quantize => oracle_quantize(left, right)
     Rescale => oracle_rescale(left, right)
     ScaleB => oracle_scaleb(left, right)
     Reduce => normalize(left)
     ToIntegralExact | ToIntegralValue => rescale(left, 0)
     Compare =>
-      { coefficient: @bigint.BigInt::from_int(compare(left, right)), scale: 0 }
+      { coefficient: @bigint.BigInt::from_int(compare(left, right)), scale: 0, }
     Parse => left
     Format => left
   }
@@ -189,5 +189,5 @@ pub fn oracle_operation(
   left : DecimalValue,
   right : DecimalValue,
 ) -> OracleResult {
-  oracle_operation3(operation, left, right, { coefficient: 0N, scale: 0 })
+  oracle_operation3(operation, left, right, { coefficient: 0N, scale: 0, })
 }

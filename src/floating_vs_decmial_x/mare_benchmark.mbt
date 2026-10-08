@@ -131,11 +131,11 @@ fn decimal_scales(
 ///|
 fn exact_divisor(dataset_id : Int) -> DecimalValue {
   let divisors : Array[DecimalValue] = [
-    { coefficient: 2N, scale: 0 },
-    { coefficient: 4N, scale: 0 },
-    { coefficient: 5N, scale: 0 },
-    { coefficient: 8N, scale: 0 },
-    { coefficient: 25N, scale: 0 },
+    { coefficient: 2N, scale: 0, },
+    { coefficient: 4N, scale: 0, },
+    { coefficient: 5N, scale: 0, },
+    { coefficient: 8N, scale: 0, },
+    { coefficient: 25N, scale: 0, },
   ]
   divisors[dataset_id % divisors.length()]
 }
@@ -168,7 +168,7 @@ fn materialize_mare_input(
       generate_decimal(seed + 97, digits, right_scale, seed % 5 == 0),
     )
   }
-  { left, right, operation, semantics, digits, left_scale, right_scale }
+  { left, right, operation, semantics, digits, left_scale, right_scale, }
 }
 
 ///|
@@ -588,7 +588,7 @@ pub async fn run_mare_benchmark(
     )
     jsonl_parts.push(jsonl.to_jsonl())
   }
-  { results, jsonl: jsonl_parts.join("\n"), validation_count, failed_count }
+  { results, jsonl: jsonl_parts.join("\n"), validation_count, failed_count, }
 }
 
 ///|

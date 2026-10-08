@@ -52,8 +52,8 @@ pub fn parse_decimal_value(source : String) -> DecimalValue {
   let signed_exponent = if exponent_negative { -exponent } else { exponent }
   let adjusted_scale = scale - signed_exponent
   if adjusted_scale < 0 {
-    normalize({ coefficient: coefficient * pow10(-adjusted_scale), scale: 0 })
+    normalize({ coefficient: coefficient * pow10(-adjusted_scale), scale: 0, })
   } else {
-    normalize({ coefficient, scale: adjusted_scale })
+    normalize({ coefficient, scale: adjusted_scale, })
   }
 }

@@ -20,7 +20,7 @@ fn abs_bigint(value : @bigint.BigInt) -> @bigint.BigInt {
 /// Removes trailing decimal zeros while preserving the represented value.
 pub fn normalize(value : DecimalValue) -> DecimalValue {
   if value.coefficient.is_zero() {
-    return { coefficient: 0N, scale: 0 }
+    return { coefficient: 0N, scale: 0, }
   }
   let mut coefficient = value.coefficient
   let mut scale = value.scale
@@ -28,7 +28,7 @@ pub fn normalize(value : DecimalValue) -> DecimalValue {
     coefficient = coefficient / 10N
     scale = scale - 1
   }
-  { coefficient, scale }
+  { coefficient, scale, }
 }
 
 ///|
@@ -64,7 +64,7 @@ pub fn canonical_string(value : DecimalValue) -> String {
 ///|
 pub fn to_oracle_result(value : DecimalValue) -> OracleResult {
   let normalized = normalize(value)
-  { value: normalized, canonical: canonical_string(normalized) }
+  { value: normalized, canonical: canonical_string(normalized), }
 }
 
 ///|

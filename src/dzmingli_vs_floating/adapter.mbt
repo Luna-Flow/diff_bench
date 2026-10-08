@@ -104,7 +104,7 @@ pub fn prepare_fixture(
   left : DecimalValue,
   right : DecimalValue,
 ) -> DecimalFixture {
-  prepare_fixture3(operation, left, right, { coefficient: 0N, scale: 0 })
+  prepare_fixture3(operation, left, right, { coefficient: 0N, scale: 0, })
 }
 
 ///|

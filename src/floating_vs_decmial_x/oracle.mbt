@@ -27,7 +27,7 @@ pub fn oracle_divide(left : DecimalValue, right : DecimalValue) -> DecimalValue 
   } else {
     left.coefficient / pow10(-numerator_scale)
   }
-  normalize({ coefficient: numerator / right.coefficient, scale: 28 })
+  normalize({ coefficient: numerator / right.coefficient, scale: 28, })
 }
 
 ///|
@@ -42,7 +42,7 @@ pub fn oracle_operation(
     Multiply => oracle_multiply(left, right)
     Divide => oracle_divide(left, right)
     Compare =>
-      { coefficient: @bigint.BigInt::from_int(compare(left, right)), scale: 0 }
+      { coefficient: @bigint.BigInt::from_int(compare(left, right)), scale: 0, }
     Parse => left
     Format => left
   }
