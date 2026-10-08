@@ -1,4 +1,16 @@
-# Performance analysis
+# dzmingli_vs_floating performance
+
+## Measurement environment
+
+The numbers come from one native release run on an Apple M4 under macOS 26.5
+with `moon 0.1.20260703`, `DzmingLi/decimal@0.2.2`,
+`Luna-Flow/floating@0.7.1` and `Luna-Flow/mare_mark@0.3.0`, recorded on
+2026-07-15. CPU frequency was not controlled. The MoonBit 0.10 migration on
+this branch changes no benchmark logic and the run has not been repeated with
+the new toolchain. The measurement method is derived on the
+[design page](../design/dzmingli_vs_floating.md#paired-statistics).
+
+## Results
 
 The current `0.7.1` run contains 1,476 scaling validations, with 1,368 passes
 and 108 DzmingLi failures. The expanded common-digit run contains 1,368/1,368
@@ -15,6 +27,8 @@ speedups. At 20,000 digits the validated GDA medians are `14.810 µs` add,
 `15.083 µs` subtract, `60.588 µs` divide, and `0.130 µs` compare for
 arithmetic-only; full-path medians are `154.468`, `155.582`, `131.363`, and
 `139.865 µs`, respectively.
+
+## Data-dependent comparison
 
 DzmingLi's arithmetic-only comparison curve remains data-dependent at large
 input sizes: its medians at 4,096, 8,192, 10,000, 16,384, and 20,000 digits
