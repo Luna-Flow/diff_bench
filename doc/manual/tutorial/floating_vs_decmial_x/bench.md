@@ -3,6 +3,13 @@
 This page runs the `bench` executable of `floating_vs_decmial_x`, keeps its records, and checks
 that the run is complete before you read its numbers.
 
+| I want to | Use |
+| --- | --- |
+| reproduce the published `scaling` run | `moon run --release src/floating_vs_decmial_x/bench --target native` |
+| record the host in the output | the `MARE_*` environment variables |
+| know whether the run is usable | the `validation` and `summary` records of the JSONL |
+| read the results | the `"comparison"` records and `artifacts/floating_vs_decmial_x/scaling.html` |
+
 ## Quick start
 
 From the repository root:

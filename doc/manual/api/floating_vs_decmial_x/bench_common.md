@@ -1,8 +1,16 @@
 # floating_vs_decmial_x/bench_common API
 
+## Purpose
+
 `Luna-Flow/diff_bench/floating_vs_decmial_x/bench_common` is an executable package. It has no public
 items; its interface is the command line and the files it writes. It uses the
 library package [`floating_vs_decmial_x`](../floating_vs_decmial_x.md).
+
+## Importing
+
+An executable package cannot be imported. Run it with `moon run` from the
+repository root, as shown under [Command](#command); to reuse its pieces,
+import the library package instead.
 
 ## Command
 

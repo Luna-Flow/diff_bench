@@ -17,6 +17,29 @@ form, paired statistics) is derived on the
 [dzmingli_vs_floating design page](dzmingli_vs_floating.md); this page states
 what differs.
 
+## Constraints
+
+- X stores at most 28 fractional digits and truncates; it has no context, no
+  precision and no rounding mode to configure.
+- GDA rounds to a number of significant digits set by a context, so any
+  agreement with X has to be engineered on the GDA side.
+- Only the public APIs of both libraries may be timed, and conversions between
+  them must stay outside the timed region.
+
+## Main design decisions
+
+- Report two semantic groups separately: `ExactOverlap` restricts inputs to
+  where both libraries are exact, `XCompatible` makes GDA reproduce X's
+  28-digit truncation.
+- Use one oracle, X's policy over `BigInt`, for both groups.
+- Derive a GDA precision for every operation that makes the GDA result equal
+  to the oracle's, and record where the fixture code breaks that derivation.
+- Keep conversions, contexts and validation outside timing.
+- Reuse the paired statistics of the DzmingLi benchmark with X as the
+  baseline.
+
+The derivations behind these choices follow the mathematical background.
+
 ## Mathematical background
 
 ### Two decimal models
@@ -73,7 +96,7 @@ with $0 \le v < B$. Then $N = uAB + (vA + r)$ and
 $0 \le vA + r \le (B-1)A + A - 1 < AB$, so $u = \lfloor N/(AB) \rfloor$.
 Truncation toward zero is odd in $N$, which gives the negative case. $\square$
 
-## Design decisions
+## Design decisions in detail
 
 ### Two semantic groups
 

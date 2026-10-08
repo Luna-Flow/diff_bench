@@ -1,5 +1,7 @@
 # floating_vs_decmial_x API
 
+## Purpose
+
 The package `Luna-Flow/diff_bench/floating_vs_decmial_x` compares
 `moonbitlang/x/decimal` (X) with `Luna-Flow/floating/decimal_gda@0.7.1` (GDA)
 on identical decimal inputs, checks both against a `BigInt` oracle, and
@@ -12,8 +14,21 @@ The package name keeps the historical spelling `decmial`. The
 the [design page](../design/floating_vs_decmial_x.md) derives the precision
 contracts. Source: `src/floating_vs_decmial_x/`.
 
-Examples import the package as `@floating_vs_decmial_x` and
-`moonbitlang/core/bigint`.
+## Importing
+
+Inside the module, add the package to a `moon.pkg`, with `bigint` when you
+build `DecimalValue` literals:
+
+```moonbit nocheck
+import {
+  "Luna-Flow/diff_bench/floating_vs_decmial_x",
+  "moonbitlang/core/bigint",
+}
+```
+
+The examples on this page are blackbox tests that call the package as
+`@floating_vs_decmial_x`. The asynchronous examples also need
+`"moonbitlang/async"` in the test imports.
 
 ## Neutral decimal model
 

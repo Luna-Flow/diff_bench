@@ -6,6 +6,15 @@ the oracle, run a small Mare Mark measurement, and reproduce the published
 benchmark. Why the groups and precisions are chosen this way is on the
 [design page](../design/floating_vs_decmial_x.md).
 
+| I want to | Use |
+| --- | --- |
+| compare on inputs where both libraries are exact | `semantics=ExactOverlap` |
+| make GDA reproduce X's 28-digit truncation | `semantics=XCompatible` |
+| check one operation | `prepare_fixture`, `run_x`, `run_gda`, `oracle_operation` |
+| check a corpus | `generate_cases` and the loop below |
+| time both libraries | `run_mare_benchmark` with `smoke_protocol()` in an `async test` |
+| reproduce the published numbers | `moon run --release src/floating_vs_decmial_x/bench --target native` |
+
 ## Quick start
 
 The repository is not published on mooncakes; clone it and work inside the
@@ -19,7 +28,7 @@ moon test --target native
 
 Import the package in the `moon.pkg` of a package in the module:
 
-```text
+```moonbit nocheck
 import {
   "Luna-Flow/diff_bench/floating_vs_decmial_x",
 }
