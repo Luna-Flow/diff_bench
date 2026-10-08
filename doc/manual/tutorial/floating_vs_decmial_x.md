@@ -199,13 +199,11 @@ the same method with an exact oracle, a second timing scope with parsing, and
 - The HTML summary line is correct only for runs without failures; read
   `validation_count` and `failed_count` from the report instead.
 - `BigInt::from_string` is wrong for long strings on `wasm-gc` in the current
-  `moonbitlang/core`. The test
-  `division precision follows the requested semantic contract` builds a
-  4,096-nines operand with it and expects `4097`, the value produced by that
-  wrong parse; the correct working precision is
-  $4096 + 1 + 2 = 4099$. The test therefore passes on `wasm-gc` and fails on
-  `native` and `js`. Build long test values with `parse_decimal_value` or
-  `BigInt` arithmetic instead.
+  `moonbitlang/core`. Build long test values with `parse_decimal_value` or
+  `BigInt` arithmetic instead, as the test
+  `division precision follows the requested semantic contract` does: it
+  builds its 4,096-nines operand by multiplication and expects the working
+  precision $4096 + 1 + 2 = 4099$ on every target.
 - The published numbers for X were measured with `moonbitlang/x@0.4.46`; the
   module now depends on `0.5.5`, and the JSONL implementation record still
   names `0.4.46`.

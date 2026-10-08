@@ -40,13 +40,16 @@ All notable changes to `Luna-Flow/diff_bench` are recorded here.
   0.131 µs (compare), `x_compatible` multiplication is now reported, and only
   `exact_overlap` multiplication shows a size-stable ratio.
 
+### Fixed
+
+- The test `division precision follows the requested semantic contract`
+  expects the `ExactOverlap` precision `4099` (4096 + 1 + 2) instead of
+  `4097`, and builds its 4,096-digit operands by multiplication instead of
+  `BigInt::from_string`, which truncates long strings on `wasm-gc`. It passes
+  on `native`, `js`, `wasm` and `wasm-gc` (#3).
+
 ### Known issues
 
-- On `native` and `js`, the test
-  `division precision follows the requested semantic contract` fails with
-  `4099 != 4097`. Its expected value was recorded on `wasm-gc`, where
-  `BigInt::from_string` in `moonbitlang/core` misparses long strings; `4099`
-  is correct.
 - `floating_vs_decmial_x` rounds GDA operands longer than the
   `x_compatible` division precision when it builds fixtures, so that contract
   is not guaranteed for such operands and the `x_compatible` division timings

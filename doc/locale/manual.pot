@@ -1831,10 +1831,10 @@ msgid "The Mare Mark implementation record names `moonbitlang/x@0.4.46`, while t
 msgstr ""
 
 #: manual/design/floating_vs_decmial_x.md:281
-msgid "`BigInt::from_string` returns wrong values for long inputs on the `wasm-gc` target of the current `moonbitlang/core`; a string of 3,584 nines already parses wrongly, and 4,096 nines parse to a 4,094-digit number. The package does not use it; the test `division precision follows the requested semantic contract` does, and its expected value `4097` was recorded from that wrong parse. The correct value is `4099`, which the `native` and `js` targets compute."
+msgid "`BigInt::from_string` returns wrong values for long inputs on the `wasm-gc` target of the current `moonbitlang/core`: it sizes its limb array for $1/0.302 \\approx 3.311$ bits per decimal digit, below $\\log_2 10 \\approx 3.322$, and drops the final carry. A string of 3,584 nines already parses wrongly, and 4,096 nines parse to a 4,094-digit number. Neither the package nor its tests use it: the test `division precision follows the requested semantic contract` builds $10^{4096} - 1$ and $(10^{4096} - 1) / 9 \\cdot 7$ by multiplication and expects the `ExactOverlap` precision $4096 + 1 + 2 = 4099$ on every target."
 msgstr ""
 
-#: manual/design/floating_vs_decmial_x.md:288
+#: manual/design/floating_vs_decmial_x.md:290
 msgid "The executables run on the `native` target only, and results from different targets are never combined."
 msgstr ""
 
@@ -2109,7 +2109,7 @@ msgid "Run the release checks from the repository root:"
 msgstr ""
 
 #: manual/index.md:119
-msgid "[!WARNING] On `native` and `js` one test fails: `division precision follows the requested semantic contract` expects `4097`, a value recorded on `wasm-gc`, where `BigInt::from_string` in `moonbitlang/core` misparses long inputs. The correct value is `4099`; see the [`floating_vs_decmial_x` design](design/floating_vs_decmial_x.md#boundaries)."
+msgid "[!NOTE] The test `division precision follows the requested semantic contract` builds its 4,096-digit operands by multiplication rather than with `BigInt::from_string`, which misparses long inputs on `wasm-gc`; see the [`floating_vs_decmial_x` design](design/floating_vs_decmial_x.md#boundaries)."
 msgstr ""
 
 #: manual/performance/dzmingli_vs_floating.md:1
@@ -2314,7 +2314,7 @@ msgstr ""
 #: manual/tutorial/dzmingli_vs_floating.md:287
 #: manual/tutorial/dzmingli_vs_floating/bench.md:71
 #: manual/tutorial/dzmingli_vs_floating/bench_common.md:71
-#: manual/tutorial/floating_vs_decmial_x.md:213
+#: manual/tutorial/floating_vs_decmial_x.md:211
 #: manual/tutorial/floating_vs_decmial_x/bench.md:71
 #: manual/tutorial/floating_vs_decmial_x/bench_common.md:71
 msgid "Next steps"
@@ -2818,26 +2818,26 @@ msgid "The HTML summary line is correct only for runs without failures; read `va
 msgstr ""
 
 #: manual/tutorial/floating_vs_decmial_x.md:201
-msgid "`BigInt::from_string` is wrong for long strings on `wasm-gc` in the current `moonbitlang/core`. The test `division precision follows the requested semantic contract` builds a 4,096-nines operand with it and expects `4097`, the value produced by that wrong parse; the correct working precision is $4096 + 1 + 2 = 4099$. The test therefore passes on `wasm-gc` and fails on `native` and `js`. Build long test values with `parse_decimal_value` or `BigInt` arithmetic instead."
+msgid "`BigInt::from_string` is wrong for long strings on `wasm-gc` in the current `moonbitlang/core`. Build long test values with `parse_decimal_value` or `BigInt` arithmetic instead, as the test `division precision follows the requested semantic contract` does: it builds its 4,096-nines operand by multiplication and expects the working precision $4096 + 1 + 2 = 4099$ on every target."
 msgstr ""
 
-#: manual/tutorial/floating_vs_decmial_x.md:209
+#: manual/tutorial/floating_vs_decmial_x.md:207
 msgid "The published numbers for X were measured with `moonbitlang/x@0.4.46`; the module now depends on `0.5.5`, and the JSONL implementation record still names `0.4.46`."
 msgstr ""
 
-#: manual/tutorial/floating_vs_decmial_x.md:215
+#: manual/tutorial/floating_vs_decmial_x.md:213
 msgid "[API reference](../api/floating_vs_decmial_x.md) for every item."
 msgstr ""
 
-#: manual/tutorial/floating_vs_decmial_x.md:216
+#: manual/tutorial/floating_vs_decmial_x.md:214
 msgid "[Design](../design/floating_vs_decmial_x.md) for the semantic groups and the precision proofs."
 msgstr ""
 
-#: manual/tutorial/floating_vs_decmial_x.md:218
+#: manual/tutorial/floating_vs_decmial_x.md:216
 msgid "[Performance analysis](../performance/floating_vs_decmial_x.md) for the measured results."
 msgstr ""
 
-#: manual/tutorial/floating_vs_decmial_x.md:220
+#: manual/tutorial/floating_vs_decmial_x.md:218
 msgid "[Benchmark executables](floating_vs_decmial_x/bench.md) and the [common-digit executable](floating_vs_decmial_x/bench_common.md)."
 msgstr ""
 

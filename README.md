@@ -74,12 +74,8 @@ The figure layouts need Python 3 with Matplotlib, for example
 MoonBit `moonc` 0.10 or later with the `moon.mod` and `moon.pkg` manifests.
 The executables and the asynchronous Mare Mark runs need the `native` target.
 
-Known issue: on `native` and `js` the test
-`division precision follows the requested semantic contract` fails with
-`4099 != 4097`. Its expected value was recorded on `wasm-gc`, where
-`BigInt::from_string` in `moonbitlang/core` misparses long inputs; `4099` is
-the correct value. Other known limitations of the X comparison are listed in
-its [design page](doc/manual/design/floating_vs_decmial_x.md#boundaries).
+Known limitations of the X comparison are listed in its
+[design page](doc/manual/design/floating_vs_decmial_x.md#boundaries).
 
 ## Documentation
 

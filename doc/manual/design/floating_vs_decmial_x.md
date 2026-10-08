@@ -279,11 +279,13 @@ baseline: `x_speedup_vs_gda` above $1$ means X is faster.
   module now depends on `moonbitlang/x@0.5.5`; the published measurements were
   taken with 0.4.46.
 - `BigInt::from_string` returns wrong values for long inputs on the `wasm-gc`
-  target of the current `moonbitlang/core`; a string of 3,584 nines already
-  parses wrongly, and 4,096 nines parse to a 4,094-digit number. The package
-  does not use it; the test
-  `division precision follows the requested semantic contract` does, and its
-  expected value `4097` was recorded from that wrong parse. The correct value is
-  `4099`, which the `native` and `js` targets compute.
+  target of the current `moonbitlang/core`: it sizes its limb array for
+  $1/0.302 \approx 3.311$ bits per decimal digit, below
+  $\log_2 10 \approx 3.322$, and drops the final carry. A string of 3,584
+  nines already parses wrongly, and 4,096 nines parse to a 4,094-digit number.
+  Neither the package nor its tests use it: the test
+  `division precision follows the requested semantic contract` builds
+  $10^{4096} - 1$ and $(10^{4096} - 1) / 9 \cdot 7$ by multiplication and
+  expects the `ExactOverlap` precision $4096 + 1 + 2 = 4099$ on every target.
 - The executables run on the `native` target only, and results from different
   targets are never combined.

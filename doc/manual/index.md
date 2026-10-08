@@ -116,9 +116,8 @@ moon check --target all
 moon test --target native
 ```
 
-> [!WARNING]
-> On `native` and `js` one test fails:
-> `division precision follows the requested semantic contract` expects `4097`,
-> a value recorded on `wasm-gc`, where `BigInt::from_string` in
-> `moonbitlang/core` misparses long inputs. The correct value is `4099`; see
-> the [`floating_vs_decmial_x` design](design/floating_vs_decmial_x.md#boundaries).
+> [!NOTE]
+> The test `division precision follows the requested semantic contract` builds
+> its 4,096-digit operands by multiplication rather than with
+> `BigInt::from_string`, which misparses long inputs on `wasm-gc`; see the
+> [`floating_vs_decmial_x` design](design/floating_vs_decmial_x.md#boundaries).
