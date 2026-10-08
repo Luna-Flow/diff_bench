@@ -1836,10 +1836,10 @@ msgid "The Mare Mark implementation record names `moonbitlang/x@0.4.46`, while t
 msgstr "Mare Mark の実装レコードには `moonbitlang/x@0.4.46` と記されていますが、モジュールは現在 `moonbitlang/x@0.5.5` に依存しています。公開された計測は 0.4.46 で行われました。"
 
 #: manual/design/floating_vs_decmial_x.md:281
-msgid "`BigInt::from_string` returns wrong values for long inputs on the `wasm-gc` target of the current `moonbitlang/core`; a string of 3,584 nines already parses wrongly, and 4,096 nines parse to a 4,094-digit number. The package does not use it; the test `division precision follows the requested semantic contract` does, and its expected value `4097` was recorded from that wrong parse. The correct value is `4099`, which the `native` and `js` targets compute."
-msgstr "現在の `moonbitlang/core` の `wasm-gc` ターゲットでは、`BigInt::from_string` が長い入力に対して誤った値を返します。9 を 3,584 個並べた文字列ですでに誤って解析され、9 を 4,096 個並べると 4,094 桁の数になります。このパッケージは使っていませんが、テスト `division precision follows the requested semantic contract` は使っており、その期待値 `4097` はこの誤った解析から記録されたものです。正しい値は `4099` で、`native` と `js` ターゲットはこれを計算します。"
+msgid "`BigInt::from_string` returns wrong values for long inputs on the `wasm-gc` target of the current `moonbitlang/core`: it sizes its limb array for $1/0.302 \\approx 3.311$ bits per decimal digit, below $\\log_2 10 \\approx 3.322$, and drops the final carry. A string of 3,584 nines already parses wrongly, and 4,096 nines parse to a 4,094-digit number. Neither the package nor its tests use it: the test `division precision follows the requested semantic contract` builds $10^{4096} - 1$ and $(10^{4096} - 1) / 9 \\cdot 7$ by multiplication and expects the `ExactOverlap` precision $4096 + 1 + 2 = 4099$ on every target."
+msgstr "現在の `moonbitlang/core` の `wasm-gc` ターゲットでは、`BigInt::from_string` が長い入力に対して誤った値を返します。十進 1 桁あたり $1/0.302 \\approx 3.311$ ビットとして limb 配列を確保しますが、これは $\\log_2 10 \\approx 3.322$ より小さく、最後の繰り上がりが捨てられます。9 を 3,584 個並べた文字列ですでに誤って解析され、9 を 4,096 個並べると 4,094 桁の数になります。このパッケージもそのテストもこれを使いません。テスト `division precision follows the requested semantic contract` は $10^{4096} - 1$ と $(10^{4096} - 1) / 9 \\cdot 7$ を乗算で作り、すべてのターゲットで `ExactOverlap` の精度 $4096 + 1 + 2 = 4099$ を期待します。"
 
-#: manual/design/floating_vs_decmial_x.md:288
+#: manual/design/floating_vs_decmial_x.md:290
 msgid "The executables run on the `native` target only, and results from different targets are never combined."
 msgstr "実行ファイルは `native` ターゲットでだけ動作し、異なるターゲットの結果を合わせることはしません。"
 
@@ -2116,8 +2116,8 @@ msgid "Run the release checks from the repository root:"
 msgstr "リポジトリのルートからリリース前のチェックを実行します。"
 
 #: manual/index.md:119
-msgid "[!WARNING] On `native` and `js` one test fails: `division precision follows the requested semantic contract` expects `4097`, a value recorded on `wasm-gc`, where `BigInt::from_string` in `moonbitlang/core` misparses long inputs. The correct value is `4099`; see the [`floating_vs_decmial_x` design](design/floating_vs_decmial_x.md#boundaries)."
-msgstr "[!WARNING] `native` と `js` では一つのテストが失敗します。`division precision follows the requested semantic contract` は `4097` を期待しますが、これは `wasm-gc` で記録された値で、そこでは `moonbitlang/core` の `BigInt::from_string` が長い入力を誤って解析します。正しい値は `4099` です。[`floating_vs_decmial_x` の設計](design/floating_vs_decmial_x.md#boundaries)を参照してください。"
+msgid "[!NOTE] The test `division precision follows the requested semantic contract` builds its 4,096-digit operands by multiplication rather than with `BigInt::from_string`, which misparses long inputs on `wasm-gc`; see the [`floating_vs_decmial_x` design](design/floating_vs_decmial_x.md#boundaries)."
+msgstr "[!NOTE] テスト `division precision follows the requested semantic contract` は 4,096 桁のオペランドを `BigInt::from_string` ではなく乗算で作ります。`BigInt::from_string` は `wasm-gc` で長い入力を誤って解析するためです。[`floating_vs_decmial_x` の設計](design/floating_vs_decmial_x.md#boundaries)を参照してください。"
 
 #: manual/performance/dzmingli_vs_floating.md:1
 msgid "dzmingli_vs_floating performance"
@@ -2321,7 +2321,7 @@ msgstr "ブラックボックステストでは関数を修飾しなければな
 #: manual/tutorial/dzmingli_vs_floating.md:287
 #: manual/tutorial/dzmingli_vs_floating/bench.md:71
 #: manual/tutorial/dzmingli_vs_floating/bench_common.md:71
-#: manual/tutorial/floating_vs_decmial_x.md:213
+#: manual/tutorial/floating_vs_decmial_x.md:211
 #: manual/tutorial/floating_vs_decmial_x/bench.md:71
 #: manual/tutorial/floating_vs_decmial_x/bench_common.md:71
 msgid "Next steps"
@@ -2825,26 +2825,26 @@ msgid "The HTML summary line is correct only for runs without failures; read `va
 msgstr "HTML の要約行が正しいのは失敗のない実行だけです。代わりにレポートの `validation_count` と `failed_count` を読んでください。"
 
 #: manual/tutorial/floating_vs_decmial_x.md:201
-msgid "`BigInt::from_string` is wrong for long strings on `wasm-gc` in the current `moonbitlang/core`. The test `division precision follows the requested semantic contract` builds a 4,096-nines operand with it and expects `4097`, the value produced by that wrong parse; the correct working precision is $4096 + 1 + 2 = 4099$. The test therefore passes on `wasm-gc` and fails on `native` and `js`. Build long test values with `parse_decimal_value` or `BigInt` arithmetic instead."
-msgstr "現在の `moonbitlang/core` では、`wasm-gc` の `BigInt::from_string` が長い文字列で誤った結果を返します。テスト `division precision follows the requested semantic contract` はこれで 9 を 4,096 個並べたオペランドを作り、その誤った解析から生じた値 `4097` を期待しています。正しい作業精度は $4096 + 1 + 2 = 4099$ です。そのためこのテストは `wasm-gc` では通り、`native` と `js` では失敗します。長いテスト値は `parse_decimal_value` か `BigInt` の算術で作ってください。"
+msgid "`BigInt::from_string` is wrong for long strings on `wasm-gc` in the current `moonbitlang/core`. Build long test values with `parse_decimal_value` or `BigInt` arithmetic instead, as the test `division precision follows the requested semantic contract` does: it builds its 4,096-nines operand by multiplication and expects the working precision $4096 + 1 + 2 = 4099$ on every target."
+msgstr "現在の `moonbitlang/core` では、`wasm-gc` の `BigInt::from_string` が長い文字列で誤った結果を返します。長いテスト値は `parse_decimal_value` か `BigInt` の算術で作ってください。テスト `division precision follows the requested semantic contract` もそうしており、9 を 4,096 個並べたオペランドを乗算で作り、すべてのターゲットで作業精度 $4096 + 1 + 2 = 4099$ を期待します。"
 
-#: manual/tutorial/floating_vs_decmial_x.md:209
+#: manual/tutorial/floating_vs_decmial_x.md:207
 msgid "The published numbers for X were measured with `moonbitlang/x@0.4.46`; the module now depends on `0.5.5`, and the JSONL implementation record still names `0.4.46`."
 msgstr "X について公開された数値は `moonbitlang/x@0.4.46` で計測されました。モジュールは現在 `0.5.5` に依存していますが、JSONL の実装レコードにはまだ `0.4.46` と書かれています。"
 
-#: manual/tutorial/floating_vs_decmial_x.md:215
+#: manual/tutorial/floating_vs_decmial_x.md:213
 msgid "[API reference](../api/floating_vs_decmial_x.md) for every item."
 msgstr "[API リファレンス](../api/floating_vs_decmial_x.md)：すべての項目。"
 
-#: manual/tutorial/floating_vs_decmial_x.md:216
+#: manual/tutorial/floating_vs_decmial_x.md:214
 msgid "[Design](../design/floating_vs_decmial_x.md) for the semantic groups and the precision proofs."
 msgstr "[設計](../design/floating_vs_decmial_x.md)：意味論グループと精度の証明。"
 
-#: manual/tutorial/floating_vs_decmial_x.md:218
+#: manual/tutorial/floating_vs_decmial_x.md:216
 msgid "[Performance analysis](../performance/floating_vs_decmial_x.md) for the measured results."
 msgstr "[性能分析](../performance/floating_vs_decmial_x.md)：計測結果。"
 
-#: manual/tutorial/floating_vs_decmial_x.md:220
+#: manual/tutorial/floating_vs_decmial_x.md:218
 msgid "[Benchmark executables](floating_vs_decmial_x/bench.md) and the [common-digit executable](floating_vs_decmial_x/bench_common.md)."
 msgstr "[ベンチマーク用実行ファイル](floating_vs_decmial_x/bench.md)と[一般的な桁数用実行ファイル](floating_vs_decmial_x/bench_common.md)。"
 
