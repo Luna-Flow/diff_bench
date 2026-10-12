@@ -2,7 +2,7 @@
 /// A signed decimal value represented without a binary floating-point step.
 pub(all) struct DecimalValue {
   coefficient : @bigint.BigInt
-  scale : Int
+  scale : Int32
 }
 
 ///|
@@ -56,7 +56,7 @@ pub struct BenchmarkCase {
   shape : OperandShape
   left : String
   right : String
-  scale : Int
+  scale : Int32
 }
 
 ///|
@@ -64,10 +64,10 @@ pub struct BenchmarkCase {
 pub struct Suite {
   name : String
   operations : Array[Operation]
-  scales : Array[Int]
+  scales : Array[Int32]
   timing_scope : TimingScope
-  warmup : Int
-  samples : Int
+  warmup : Int32
+  samples : Int32
 }
 
 ///|

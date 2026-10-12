@@ -4,9 +4,9 @@ pub(all) struct MareDecimalInput {
   right : DecimalValue
   operation : Operation
   semantics : DecimalSemantics
-  digits : Int
-  left_scale : Int
-  right_scale : Int
+  digits : Int32
+  left_scale : Int32
+  right_scale : Int32
 }
 
 ///|
@@ -14,21 +14,21 @@ pub(all) struct PerformanceResult {
   operation : Operation
   semantics : DecimalSemantics
   timing_scope : String
-  digits : Int
+  digits : Int32
   x_median_us : Double
   gda_median_us : Double
   gda_relative_delta_pct : Double
   x_speedup_vs_gda : Double
   decision : String
-  samples : Int
+  samples : Int32
 }
 
 ///|
 pub(all) struct MareBenchmarkReport {
   results : Array[PerformanceResult]
   jsonl : String
-  validation_count : Int
-  failed_count : Int
+  validation_count : Int32
+  failed_count : Int32
 }
 
 ///|
@@ -82,8 +82,8 @@ fn benchmark_timing_scope(
 fn decimal_scales(
   operation : Operation,
   semantics : DecimalSemantics,
-  dataset_id : Int,
-) -> (Int, Int) {
+  dataset_id : Int32,
+) -> (Int32, Int32) {
   match semantics {
     ExactOverlap =>
       match operation {
@@ -129,7 +129,7 @@ fn decimal_scales(
 }
 
 ///|
-fn exact_divisor(dataset_id : Int) -> DecimalValue {
+fn exact_divisor(dataset_id : Int32) -> DecimalValue {
   let divisors : Array[DecimalValue] = [
     { coefficient: 2N, scale: 0, },
     { coefficient: 4N, scale: 0, },
@@ -144,7 +144,7 @@ fn exact_divisor(dataset_id : Int) -> DecimalValue {
 fn materialize_mare_input(
   operation : Operation,
   semantics : DecimalSemantics,
-  context : @mare_model.GenerationContext[Int],
+  context : @mare_model.GenerationContext[Int32],
 ) -> MareDecimalInput {
   let digits = context.dataset_key.scale
   let (left_scale, right_scale) = decimal_scales(
@@ -196,7 +196,7 @@ fn mare_input_text(input : MareDecimalInput) -> String {
 }
 
 ///|
-fn observation_token(observation : DecimalObservation) -> Int {
+fn observation_token(observation : DecimalObservation) -> Int32 {
   match observation {
     X(value) => value.signum()
     XCompare(value) => value
@@ -237,7 +237,7 @@ fn validation_status(
 fn mare_fixture(
   operation : Operation,
   semantics : DecimalSemantics,
-) -> @mare_fixture.Fixture[Int, MareDecimalInput, DecimalFixture] {
+) -> @mare_fixture.Fixture[Int32, MareDecimalInput, DecimalFixture] {
   @mare_fixture.Fixture::new(
     "floating-vs-decimal-x",
     "decimal-neutral-v1",
@@ -289,16 +289,16 @@ fn mare_oracle(
 fn mare_case(
   operation : Operation,
   semantics : DecimalSemantics,
-  digit_scales : Array[Int],
+  digit_scales : Array[Int32],
 ) -> @mare_runner.BenchSpec[
-  Int,
+  Int32,
   MareDecimalInput,
   DecimalFixture,
   DecimalValue,
   DecimalObservation,
   Unit,
   DecimalObservation?,
-  Int,
+  Int32,
 ] {
   let x_implementation = @mare_runner.Implementation::in_process(
     "x_decimal",
@@ -469,7 +469,7 @@ fn decision_name(decision : @mare_stats.Decision) -> String {
 fn performance_results(
   operation : Operation,
   semantics : DecimalSemantics,
-  digit_scales : Array[Int],
+  digit_scales : Array[Int32],
   observations : Array[@mare_model.Observation],
 ) -> Array[PerformanceResult] {
   let results = []
@@ -520,8 +520,8 @@ fn performance_results(
 
 ///|
 fn paired_samples_for_digits(
-  digits : Int,
-  digit_scales : Array[Int],
+  digits : Int32,
+  digit_scales : Array[Int32],
   observations : Array[@mare_model.Observation],
 ) -> (Array[Double], Array[Double]) {
   let x_samples = []
@@ -553,7 +553,7 @@ fn paired_samples_for_digits(
 pub async fn run_mare_benchmark(
   operations : Array[Operation],
   semantics : DecimalSemantics,
-  digit_scales : Array[Int],
+  digit_scales : Array[Int32],
   protocol : @mare_model.RunProtocol,
   seed : UInt64,
 ) -> MareBenchmarkReport {
@@ -593,9 +593,9 @@ pub async fn run_mare_benchmark(
 
 ///|
 pub fn expand_digit_scales(
-  digit_scales : Array[Int],
-  datasets_per_scale : Int,
-) -> Array[Int] {
+  digit_scales : Array[Int32],
+  datasets_per_scale : Int32,
+) -> Array[Int32] {
   let expanded = []
   for digits in digit_scales {
     let mut dataset_index = 0

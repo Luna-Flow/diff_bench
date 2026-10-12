@@ -1,8 +1,8 @@
 ///|
 fn write_mare_performance_report(
   results : Array[@decimal_bench.PerformanceResult],
-  validation_count : Int,
-  failed_count : Int,
+  validation_count : Int32,
+  failed_count : Int32,
 ) -> Unit {
   try @fs.create_dir("artifacts") catch {
     _ => ()
@@ -33,7 +33,7 @@ fn write_mare_performance_report(
 }
 
 ///|
-fn benchmark_digit_scales() -> Array[Int] {
+fn benchmark_digit_scales() -> Array[Int32] {
   let digit_scales = @decimal_bench.expand_digit_scales(
     [1, 4, 16, 64, 256, 1024, 4096],
     3,
@@ -43,7 +43,7 @@ fn benchmark_digit_scales() -> Array[Int] {
 }
 
 ///|
-fn non_multiplication_stress_scales() -> Array[Int] {
+fn non_multiplication_stress_scales() -> Array[Int32] {
   @decimal_bench.expand_digit_scales([16384, 20000], 3)
 }
 

@@ -15,12 +15,12 @@ pub struct DecimalFixture {
 ///|
 pub(all) enum DecimalObservation {
   X(@x_decimal.Decimal)
-  XCompare(Int)
+  XCompare(Int32)
   Gda(@floating_gda.GdaOutcome[@floating_gda.Decimal])
 }
 
 ///|
-fn decimal_digits(value : @bigint.BigInt) -> Int {
+fn decimal_digits(value : @bigint.BigInt) -> Int32 {
   abs_bigint(value).to_string().length()
 }
 
@@ -29,28 +29,28 @@ pub fn working_precision(
   operation : Operation,
   left : DecimalValue,
   right : DecimalValue,
-  semantics? : DecimalSemantics = XCompatible,
-) -> Int {
+  semantics~ : DecimalSemantics = XCompatible,
+) -> Int32 {
   let left_digits = decimal_digits(left.coefficient)
   let right_digits = decimal_digits(right.coefficient)
   match operation {
     Add | Subtract =>
-      Int::max(left_digits, right_digits) +
-      Int::abs(left.scale - right.scale) +
+      Int32::max(left_digits, right_digits) +
+      Int32::abs(left.scale - right.scale) +
       2
     Multiply => left_digits + right_digits + 1
     Divide =>
       match semantics {
         ExactOverlap => left_digits + right_digits + 2
         XCompatible => {
-          let integer_digits = Int::max(
+          let integer_digits = Int32::max(
             1,
             left_digits - left.scale - right_digits + right.scale + 1,
           )
           integer_digits + 30
         }
       }
-    Compare | Parse | Format => Int::max(left_digits, right_digits) + 1
+    Compare | Parse | Format => Int32::max(left_digits, right_digits) + 1
   }
 }
 
@@ -65,7 +65,7 @@ pub fn x_from_neutral(value : DecimalValue) -> @x_decimal.Decimal {
 ///|
 pub fn gda_from_neutral(
   value : DecimalValue,
-  precision : Int,
+  precision : Int32,
 ) -> @floating_gda.Decimal {
   match
     @floating_gda.Decimal::from_string(canonical_string(value), precision~) {
@@ -79,7 +79,7 @@ pub fn prepare_fixture(
   operation : Operation,
   left : DecimalValue,
   right : DecimalValue,
-  semantics? : DecimalSemantics = XCompatible,
+  semantics~ : DecimalSemantics = XCompatible,
 ) -> DecimalFixture {
   let precision = working_precision(operation, left, right, semantics~)
   {
@@ -95,7 +95,7 @@ pub fn prepare_fixture(
     gda_context: @floating_gda.context(
       precision~,
       rounding=@floating_gda.GdaRoundingMode::Down,
-    ),
+    ).unwrap(),
   }
 }
 

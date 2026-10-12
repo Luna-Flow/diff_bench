@@ -237,7 +237,7 @@ test "expanded scales create independent datasets per digit size" {
 ///
 /// `BigInt::from_string` truncates long digit strings on wasm-gc, so the
 /// operands are not read from strings.
-fn all_nines(digits : Int) -> @bigint.BigInt {
+fn all_nines(digits : Int32) -> @bigint.BigInt {
   let mut power = 1N
   for _ in 0..<digits {
     power = power * 10N

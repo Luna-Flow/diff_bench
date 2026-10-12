@@ -97,8 +97,8 @@ pub fn mare_performance_report_document(
   results : Array[PerformanceResult],
   target : String,
   run_id : String,
-  validation_count? : Int = 0,
-  failed_count? : Int = 0,
+  validation_count~ : Int32 = 0,
+  failed_count~ : Int32 = 0,
 ) -> @mare_ir.PlotDocument {
   let plots = []
   let operations : Array[Operation] = [Add, Subtract, Multiply, Divide, Compare]
@@ -134,8 +134,8 @@ pub fn mare_performance_report_html(
   results : Array[PerformanceResult],
   target : String,
   run_id : String,
-  validation_count? : Int = 0,
-  failed_count? : Int = 0,
+  validation_count~ : Int32 = 0,
+  failed_count~ : Int32 = 0,
 ) -> String {
   @mare_report.html(
     mare_performance_report_document(
