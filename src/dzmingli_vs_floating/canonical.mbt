@@ -1,5 +1,5 @@
 ///|
-fn pow10(n : Int) -> @bigint.BigInt {
+fn pow10(n : Int32) -> @bigint.BigInt {
   let mut result = 1N
   for _ in 0..<n {
     result = result * 10N
@@ -68,7 +68,7 @@ pub fn to_oracle_result(value : DecimalValue) -> OracleResult {
 }
 
 ///|
-fn rescale(value : DecimalValue, target_scale : Int) -> DecimalValue {
+fn rescale(value : DecimalValue, target_scale : Int32) -> DecimalValue {
   if value.scale == target_scale {
     value
   } else if value.scale < target_scale {
@@ -120,13 +120,13 @@ pub fn multiply(left : DecimalValue, right : DecimalValue) -> DecimalValue {
 }
 
 ///|
-pub fn compare(left : DecimalValue, right : DecimalValue) -> Int {
+pub fn compare(left : DecimalValue, right : DecimalValue) -> Int32 {
   let (left, right) = aligned(left, right)
   normalize_order(left.coefficient.compare(right.coefficient))
 }
 
 ///|
-fn normalize_order(order : Int) -> Int {
+fn normalize_order(order : Int32) -> Int32 {
   if order < 0 {
     -1
   } else if order > 0 {

@@ -1,5 +1,5 @@
 ///|
-fn digit_for(seed : Int, index : Int) -> Char {
+fn digit_for(seed : Int32, index : Int32) -> Char {
   let digit = ((seed + index * 7) % 9 + 9) % 9
   ('1'.to_int() + digit).unsafe_to_char()
 }
@@ -7,9 +7,9 @@ fn digit_for(seed : Int, index : Int) -> Char {
 ///|
 /// Creates a decimal string with deterministic digits and optional sign.
 pub fn generate_decimal(
-  seed : Int,
-  digits : Int,
-  scale : Int,
+  seed : Int32,
+  digits : Int32,
+  scale : Int32,
   negative : Bool,
 ) -> String {
   if digits <= 0 {
@@ -40,8 +40,8 @@ pub fn generate_decimal(
 ///|
 /// Produces a deterministic case matrix without consulting wall-clock time or RNG state.
 pub fn generate_cases(
-  seed : Int,
-  count : Int,
+  seed : Int32,
+  count : Int32,
   operation : Operation,
 ) -> Array[BenchmarkCase] {
   let cases = []

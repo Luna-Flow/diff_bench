@@ -1,8 +1,8 @@
 ///|
 fn write_mare_performance_report(
   results : Array[@decimal_bench.PerformanceResult],
-  validation_count : Int,
-  failed_count : Int,
+  validation_count : Int32,
+  failed_count : Int32,
 ) -> Unit {
   try @fs.create_dir("artifacts") catch {
     _ => ()

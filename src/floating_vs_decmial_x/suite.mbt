@@ -11,6 +11,6 @@ pub fn default_suite() -> Suite {
 }
 
 ///|
-pub fn suite_case_count(suite : Suite, per_operation : Int) -> Int {
+pub fn suite_case_count(suite : Suite, per_operation : Int32) -> Int32 {
   suite.operations.length() * suite.scales.length() * per_operation
 }

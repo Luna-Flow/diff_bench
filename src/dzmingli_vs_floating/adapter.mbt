@@ -21,7 +21,7 @@ pub(all) enum DecimalObservation {
 }
 
 ///|
-fn decimal_digits(value : @bigint.BigInt) -> Int {
+fn decimal_digits(value : @bigint.BigInt) -> Int32 {
   abs_bigint(value).to_string().length()
 }
 
@@ -30,13 +30,13 @@ pub fn working_precision(
   operation : Operation,
   left : DecimalValue,
   right : DecimalValue,
-) -> Int {
+) -> Int32 {
   let left_digits = decimal_digits(left.coefficient)
   let right_digits = decimal_digits(right.coefficient)
   match operation {
     Add | Subtract =>
-      Int::max(left_digits, right_digits) +
-      Int::abs(left.scale - right.scale) +
+      Int32::max(left_digits, right_digits) +
+      Int32::abs(left.scale - right.scale) +
       2
     Multiply | Fma | Power => left_digits + right_digits + 2
     Divide | DivideInteger | Remainder => left_digits + right_digits + 2
@@ -50,7 +50,7 @@ pub fn working_precision(
     | Reduce
     | ToIntegralExact
     | ToIntegralValue => left_digits + 2
-    Compare | Parse | Format => Int::max(left_digits, right_digits) + 1
+    Compare | Parse | Format => Int32::max(left_digits, right_digits) + 1
   }
 }
 
@@ -82,19 +82,19 @@ fn gda_from_text(
 ///|
 pub fn gda_from_neutral(
   value : DecimalValue,
-  precision : Int,
+  precision : Int32,
 ) -> @floating_gda.Decimal {
   gda_from_text(
     canonical_string(value),
     @floating_gda.context(
       precision~,
       rounding=@floating_gda.GdaRoundingMode::Down,
-    ),
+    ).unwrap(),
   )
 }
 
 ///|
-fn dz_context(precision : Int) -> @dz_decimal.Context {
+fn dz_context(precision : Int32) -> @dz_decimal.Context {
   @dz_decimal.Context::new(precision~, rounding=@dz_decimal.Rounding::Down)
 }
 
@@ -120,7 +120,7 @@ pub fn prepare_fixture3(
       decimal_digits(left.coefficient) +
       decimal_digits(right.coefficient) +
       decimal_digits(third.coefficient) +
-      Int::abs(left.scale + right.scale - third.scale) +
+      Int32::abs(left.scale + right.scale - third.scale) +
       4
     _ => working_precision(operation, left, right) + 2
   }
@@ -131,7 +131,7 @@ pub fn prepare_fixture3(
   let gda_context = @floating_gda.context(
     precision~,
     rounding=@floating_gda.GdaRoundingMode::Down,
-  )
+  ).unwrap()
   {
     left_text,
     right_text,

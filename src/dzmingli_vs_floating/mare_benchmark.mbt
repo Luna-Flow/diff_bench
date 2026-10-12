@@ -5,31 +5,31 @@ pub(all) struct MareDecimalInput {
   third : DecimalValue
   operation : Operation
   timing_scope : TimingScope
-  digits : Int
-  left_scale : Int
-  right_scale : Int
+  digits : Int32
+  left_scale : Int32
+  right_scale : Int32
 }
 
 ///|
 pub(all) struct PerformanceResult {
   operation : Operation
   timing_scope : TimingScope
-  digits : Int
+  digits : Int32
   correctness_valid : Bool
   dz_median_us : Double
   gda_median_us : Double
   gda_relative_delta_pct : Double
   dz_speedup_vs_gda : Double
   decision : String
-  samples : Int
+  samples : Int32
 }
 
 ///|
 pub(all) struct MareBenchmarkReport {
   results : Array[PerformanceResult]
   jsonl : String
-  validation_count : Int
-  failed_count : Int
+  validation_count : Int32
+  failed_count : Int32
 }
 
 ///|
@@ -68,7 +68,7 @@ pub fn PerformanceResult::to_json(self : PerformanceResult) -> String {
 }
 
 ///|
-fn decimal_scales(operation : Operation, dataset_id : Int) -> (Int, Int) {
+fn decimal_scales(operation : Operation, dataset_id : Int32) -> (Int32, Int32) {
   let left_scales = [0, 8, 28]
   let right_scales = [2, 18, 0]
   let profile = dataset_id % left_scales.length()
@@ -88,7 +88,7 @@ fn decimal_scales(operation : Operation, dataset_id : Int) -> (Int, Int) {
 }
 
 ///|
-fn exact_divisor(dataset_id : Int) -> DecimalValue {
+fn exact_divisor(dataset_id : Int32) -> DecimalValue {
   let divisors : Array[DecimalValue] = [
     { coefficient: 2N, scale: 0, },
     { coefficient: 8N, scale: 0, },
@@ -101,8 +101,8 @@ fn exact_divisor(dataset_id : Int) -> DecimalValue {
 fn materialize_mare_input(
   operation : Operation,
   timing_scope : TimingScope,
-  digit_scales : Array[Int],
-  context : @mare_model.GenerationContext[Int],
+  digit_scales : Array[Int32],
+  context : @mare_model.GenerationContext[Int32],
 ) -> MareDecimalInput {
   let digits = context.dataset_key.scale
   let profile = dataset_profile(digit_scales, context.dataset_key.dataset_id)
@@ -167,7 +167,7 @@ fn materialize_mare_input(
 }
 
 ///|
-fn dataset_profile(digit_scales : Array[Int], dataset_id : Int) -> Int {
+fn dataset_profile(digit_scales : Array[Int32], dataset_id : Int32) -> Int32 {
   let digits = digit_scales[dataset_id]
   let mut profile = 0
   for prior_id in 0..<dataset_id {
@@ -192,7 +192,7 @@ fn mare_input_text(input : MareDecimalInput) -> String {
 }
 
 ///|
-fn observation_token(observation : DecimalObservation) -> Int {
+fn observation_token(observation : DecimalObservation) -> Int32 {
   match observation {
     Dz(value) =>
       if value.is_zero() {
@@ -239,8 +239,8 @@ fn validation_status(
 fn mare_fixture(
   operation : Operation,
   timing_scope : TimingScope,
-  digit_scales : Array[Int],
-) -> @mare_fixture.Fixture[Int, MareDecimalInput, DecimalFixture] {
+  digit_scales : Array[Int32],
+) -> @mare_fixture.Fixture[Int32, MareDecimalInput, DecimalFixture] {
   @mare_fixture.Fixture::new(
     "dzmingli-vs-floating-gda",
     "decimal-neutral-v1",
@@ -311,16 +311,16 @@ fn run_gda_for_scope(
 fn mare_case(
   operation : Operation,
   timing_scope : TimingScope,
-  digit_scales : Array[Int],
+  digit_scales : Array[Int32],
 ) -> @mare_runner.BenchSpec[
-  Int,
+  Int32,
   MareDecimalInput,
   DecimalFixture,
   DecimalValue,
   DecimalObservation,
   Unit,
   DecimalObservation?,
-  Int,
+  Int32,
 ] {
   let dz_implementation = @mare_runner.Implementation::in_process(
     "dzmingli_decimal",
@@ -502,7 +502,7 @@ fn decision_name(decision : @mare_stats.Decision) -> String {
 fn performance_results(
   operation : Operation,
   timing_scope : TimingScope,
-  digit_scales : Array[Int],
+  digit_scales : Array[Int32],
   observations : Array[@mare_model.Observation],
   validations : Array[@mare_model.Validation],
 ) -> Array[PerformanceResult] {
@@ -582,8 +582,8 @@ fn performance_results(
 
 ///|
 fn paired_samples_for_digits(
-  digits : Int,
-  digit_scales : Array[Int],
+  digits : Int32,
+  digit_scales : Array[Int32],
   observations : Array[@mare_model.Observation],
 ) -> (Array[Double], Array[Double]) {
   let dz_samples = []
@@ -614,8 +614,8 @@ fn paired_samples_for_digits(
 ///|
 fn samples_for_digits(
   implementation_id : String,
-  digits : Int,
-  digit_scales : Array[Int],
+  digits : Int32,
+  digit_scales : Array[Int32],
   observations : Array[@mare_model.Observation],
 ) -> Array[Double] {
   let samples = []
@@ -632,7 +632,7 @@ fn samples_for_digits(
 
 ///|
 fn correctness_valid_for_digits(
-  digits : Int,
+  digits : Int32,
   validations : Array[@mare_model.Validation],
 ) -> Bool {
   let scale_text = digits.to_string()
@@ -659,7 +659,7 @@ fn correctness_valid_for_digits(
 pub async fn run_mare_benchmark(
   operations : Array[Operation],
   timing_scope : TimingScope,
-  digit_scales : Array[Int],
+  digit_scales : Array[Int32],
   protocol : @mare_model.RunProtocol,
   seed : UInt64,
 ) -> MareBenchmarkReport {
@@ -702,9 +702,9 @@ pub async fn run_mare_benchmark(
 
 ///|
 pub fn expand_digit_scales(
-  digit_scales : Array[Int],
-  datasets_per_scale : Int,
-) -> Array[Int] {
+  digit_scales : Array[Int32],
+  datasets_per_scale : Int32,
+) -> Array[Int32] {
   let expanded = []
   for digits in digit_scales {
     let mut dataset_index = 0
