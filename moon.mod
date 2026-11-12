@@ -13,8 +13,8 @@ keywords = [ "benchmark", "decimal", "differential-testing", "moonbit" ]
 description = "Differential correctness and performance benchmarks for Luna-Flow MoonBit packages."
 
 import {
-  "Luna-Flow/floating@0.10.1",
-  "Luna-Flow/mare_mark@0.4.1",
+  "Luna-Flow/floating@0.10.2",
+  "Luna-Flow/mare_mark@0.4.2",
   "moonbit-community/decimal@0.1.0",
   "moonbitlang/async@0.22.9",
   "moonbitlang/x@0.5.7",

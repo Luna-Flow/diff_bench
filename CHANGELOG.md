@@ -6,6 +6,7 @@ All notable changes to `Luna-Flow/diff_bench` are recorded here.
 
 ### Changed
 
+- Dependencies: `Luna-Flow/floating` 0.10.2 (was 0.10.1), `Luna-Flow/mare_mark` 0.4.2 (was 0.4.1).
 - Replace `DzmingLi/decimal@0.2.2`, which is deprecated and no longer compiles with `moonc` 0.10.20, with its renamed successor `moonbit-community/decimal@0.1.0` (same arithmetic code). The recorded performance pages still describe runs of 0.2.2.
 - Bump `moonbitlang/async` from 0.22.5 to 0.22.9. It has no wasm-gc runtime ([moonbitlang/core#4584](https://github.com/moonbitlang/core/issues/4584)), so `async test`s now live in files built only for native, JS and wasm instead of relying on the old pin.
 - Migrated to MoonBit `moonc` 0.10. The manifests were already `moon.mod` and
