@@ -64,7 +64,7 @@ msgid "dzmingli_vs_floating API"
 msgstr ""
 
 #: manual/api/dzmingli_vs_floating.md:5
-msgid "The package `Luna-Flow/diff_bench/dzmingli_vs_floating` compares `DzmingLi/decimal@0.2.2` with `Luna-Flow/floating/decimal_gda@0.7.1` on identical decimal inputs, checks both against an exact `BigInt` oracle, and measures them with Mare Mark. It is a benchmark harness, not a decimal library: every function aborts on input outside its contract instead of returning a `Result`, because an invalid fixture is a bug in the harness."
+msgid "The package `Luna-Flow/diff_bench/dzmingli_vs_floating` compares `moonbit-community/decimal@0.1.0` with `Luna-Flow/floating/decimal_gda@0.7.1` on identical decimal inputs, checks both against an exact `BigInt` oracle, and measures them with Mare Mark. It is a benchmark harness, not a decimal library: every function aborts on input outside its contract instead of returning a `Result`, because an invalid fixture is a bug in the harness."
 msgstr ""
 
 #: manual/api/dzmingli_vs_floating.md:12
@@ -371,7 +371,7 @@ msgid "`DecimalFixture` holds both implementations' operands and contexts, built
 msgstr ""
 
 #: manual/api/dzmingli_vs_floating.md:525
-msgid "`@decimal` is `DzmingLi/decimal` and `@decimal_gda` is `Luna-Flow/floating/decimal_gda`. The `*_text` fields are the canonical strings that `FullPath` parses again."
+msgid "`@decimal` is `moonbit-community/decimal` and `@decimal_gda` is `Luna-Flow/floating/decimal_gda`. The `*_text` fields are the canonical strings that `FullPath` parses again."
 msgstr ""
 
 #: manual/api/dzmingli_vs_floating.md:531
@@ -1114,7 +1114,7 @@ msgid "Main design decisions"
 msgstr ""
 
 #: manual/design/core.md:18
-msgid "**Benchmarks are subpackages.** Each comparison lives in its own package with its own dependencies, so `floating_vs_decmial_x` builds without `DzmingLi/decimal` and the other way around, and each can be documented and run alone."
+msgid "**Benchmarks are subpackages.** Each comparison lives in its own package with its own dependencies, so `floating_vs_decmial_x` builds without `moonbit-community/decimal` and the other way around, and each can be documented and run alone."
 msgstr ""
 
 #: manual/design/core.md:22
@@ -1158,7 +1158,7 @@ msgid "dzmingli_vs_floating design"
 msgstr ""
 
 #: manual/design/dzmingli_vs_floating.md:5
-msgid "The package answers two questions about `DzmingLi/decimal@0.2.2` and `Luna-Flow/floating/decimal_gda@0.7.1`: do they compute the same exact decimal results, and how fast do they compute them as coefficients grow to thousands of digits? Speed is only reported where both answers are right, so the design is built around a correctness check that cannot be fooled by the libraries agreeing with each other."
+msgid "The package answers two questions about `moonbit-community/decimal@0.1.0` and `Luna-Flow/floating/decimal_gda@0.7.1`: do they compute the same exact decimal results, and how fast do they compute them as coefficients grow to thousands of digits? Speed is only reported where both answers are right, so the design is built around a correctness check that cannot be fooled by the libraries agreeing with each other."
 msgstr ""
 
 #: manual/design/dzmingli_vs_floating.md:12
@@ -1178,7 +1178,7 @@ msgid "Results are exact decimals, so correctness can and must be decided by exa
 msgstr ""
 
 #: manual/design/dzmingli_vs_floating.md:24
-msgid "`DzmingLi/decimal@0.2.2` estimates digit counts in a 32-bit `Int`, which bounds the sizes some operations can be run at."
+msgid "`moonbit-community/decimal@0.1.0` estimates digit counts in a 32-bit `Int`, which bounds the sizes some operations can be run at."
 msgstr ""
 
 #: manual/design/dzmingli_vs_floating.md:29
@@ -1488,7 +1488,7 @@ msgid "The executables run on the `native` target only; other targets print a me
 msgstr ""
 
 #: manual/design/dzmingli_vs_floating.md:425
-msgid "`DzmingLi/decimal@0.2.2` is deprecated in favour of `moonbit-community/decimal`; the benchmark keeps it pinned for a historical comparison."
+msgid "`moonbit-community/decimal@0.1.0` is the renamed successor of the deprecated `DzmingLi/decimal@0.2.2`, with the same arithmetic code. The old package no longer compiles with `moonc` 0.10.20, so the benchmark moved to the successor; the recorded performance pages still describe runs of 0.2.2."
 msgstr ""
 
 #: manual/design/dzmingli_vs_floating/bench.md:1
@@ -1909,7 +1909,7 @@ msgid "A package inside the module imports a benchmark in its `moon.pkg`:"
 msgstr ""
 
 #: manual/index.md:42
-msgid "The code needs the MoonBit toolchain 0.10 or later (`moonc` ≥ 0.10) with the `moon.mod` and `moon.pkg` manifests. The library packages build on every target; the executables and the asynchronous Mare Mark runs need `native` (the async runner also works on `js`). Published measurements are native release runs."
+msgid "The code needs the MoonBit toolchain 0.10.20 or later (`moonc` ≥ 0.10.20) with the `moon.mod` and `moon.pkg` manifests. The library packages build on every target; the executables and the asynchronous Mare Mark runs need `native` (the async runner also works on `js`). Published measurements are native release runs."
 msgstr ""
 
 #: manual/index.md:48
@@ -1953,7 +1953,7 @@ msgid "[design](design/core.md)"
 msgstr ""
 
 #: manual/index.md:56
-msgid "`dzmingli_vs_floating`: `DzmingLi/decimal@0.2.2` versus floating GDA, exact oracle, 19 operations"
+msgid "`dzmingli_vs_floating`: `moonbit-community/decimal@0.1.0` versus floating GDA, exact oracle, 19 operations"
 msgstr ""
 
 #: manual/index.md:56
@@ -2333,7 +2333,7 @@ msgid "dzmingli_vs_floating tutorial"
 msgstr ""
 
 #: manual/tutorial/dzmingli_vs_floating.md:3
-msgid "This tutorial shows how to check `DzmingLi/decimal` and floating's `decimal_gda` against the exact oracle, first for one operation and then for a deterministic corpus, how to run a small Mare Mark measurement from a test, and how to reproduce the published benchmark and its official decTest audit. The mathematics behind the checks is on the [design page](../design/dzmingli_vs_floating.md)."
+msgid "This tutorial shows how to check `moonbit-community/decimal` and floating's `decimal_gda` against the exact oracle, first for one operation and then for a deterministic corpus, how to run a small Mare Mark measurement from a test, and how to reproduce the published benchmark and its official decTest audit. The mathematics behind the checks is on the [design page](../design/dzmingli_vs_floating.md)."
 msgstr ""
 
 #: manual/tutorial/dzmingli_vs_floating.md:12

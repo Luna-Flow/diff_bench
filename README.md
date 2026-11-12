@@ -45,7 +45,7 @@ test "one division, two libraries, one oracle" {
 
 | Package | Purpose |
 | --- | --- |
-| `dzmingli_vs_floating` | `DzmingLi/decimal@0.2.2` versus floating GDA on 19 exact operations, with an exact-finite oracle and two timing scopes |
+| `dzmingli_vs_floating` | `moonbit-community/decimal@0.1.0` versus floating GDA on 19 exact operations, with an exact-finite oracle and two timing scopes |
 | `dzmingli_vs_floating/bench` | native scaling run, 1 to 20,000 coefficient digits |
 | `dzmingli_vs_floating/bench_common` | native run at 1, 4, 8, 16, 18 and 28 digits |
 | `floating_vs_decmial_x` | `moonbitlang/x/decimal` versus floating GDA under the `exact_overlap` and `x_compatible` semantic groups |
@@ -71,7 +71,7 @@ The figure layouts need Python 3 with Matplotlib, for example
 
 ## Toolchain
 
-MoonBit `moonc` 0.10 or later with the `moon.mod` and `moon.pkg` manifests.
+MoonBit `moonc` 0.10.20 or later (verified with `moon 0.1.20261104` and `moonc v0.10.20`; older 0.10 compilers ignore `#derive`) with the `moon.mod` and `moon.pkg` manifests.
 The executables and the asynchronous Mare Mark runs need the `native` target.
 
 Known limitations of the X comparison are listed in its

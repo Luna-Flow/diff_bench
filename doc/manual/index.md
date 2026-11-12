@@ -39,7 +39,7 @@ import {
 }
 ```
 
-The code needs the MoonBit toolchain 0.10 or later (`moonc` ≥ 0.10) with the
+The code needs the MoonBit toolchain 0.10.20 or later (`moonc` ≥ 0.10.20) with the
 `moon.mod` and `moon.pkg` manifests. The library packages build on every
 target; the executables and the asynchronous Mare Mark runs need `native`
 (the async runner also works on `js`). Published measurements are native
@@ -53,7 +53,7 @@ benchmark libraries and one scaling and one common-digit executable for each.
 | Part | Tutorial | API | Design |
 | --- | --- | --- | --- |
 | `core`: the root package, a template placeholder | [tutorial](tutorial/core.md) | [API](api/core.md) | [design](design/core.md) |
-| `dzmingli_vs_floating`: `DzmingLi/decimal@0.2.2` versus floating GDA, exact oracle, 19 operations | [tutorial](tutorial/dzmingli_vs_floating.md) | [API](api/dzmingli_vs_floating.md) | [design](design/dzmingli_vs_floating.md) |
+| `dzmingli_vs_floating`: `moonbit-community/decimal@0.1.0` versus floating GDA, exact oracle, 19 operations | [tutorial](tutorial/dzmingli_vs_floating.md) | [API](api/dzmingli_vs_floating.md) | [design](design/dzmingli_vs_floating.md) |
 | `dzmingli_vs_floating/bench`: scaling executable, 1 to 20,000 digits | [tutorial](tutorial/dzmingli_vs_floating/bench.md) | [API](api/dzmingli_vs_floating/bench.md) | [design](design/dzmingli_vs_floating/bench.md) |
 | `dzmingli_vs_floating/bench_common`: common-digit executable, 1 to 28 digits | [tutorial](tutorial/dzmingli_vs_floating/bench_common.md) | [API](api/dzmingli_vs_floating/bench_common.md) | [design](design/dzmingli_vs_floating/bench_common.md) |
 | `floating_vs_decmial_x`: `moonbitlang/x/decimal` versus floating GDA, two semantic groups | [tutorial](tutorial/floating_vs_decmial_x.md) | [API](api/floating_vs_decmial_x.md) | [design](design/floating_vs_decmial_x.md) |

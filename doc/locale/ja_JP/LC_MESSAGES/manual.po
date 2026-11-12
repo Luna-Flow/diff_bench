@@ -64,8 +64,8 @@ msgid "dzmingli_vs_floating API"
 msgstr "dzmingli_vs_floating API"
 
 #: manual/api/dzmingli_vs_floating.md:5
-msgid "The package `Luna-Flow/diff_bench/dzmingli_vs_floating` compares `DzmingLi/decimal@0.2.2` with `Luna-Flow/floating/decimal_gda@0.7.1` on identical decimal inputs, checks both against an exact `BigInt` oracle, and measures them with Mare Mark. It is a benchmark harness, not a decimal library: every function aborts on input outside its contract instead of returning a `Result`, because an invalid fixture is a bug in the harness."
-msgstr "パッケージ `Luna-Flow/diff_bench/dzmingli_vs_floating` は、同一の十進入力に対して `DzmingLi/decimal@0.2.2` と `Luna-Flow/floating/decimal_gda@0.7.1` を比較し、両者を厳密な `BigInt` オラクルで検査し、Mare Mark で計測します。これは十進ライブラリではなくベンチマーク用のハーネスです。無効なフィクスチャはハーネス自身のバグであるため、どの関数も契約外の入力に対しては `Result` を返さずに中断します。"
+msgid "The package `Luna-Flow/diff_bench/dzmingli_vs_floating` compares `moonbit-community/decimal@0.1.0` with `Luna-Flow/floating/decimal_gda@0.7.1` on identical decimal inputs, checks both against an exact `BigInt` oracle, and measures them with Mare Mark. It is a benchmark harness, not a decimal library: every function aborts on input outside its contract instead of returning a `Result`, because an invalid fixture is a bug in the harness."
+msgstr "パッケージ `Luna-Flow/diff_bench/dzmingli_vs_floating` は、同一の十進入力に対して `moonbit-community/decimal@0.1.0` と `Luna-Flow/floating/decimal_gda@0.7.1` を比較し、両者を厳密な `BigInt` オラクルで検査し、Mare Mark で計測します。これは十進ライブラリではなくベンチマーク用のハーネスです。無効なフィクスチャはハーネス自身のバグであるため、どの関数も契約外の入力に対しては `Result` を返さずに中断します。"
 
 #: manual/api/dzmingli_vs_floating.md:12
 msgid "The [tutorial](../tutorial/dzmingli_vs_floating.md) shows the items in use, and the [design page](../design/dzmingli_vs_floating.md) derives the precision contract and the oracle. Source: `src/dzmingli_vs_floating/`."
@@ -371,8 +371,8 @@ msgid "`DecimalFixture` holds both implementations' operands and contexts, built
 msgstr "`DecimalFixture` は計時前に構築した両実装のオペランドとコンテキストを保持します。"
 
 #: manual/api/dzmingli_vs_floating.md:525
-msgid "`@decimal` is `DzmingLi/decimal` and `@decimal_gda` is `Luna-Flow/floating/decimal_gda`. The `*_text` fields are the canonical strings that `FullPath` parses again."
-msgstr "`@decimal` は `DzmingLi/decimal`、`@decimal_gda` は `Luna-Flow/floating/decimal_gda` です。`*_text` フィールドは `FullPath` が改めて解析する正準文字列です。"
+msgid "`@decimal` is `moonbit-community/decimal` and `@decimal_gda` is `Luna-Flow/floating/decimal_gda`. The `*_text` fields are the canonical strings that `FullPath` parses again."
+msgstr "`@decimal` は `moonbit-community/decimal`、`@decimal_gda` は `Luna-Flow/floating/decimal_gda` です。`*_text` フィールドは `FullPath` が改めて解析する正準文字列です。"
 
 #: manual/api/dzmingli_vs_floating.md:531
 msgid "`prepare_fixture3(operation, left, right, third)` chooses the precision $p$, builds both contexts with precision $p$ and rounding toward zero, and parses all three canonical strings into both libraries."
@@ -1114,8 +1114,8 @@ msgid "Main design decisions"
 msgstr "主な設計上の決定"
 
 #: manual/design/core.md:18
-msgid "**Benchmarks are subpackages.** Each comparison lives in its own package with its own dependencies, so `floating_vs_decmial_x` builds without `DzmingLi/decimal` and the other way around, and each can be documented and run alone."
-msgstr "**ベンチマークはサブパッケージ。** 各比較はそれぞれの依存を持つ独自のパッケージにあるので、`floating_vs_decmial_x` は `DzmingLi/decimal` なしでビルドでき、その逆も同様で、それぞれ単独で文書化し実行できます。"
+msgid "**Benchmarks are subpackages.** Each comparison lives in its own package with its own dependencies, so `floating_vs_decmial_x` builds without `moonbit-community/decimal` and the other way around, and each can be documented and run alone."
+msgstr "**ベンチマークはサブパッケージ。** 各比較はそれぞれの依存を持つ独自のパッケージにあるので、`floating_vs_decmial_x` は `moonbit-community/decimal` なしでビルドでき、その逆も同様で、それぞれ単独で文書化し実行できます。"
 
 #: manual/design/core.md:22
 msgid "**Nothing is shared through the root.** The neutral decimal model is copied into each benchmark package instead of being moved here. That keeps each package self-contained at the cost of duplicated code; the copies are byte-identical (`canonical.mbt`, `parse.mbt`, `generator.mbt`)."
@@ -1158,8 +1158,8 @@ msgid "dzmingli_vs_floating design"
 msgstr "dzmingli_vs_floating の設計"
 
 #: manual/design/dzmingli_vs_floating.md:5
-msgid "The package answers two questions about `DzmingLi/decimal@0.2.2` and `Luna-Flow/floating/decimal_gda@0.7.1`: do they compute the same exact decimal results, and how fast do they compute them as coefficients grow to thousands of digits? Speed is only reported where both answers are right, so the design is built around a correctness check that cannot be fooled by the libraries agreeing with each other."
-msgstr "このパッケージは `DzmingLi/decimal@0.2.2` と `Luna-Flow/floating/decimal_gda@0.7.1` について二つの問いに答えます。同じ厳密な十進結果を計算するか、そして係数が数千桁に伸びたときどれだけ速く計算するか。速度は両方の答えが正しい場合にだけ報告するので、設計の中心には、ライブラリ同士が一致しているだけでは騙されない正しさの検査があります。"
+msgid "The package answers two questions about `moonbit-community/decimal@0.1.0` and `Luna-Flow/floating/decimal_gda@0.7.1`: do they compute the same exact decimal results, and how fast do they compute them as coefficients grow to thousands of digits? Speed is only reported where both answers are right, so the design is built around a correctness check that cannot be fooled by the libraries agreeing with each other."
+msgstr "このパッケージは `moonbit-community/decimal@0.1.0` と `Luna-Flow/floating/decimal_gda@0.7.1` について二つの問いに答えます。同じ厳密な十進結果を計算するか、そして係数が数千桁に伸びたときどれだけ速く計算するか。速度は両方の答えが正しい場合にだけ報告するので、設計の中心には、ライブラリ同士が一致しているだけでは騙されない正しさの検査があります。"
 
 #: manual/design/dzmingli_vs_floating.md:12
 msgid "The [API page](../api/dzmingli_vs_floating.md) lists the items, and the [tutorial](../tutorial/dzmingli_vs_floating.md) runs them. Measured numbers are in the [performance chapter](../performance/dzmingli_vs_floating.md)."
@@ -1178,8 +1178,8 @@ msgid "Results are exact decimals, so correctness can and must be decided by exa
 msgstr "結果は厳密な十進数なので、正しさは許容誤差ではなく厳密な比較で判定でき、またそうしなければなりません。"
 
 #: manual/design/dzmingli_vs_floating.md:24
-msgid "`DzmingLi/decimal@0.2.2` estimates digit counts in a 32-bit `Int`, which bounds the sizes some operations can be run at."
-msgstr "`DzmingLi/decimal@0.2.2` は桁数を 32 ビットの `Int` で見積もるため、一部の演算を実行できるサイズに上限があります。"
+msgid "`moonbit-community/decimal@0.1.0` estimates digit counts in a 32-bit `Int`, which bounds the sizes some operations can be run at."
+msgstr "`moonbit-community/decimal@0.1.0` は桁数を 32 ビットの `Int` で見積もるため、一部の演算を実行できるサイズに上限があります。"
 
 #: manual/design/dzmingli_vs_floating.md:29
 msgid "Judge each library against an independent exact `BigInt` oracle, not against the other library, and time a size only where both pass."
@@ -1493,8 +1493,8 @@ msgid "The executables run on the `native` target only; other targets print a me
 msgstr "実行ファイルは `native` ターゲットでだけ動作し、他のターゲットではメッセージを表示して終了します。"
 
 #: manual/design/dzmingli_vs_floating.md:425
-msgid "`DzmingLi/decimal@0.2.2` is deprecated in favour of `moonbit-community/decimal`; the benchmark keeps it pinned for a historical comparison."
-msgstr "`DzmingLi/decimal@0.2.2` は非推奨となり `moonbit-community/decimal` に移行しています。ベンチマークは歴史的な比較のためにこれを固定しています。"
+msgid "`moonbit-community/decimal@0.1.0` is the renamed successor of the deprecated `DzmingLi/decimal@0.2.2`, with the same arithmetic code. The old package no longer compiles with `moonc` 0.10.20, so the benchmark moved to the successor; the recorded performance pages still describe runs of 0.2.2."
+msgstr "`moonbit-community/decimal@0.1.0` は非推奨となった `DzmingLi/decimal@0.2.2` を改名した後継パッケージで、算術コードは同じです。旧パッケージは `moonc` 0.10.20 ではコンパイルできなくなったため、ベンチマークは後継パッケージに移行しました。記録済みの性能ページは引き続き 0.2.2 の実行結果を示します。"
 
 #: manual/design/dzmingli_vs_floating/bench.md:1
 msgid "dzmingli_vs_floating/bench design"
@@ -1916,8 +1916,8 @@ msgid "A package inside the module imports a benchmark in its `moon.pkg`:"
 msgstr "モジュール内のパッケージは、`moon.pkg` でベンチマークをインポートします。"
 
 #: manual/index.md:42
-msgid "The code needs the MoonBit toolchain 0.10 or later (`moonc` ≥ 0.10) with the `moon.mod` and `moon.pkg` manifests. The library packages build on every target; the executables and the asynchronous Mare Mark runs need `native` (the async runner also works on `js`). Published measurements are native release runs."
-msgstr "コードには MoonBit ツールチェーン 0.10 以降（`moonc` ≥ 0.10）と、`moon.mod` および `moon.pkg` マニフェストが必要です。ライブラリパッケージはすべてのターゲットでビルドできます。実行ファイルと非同期の Mare Mark 実行には `native` が必要です（非同期ランナーは `js` でも動作します）。公開している計測は native のリリース実行です。"
+msgid "The code needs the MoonBit toolchain 0.10.20 or later (`moonc` ≥ 0.10.20) with the `moon.mod` and `moon.pkg` manifests. The library packages build on every target; the executables and the asynchronous Mare Mark runs need `native` (the async runner also works on `js`). Published measurements are native release runs."
+msgstr "コードには MoonBit ツールチェーン 0.10.20 以降（`moonc` ≥ 0.10.20）と、`moon.mod` および `moon.pkg` マニフェストが必要です。ライブラリパッケージはすべてのターゲットでビルドできます。実行ファイルと非同期の Mare Mark 実行には `native` が必要です（非同期ランナーは `js` でも動作します）。公開している計測は native のリリース実行です。"
 
 #: manual/index.md:48
 msgid "Pages"
@@ -1960,8 +1960,8 @@ msgid "[design](design/core.md)"
 msgstr "[設計](design/core.md)"
 
 #: manual/index.md:56
-msgid "`dzmingli_vs_floating`: `DzmingLi/decimal@0.2.2` versus floating GDA, exact oracle, 19 operations"
-msgstr "`dzmingli_vs_floating`：`DzmingLi/decimal@0.2.2` 対 floating GDA、厳密なオラクル、19 演算"
+msgid "`dzmingli_vs_floating`: `moonbit-community/decimal@0.1.0` versus floating GDA, exact oracle, 19 operations"
+msgstr "`dzmingli_vs_floating`：`moonbit-community/decimal@0.1.0` 対 floating GDA、厳密なオラクル、19 演算"
 
 #: manual/index.md:56
 msgid "[tutorial](tutorial/dzmingli_vs_floating.md)"
@@ -2340,8 +2340,8 @@ msgid "dzmingli_vs_floating tutorial"
 msgstr "dzmingli_vs_floating チュートリアル"
 
 #: manual/tutorial/dzmingli_vs_floating.md:3
-msgid "This tutorial shows how to check `DzmingLi/decimal` and floating's `decimal_gda` against the exact oracle, first for one operation and then for a deterministic corpus, how to run a small Mare Mark measurement from a test, and how to reproduce the published benchmark and its official decTest audit. The mathematics behind the checks is on the [design page](../design/dzmingli_vs_floating.md)."
-msgstr "このチュートリアルでは、`DzmingLi/decimal` と floating の `decimal_gda` を厳密なオラクルで検査する方法を、まず演算一つ、次に決定的なコーパスについて示し、テストから小さな Mare Mark 計測を実行する方法、公開されたベンチマークとその公式 decTest 監査を再現する方法を説明します。検査の背後にある数学は[設計ページ](../design/dzmingli_vs_floating.md)にあります。"
+msgid "This tutorial shows how to check `moonbit-community/decimal` and floating's `decimal_gda` against the exact oracle, first for one operation and then for a deterministic corpus, how to run a small Mare Mark measurement from a test, and how to reproduce the published benchmark and its official decTest audit. The mathematics behind the checks is on the [design page](../design/dzmingli_vs_floating.md)."
+msgstr "このチュートリアルでは、`moonbit-community/decimal` と floating の `decimal_gda` を厳密なオラクルで検査する方法を、まず演算一つ、次に決定的なコーパスについて示し、テストから小さな Mare Mark 計測を実行する方法、公開されたベンチマークとその公式 decTest 監査を再現する方法を説明します。検査の背後にある数学は[設計ページ](../design/dzmingli_vs_floating.md)にあります。"
 
 #: manual/tutorial/dzmingli_vs_floating.md:12
 msgid "check one operation in both libraries"

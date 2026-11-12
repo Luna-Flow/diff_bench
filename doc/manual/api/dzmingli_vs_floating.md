@@ -3,7 +3,7 @@
 ## Purpose
 
 The package `Luna-Flow/diff_bench/dzmingli_vs_floating` compares
-`DzmingLi/decimal@0.2.2` with `Luna-Flow/floating/decimal_gda@0.7.1` on
+`moonbit-community/decimal@0.1.0` with `Luna-Flow/floating/decimal_gda@0.7.1` on
 identical decimal inputs, checks both against an exact `BigInt` oracle, and
 measures them with Mare Mark. It is a benchmark harness, not a decimal library:
 every function aborts on input outside its contract instead of returning a
@@ -522,7 +522,7 @@ pub struct DecimalFixture {
 }
 ```
 
-`@decimal` is `DzmingLi/decimal` and `@decimal_gda` is
+`@decimal` is `moonbit-community/decimal` and `@decimal_gda` is
 `Luna-Flow/floating/decimal_gda`. The `*_text` fields are the canonical
 strings that `FullPath` parses again.
 
