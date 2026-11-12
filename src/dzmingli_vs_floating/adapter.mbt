@@ -61,7 +61,7 @@ fn dz_from_text(
 ) -> @dz_decimal.Decimal {
   let (decimal, flags) = @dz_decimal.Decimal::from_string(source, context)
   if flags.conversion_syntax {
-    abort("DzmingLi/decimal rejected neutral decimal")
+    abort("moonbit-community/decimal rejected neutral decimal")
   }
   decimal
 }

@@ -1,5 +1,5 @@
 import {
-  "DzmingLi/decimal" @dz_decimal,
+  "moonbit-community/decimal" @dz_decimal,
   "Luna-Flow/floating/decimal_gda" @floating_gda,
   "Luna-Flow/mare_mark/event" @mare_event,
   "Luna-Flow/mare_mark/experiment" @mare_experiment,
@@ -17,3 +17,14 @@ import {
 import {
   "moonbitlang/async",
 } for "test"
+
+// `moonbitlang/async` has no wasm-gc runtime (moonbitlang/core#4584), so the
+// async tests are not built there and its test import is unused on wasm-gc.
+
+warnings = "-unused_package"
+
+options(
+  targets: {
+    "dzmingli_vs_floating_async_test.mbt": [ "native", "js", "wasm", "llvm" ],
+  },
+)

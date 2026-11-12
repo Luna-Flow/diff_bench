@@ -324,7 +324,7 @@ fn mare_case(
 ] {
   let dz_implementation = @mare_runner.Implementation::in_process(
     "dzmingli_decimal",
-    "DzmingLi/decimal@0.2.2",
+    "moonbit-community/decimal@0.1.0",
     () => (),
     (prepared, context) => {
       @mare_model.OperationResult::completed(

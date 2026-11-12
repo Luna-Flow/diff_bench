@@ -15,8 +15,8 @@ description = "Differential correctness and performance benchmarks for Luna-Flow
 import {
   "Luna-Flow/floating@0.10.1",
   "Luna-Flow/mare_mark@0.4.1",
-  "DzmingLi/decimal@0.2.2",
-  "moonbitlang/async@0.22.5",
+  "moonbit-community/decimal@0.1.0",
+  "moonbitlang/async@0.22.9",
   "moonbitlang/x@0.5.7",
 }
 
