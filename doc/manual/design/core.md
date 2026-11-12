@@ -17,7 +17,7 @@ repository.
 
 - **Benchmarks are subpackages.** Each comparison lives in its own package
   with its own dependencies, so `floating_vs_decmial_x` builds without
-  `DzmingLi/decimal` and the other way around, and each can be documented and
+  `moonbit-community/decimal` and the other way around, and each can be documented and
   run alone.
 - **Nothing is shared through the root.** The neutral decimal model is copied
   into each benchmark package instead of being moved here. That keeps each

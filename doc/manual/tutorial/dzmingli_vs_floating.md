@@ -1,6 +1,6 @@
 # dzmingli_vs_floating tutorial
 
-This tutorial shows how to check `DzmingLi/decimal` and floating's
+This tutorial shows how to check `moonbit-community/decimal` and floating's
 `decimal_gda` against the exact oracle, first for one operation and then for a
 deterministic corpus, how to run a small Mare Mark measurement from a test,
 and how to reproduce the published benchmark and its official decTest audit.

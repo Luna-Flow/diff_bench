@@ -2,7 +2,7 @@
 
 ## Design goal
 
-The package answers two questions about `DzmingLi/decimal@0.2.2` and
+The package answers two questions about `moonbit-community/decimal@0.1.0` and
 `Luna-Flow/floating/decimal_gda@0.7.1`: do they compute the same exact decimal
 results, and how fast do they compute them as coefficients grow to thousands of
 digits? Speed is only reported where both answers are right, so the design is
@@ -21,7 +21,7 @@ are in the [performance chapter](../performance/dzmingli_vs_floating.md).
   corpus must be reproducible from a seed rather than from the clock.
 - Results are exact decimals, so correctness can and must be decided by exact
   comparison, not by a tolerance.
-- `DzmingLi/decimal@0.2.2` estimates digit counts in a 32-bit `Int`, which
+- `moonbit-community/decimal@0.1.0` estimates digit counts in a 32-bit `Int`, which
   bounds the sizes some operations can be run at.
 
 ## Main design decisions
@@ -422,6 +422,7 @@ outside the timed region.
   above, not for arbitrary inputs.
 - The executables run on the `native` target only; other targets print a
   message and exit.
-- `DzmingLi/decimal@0.2.2` is deprecated in favour of
-  `moonbit-community/decimal`; the benchmark keeps it pinned for a
-  historical comparison.
+- `moonbit-community/decimal@0.1.0` is the renamed successor of the
+  deprecated `DzmingLi/decimal@0.2.2`, with the same arithmetic code. The old
+  package no longer compiles with `moonc` 0.10.20, so the benchmark moved to
+  the successor; the recorded performance pages still describe runs of 0.2.2.
