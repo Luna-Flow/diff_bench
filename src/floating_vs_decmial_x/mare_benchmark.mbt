@@ -210,6 +210,14 @@ fn observation_token(observation : DecimalObservation) -> Int32 {
         1
       }
     }
+    GdaValue(value) =>
+      if value.is_zero() {
+        0
+      } else if value.is_signed() {
+        -1
+      } else {
+        1
+      }
   }
 }
 

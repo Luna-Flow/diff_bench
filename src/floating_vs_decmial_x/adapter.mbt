@@ -17,6 +17,10 @@ pub(all) enum DecimalObservation {
   X(@x_decimal.Decimal)
   XCompare(Int32)
   Gda(@floating_gda.GdaOutcome[@floating_gda.Decimal])
+  // A bare value, for the Parse and Format rows, which run no operation: the operand
+  // itself is the observation, as `Dz(left)` is on the other side. `GdaOutcome` cannot
+  // be built outside floating (read-only since 0.12), and `apply` would round and cost.
+  GdaValue(@floating_gda.Decimal)
 }
 
 ///|
@@ -176,7 +180,7 @@ pub fn run_gda(fixture : DecimalFixture) -> DecimalObservation {
         fixture.gda_right,
         fixture.gda_context,
       )
-    Parse | Format => @floating_gda.apply(fixture.gda_left, fixture.gda_context)
+    Parse | Format => return GdaValue(fixture.gda_left)
   }
   Gda(outcome)
 }
@@ -201,5 +205,6 @@ pub fn canonical_observation(observation : DecimalObservation) -> DecimalValue {
     XCompare(value) =>
       { coefficient: @bigint.BigInt::from_int(value), scale: 0, }
     Gda(outcome) => parse_decimal_value(outcome.value().to_string())
+    GdaValue(value) => parse_decimal_value(value.to_string())
   }
 }

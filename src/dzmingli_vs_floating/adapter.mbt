@@ -18,6 +18,10 @@ pub struct DecimalFixture {
 pub(all) enum DecimalObservation {
   Dz(@dz_decimal.Decimal)
   Gda(@floating_gda.GdaOutcome[@floating_gda.Decimal])
+  // A bare value, for the Parse and Format rows, which run no operation: the operand
+  // itself is the observation, as `Dz(left)` is on the other side. `GdaOutcome` cannot
+  // be built outside floating (read-only since 0.12), and `apply` would round and cost.
+  GdaValue(@floating_gda.Decimal)
 }
 
 ///|
@@ -236,7 +240,7 @@ fn run_gda_with(
     ToIntegralExact => @floating_gda.round_to_integral_exact(left, context)
     ToIntegralValue => @floating_gda.round_to_integral_value(left, context)
     Compare => @floating_gda.compare(left, right, context)
-    Parse | Format => @floating_gda.apply(left, context)
+    Parse | Format => return GdaValue(left)
   }
   Gda(outcome)
 }
@@ -295,5 +299,6 @@ pub fn canonical_observation(observation : DecimalObservation) -> DecimalValue {
   match observation {
     Dz(value) => canonical_dz(value)
     Gda(outcome) => parse_decimal_value(outcome.value().to_string())
+    GdaValue(value) => parse_decimal_value(value.to_string())
   }
 }
