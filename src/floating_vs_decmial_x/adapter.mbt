@@ -69,8 +69,8 @@ pub fn gda_from_neutral(
 ) -> @floating_gda.Decimal {
   match
     @floating_gda.Decimal::from_string(canonical_string(value), precision~) {
-    Some(decimal) => decimal
-    None => abort("floating/decimal_gda rejected neutral decimal")
+    Ok(decimal) => decimal
+    Err(_) => abort("floating/decimal_gda rejected neutral decimal")
   }
 }
 
@@ -92,7 +92,7 @@ pub fn prepare_fixture(
     gda_left: gda_from_neutral(left, precision),
     gda_right: gda_from_neutral(right, precision),
     gda_quantum_28: gda_from_neutral({ coefficient: 1N, scale: 28, }, precision),
-    gda_context: @floating_gda.context(
+    gda_context: @floating_gda.GdaContext::try_new(
       precision~,
       rounding=@floating_gda.GdaRoundingMode::Down,
     ).unwrap(),
@@ -176,12 +176,7 @@ pub fn run_gda(fixture : DecimalFixture) -> DecimalObservation {
         fixture.gda_right,
         fixture.gda_context,
       )
-    Parse | Format =>
-      @floating_gda.GdaOutcome::Completed(
-        fixture.gda_left,
-        fixture.gda_context,
-        @floating_gda.GdaFlags::none(),
-      )
+    Parse | Format => @floating_gda.apply(fixture.gda_left, fixture.gda_context)
   }
   Gda(outcome)
 }
