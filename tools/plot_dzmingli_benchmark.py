@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 from pathlib import Path
 
 from mare_plot_ir import PlotDocument, find_scaling_plot, load_plot_document
@@ -25,7 +26,6 @@ LABELS = {
 }
 COLORS = {"floating_decimal_gda": "#006BA4", "dzmingli_decimal": "#E07A1F"}
 MARKERS = {"floating_decimal_gda": "o", "dzmingli_decimal": "s"}
-INVALID_FROM = 4096
 ABORT_FROM = 32768
 
 
@@ -33,7 +33,25 @@ def digit_label(value: float, _position: float) -> str:
     return f"{value:,.0f}"
 
 
-def render(document: PlotDocument, output_stem: Path) -> None:
+def invalid_from_digits(path: Path) -> int | None:
+    """The smallest digit count at which the DzmingLi side failed its oracle, or None when
+    every validation of the run passed. The shaded region of the figure follows the data."""
+    scales: list[int] = []
+    with path.open(encoding="utf-8") as handle:
+        for line in handle:
+            if '"type":"validation' not in line.replace(" ", ""):
+                continue
+            record = json.loads(line)
+            if (
+                record.get("type") in ("validation", "validation_failure")
+                and record.get("implementation") == "dzmingli_decimal"
+                and record.get("status") != "valid"
+            ):
+                scales.append(int(record["scale"]))
+    return min(scales) if scales else None
+
+
+def render(document: PlotDocument, output_stem: Path, invalid_from: int | None) -> None:
     import matplotlib.pyplot as plt
     from matplotlib.lines import Line2D
     from matplotlib.patches import Patch
@@ -59,14 +77,14 @@ def render(document: PlotDocument, output_stem: Path) -> None:
     for row, scope in enumerate(SCOPES):
         for column, operation in enumerate(OPERATIONS):
             axis = axes[row, column]
-            if operation != "compare":
-                axis.axvspan(INVALID_FROM, x_max, color="#D6D6D6", alpha=0.62, zorder=0)
-                axis.axvline(INVALID_FROM, color="#777777", linewidth=0.8, linestyle=(0, (3, 2)), zorder=1)
+            if operation != "compare" and invalid_from is not None:
+                axis.axvspan(invalid_from, x_max, color="#D6D6D6", alpha=0.62, zorder=0)
+                axis.axvline(invalid_from, color="#777777", linewidth=0.8, linestyle=(0, (3, 2)), zorder=1)
                 if row == 0:
                     axis.text(
                         0.98,
                         0.96,
-                        "DzmingLi invalid\n≥ 4,096 digits",
+                        f"DzmingLi invalid\n≥ {invalid_from:,} digits",
                         transform=axis.transAxes,
                         ha="right",
                         va="top",
@@ -120,7 +138,11 @@ def render(document: PlotDocument, output_stem: Path) -> None:
         0.07,
         0.945,
         "Median confirmatory latency on Apple M4 · release/native · lower is better · invalid results excluded\n"
-        "DzmingLi aborts at ≥32,768-digit stress inputs; comparison remains valid through 20,000 digits.",
+        + (
+            "DzmingLi aborts at ≥32,768-digit stress inputs; comparison remains valid through 20,000 digits."
+            if invalid_from is not None
+            else "Every validation passes for both implementations through 20,000 digits (DzmingLi = moonbit-community/decimal 0.1.0)."
+        ),
         ha="left",
         va="top",
         fontsize=9,
@@ -129,7 +151,11 @@ def render(document: PlotDocument, output_stem: Path) -> None:
     legend_handles = [
         Line2D([], [], color=COLORS[implementation], marker=MARKERS[implementation], linewidth=1.5, markersize=4.5, label=LABELS[implementation])
         for implementation in IMPLEMENTATIONS
-    ] + [Patch(facecolor="#D6D6D6", edgecolor="none", label="DzmingLi arithmetic incorrect (≥ 4,096 digits)")]
+    ]
+    if invalid_from is not None:
+        legend_handles.append(
+            Patch(facecolor="#D6D6D6", edgecolor="none", label=f"DzmingLi arithmetic incorrect (≥ {invalid_from:,} digits)")
+        )
     figure.legend(handles=legend_handles, loc="lower center", bbox_to_anchor=(0.5, 0.005), ncol=3, frameon=False)
     figure.subplots_adjust(left=0.07, right=0.99, top=0.84, bottom=0.16, wspace=0.16, hspace=0.27)
 
@@ -160,7 +186,7 @@ def main() -> None:
     arguments = parser.parse_args()
     document = load_plot_document(arguments.input)
     document.write_json(arguments.ir_output)
-    render(document, arguments.output)
+    render(document, arguments.output, invalid_from_digits(arguments.input))
 
 
 if __name__ == "__main__":
