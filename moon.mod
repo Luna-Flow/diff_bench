@@ -16,8 +16,8 @@ import {
   "Luna-Flow/floating@0.12.0-pre",
   "Luna-Flow/mare_mark@0.4.2",
   "moonbit-community/decimal@0.1.0",
-  "moonbitlang/async@0.22.9",
-  "moonbitlang/x@0.5.7",
+  "moonbitlang/async@0.22.10",
+  "moonbitlang/x@0.5.8",
 }
 
 source = "src"
