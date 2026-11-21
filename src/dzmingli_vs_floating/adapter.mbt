@@ -76,7 +76,7 @@ fn gda_from_text(
   source : String,
   context : @floating_gda.GdaContext,
 ) -> @floating_gda.Decimal {
-  @floating_gda.parse(source, context).value()
+  @floating_gda.to_number(source, context).value()
 }
 
 ///|
@@ -86,7 +86,7 @@ pub fn gda_from_neutral(
 ) -> @floating_gda.Decimal {
   gda_from_text(
     canonical_string(value),
-    @floating_gda.context(
+    @floating_gda.GdaContext::try_new(
       precision~,
       rounding=@floating_gda.GdaRoundingMode::Down,
     ).unwrap(),
@@ -128,7 +128,7 @@ pub fn prepare_fixture3(
   let right_text = canonical_string(right)
   let third_text = canonical_string(third)
   let dz_context = dz_context(precision)
-  let gda_context = @floating_gda.context(
+  let gda_context = @floating_gda.GdaContext::try_new(
     precision~,
     rounding=@floating_gda.GdaRoundingMode::Down,
   ).unwrap()
@@ -233,15 +233,10 @@ fn run_gda_with(
     Rescale => @floating_gda.rescale(left, right, context)
     ScaleB => @floating_gda.scaleb(left, right, context)
     Reduce => @floating_gda.reduce(left, context)
-    ToIntegralExact => @floating_gda.to_integral_exact(left, context)
-    ToIntegralValue => @floating_gda.to_integral_value(left, context)
+    ToIntegralExact => @floating_gda.round_to_integral_exact(left, context)
+    ToIntegralValue => @floating_gda.round_to_integral_value(left, context)
     Compare => @floating_gda.compare(left, right, context)
-    Parse | Format =>
-      @floating_gda.GdaOutcome::Completed(
-        left,
-        context,
-        @floating_gda.GdaFlags::none(),
-      )
+    Parse | Format => @floating_gda.apply(left, context)
   }
   Gda(outcome)
 }
